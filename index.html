@@ -69,21 +69,29 @@
     .hero-text, .section-content {
       flex: 1 1 400px;
       padding: 20px;
-      text-align: center;
     }
 
-    .hero-text img {
-      max-width: 100%;
-      height: auto;
-      margin-bottom: 30px;
+    .hero-text h2, section h3 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
     }
 
-    .hero-text iframe {
-      border-radius: 8px;
+    .hero-text p, section p {
+      font-size: 1.2rem;
+      line-height: 1.6;
     }
 
     .hero-image {
-      display: none;
+      flex: 1 1 300px;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .hero-image img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     }
 
     .experience ul, .skills ul {
@@ -117,15 +125,6 @@
     .donation-item p {
       margin: 5px 0;
       font-size: 1rem;
-    }
-
-    .donation-item a {
-      color: #2563eb;
-      text-decoration: none;
-    }
-
-    .donation-item a:hover {
-      text-decoration: underline;
     }
 
     footer {
@@ -180,6 +179,7 @@
   <section class="hero" id="about">
     <div class="hero-text">
       <img src="https://github-readme-activity-graph.vercel.app/graph?username=DanielKohut&theme=github" alt="GitHub Contribution Graph">
+      <br><br>
       <iframe title="DanielsLastRuns" height='454' width='300' frameborder='0' allowtransparency='true' scrolling='no' src='https://www.strava.com/athletes/92721283/latest-rides/8aaeeb054b6d4bd8a8c848f02759b2d856289f3f'></iframe>
     </div>
   </section>
@@ -213,9 +213,10 @@
         <h4>Heim Pál National Pediatric Institute</h4>
         <p>Date: March 2025</p>
         <p>Receipt: 5G6207083********</p>
-        <p><a href="https://heimalap.hu/" target="_blank">Website</a></p>
+        <p><a href="#">Website</a></p>
         <p>I donated to support children's healthcare in Hungary.</p>
       </div>
+      <!-- More donation items will go here -->
     </div>
   </section>
 
