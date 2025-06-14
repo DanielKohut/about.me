@@ -92,6 +92,51 @@
       line-height: 1.6;
     }
 
+    .timeline {
+      position: relative;
+      margin: 40px 0;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 20px;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: #2563eb;
+    }
+
+    .timeline-event {
+      margin-left: 50px;
+      margin-bottom: 40px;
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .timeline-event h4 {
+      margin: 0 0 10px;
+      font-size: 1.3rem;
+      color: #2563eb;
+    }
+
+    .timeline-event h5 {
+      margin: 0 0 10px;
+      font-weight: 500;
+      color: #111827;
+    }
+
+    .timeline-event p {
+      margin: 0 0 10px;
+    }
+
+    .timeline-event .tags {
+      font-size: 0.9rem;
+      color: #6b7280;
+    }
+
     .experience ul, .skills ul {
       list-style: none;
       padding: 0;
@@ -181,11 +226,50 @@
 
   <section class="experience" id="experience">
     <h3>Experience</h3>
-    <ul>
-      <li><strong>Cloud Engineer</strong> at Tech Company (2022 - Present)</li>
-      <li><strong>Web Developer</strong> at Creative Studio (2020 - 2022)</li>
-      <li><strong>Intern</strong> at Startup Inc. (2019 - 2020)</li>
-    </ul>
+    <div class="timeline">
+      <div class="timeline-event">
+        <h4>Sept, 2006</h4>
+        <h5>Computer Scientist</h5>
+        <p>Certified • IT & Hardware/Software Diagnosis • Linux & Windows • Networking • Web Development</p>
+        <p class="tags">#Pascal #HTML #PHP #JavaScript #Java #CSS #Gimp #PhotoShop #CMS #Linux #Ubuntu #LAN #WAN #Microsoft Access #SQL</p>
+      </div>
+      <div class="timeline-event">
+        <h4>Sept, 2012</h4>
+        <h5>Mechanical Engineer</h5>
+        <p>Material Studies • Mechanics • CAD & CAE Technics • Diagnostic Protocols</p>
+        <p class="tags">#FEMTO #FESTO #ICE #FEM #MachineElements #Automotive #Diagnostic #Can-Bus #Can-FD #LIN #J1939 #MOST #MOST150 #Flexray</p>
+      </div>
+      <div class="timeline-event">
+        <h4>Jan, 2012</h4>
+        <h5>IT Engineer</h5>
+        <p>Linux servers • Plesk platform • Backups • Troubleshooting • Remote support • Networking</p>
+        <p class="tags">#Linux #IP #Plesk #ITSM #Troubleshooting #HardwareSupport #SoftwareSupport #TicketingSystem #BackUp #Restore #VM</p>
+      </div>
+      <div class="timeline-event">
+        <h4>Dec, 2017</h4>
+        <h5>Electronics Engineer</h5>
+        <p>PCB Repair • Coding & Programming • Oscilloscope • Remote Diagnostics</p>
+        <p class="tags">#PCB #ECM #J2534 #OBD #KWP2000 #J1850 #Coding #Programming #CP #SCN #FSB4 #SVM #FSC #SWaP #IDS #GDS #ODIS #Xentry #ISTA #JLR #Boot #BDM #Hex #Eeprom #InterFlash #ExternalFlash #DFlash #iFlash #WinOLS</p>
+      </div>
+      <div class="timeline-event">
+        <h4>Jan, 2018</h4>
+        <h5>1st Line IT Support</h5>
+        <p>Issue Resolution • Server Configuration • Hardware Support • Security Awareness • Web Development</p>
+        <p class="tags">#Linux #IP #Plesk #ITSM #Troubleshooting #HardwareSupport #SoftwareSupport #TicketingSystem #BackUp #Restore #VM</p>
+      </div>
+      <div class="timeline-event">
+        <h4>Dec, 2021</h4>
+        <h5>Sales Executive</h5>
+        <p>Sales Planning • Negotiation • Learning & Development • Customer Engagement • Teamwork</p>
+        <p class="tags">#SAP #SalesStrategy #Selftraining #Teamwork #SalesClosing #Excel-VBA</p>
+      </div>
+      <div class="timeline-event">
+        <h4>Apr, 2024</h4>
+        <h5>Junior Hosting Engineer</h5>
+        <p>Server & Network Monitoring • Performance Optimization • VMware • CCTV • Virtualization</p>
+        <p class="tags">#ServerHosting #ServerEngineer #CloudComputing #NetworkEngineer #ITInfrastructure #DataCenter #ServerManagement #CloudHosting #TechInfrastructure #ITSupport #Virtualization #Networking</p>
+      </div>
+    </div>
   </section>
 
   <section class="skills" id="skills">
