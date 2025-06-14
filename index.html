@@ -48,93 +48,50 @@
       color: #2563eb;
     }
 
-    .hero {
-      text-align: center;
-      padding: 60px 10%;
-      background-color: #ffffff;
-      border-radius: 12px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
-      margin: 40px 10%;
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeInUp 1s forwards;
-    }
-
-    .hero img {
-      max-width: 100%;
-      height: auto;
-      margin: 20px 0;
-      border-radius: 8px;
-    }
-
-    iframe.strava-widget {
-      width: 300px;
-      height: 454px;
-      border: none;
-      border-radius: 8px;
-      margin-top: 20px;
-    }
-
-    section {
+    .hero, section {
       padding: 50px 10%;
       opacity: 0;
       transform: translateY(30px);
       animation: fadeInUp 1s forwards;
     }
 
-    section h3 {
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+      margin: 40px 10%;
+    }
+
+    .hero-text, .section-content {
+      flex: 1 1 400px;
+      padding: 20px;
+    }
+
+    .hero-text h2, section h3 {
       font-size: 2.5rem;
       margin-bottom: 20px;
     }
 
-    section p {
+    .hero-text p, section p {
       font-size: 1.2rem;
       line-height: 1.6;
     }
 
-    .timeline {
-      position: relative;
-      margin: 40px 0;
-    }
-
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 20px;
-      top: 0;
-      bottom: 0;
-      width: 4px;
-      background: #2563eb;
-    }
-
-    .timeline-event {
-      margin-left: 50px;
-      margin-bottom: 40px;
-      background: #ffffff;
+    .hero-image {
+      flex: 1 1 300px;
+      text-align: center;
       padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     }
 
-    .timeline-event h4 {
-      margin: 0 0 10px;
-      font-size: 1.3rem;
-      color: #2563eb;
-    }
-
-    .timeline-event h5 {
-      margin: 0 0 10px;
-      font-weight: 500;
-      color: #111827;
-    }
-
-    .timeline-event p {
-      margin: 0 0 10px;
-    }
-
-    .timeline-event .tags {
-      font-size: 0.9rem;
-      color: #6b7280;
+    .hero-image img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     }
 
     .experience ul, .skills ul {
@@ -147,25 +104,27 @@
       font-size: 1.1rem;
     }
 
-    #scrollTopBtn {
-      display: none;
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      z-index: 100;
-      background-color: #2563eb;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 50%;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      font-size: 20px;
-      transition: background-color 0.3s;
+    .donation-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
 
-    #scrollTopBtn:hover {
-      background-color: #1e40af;
+    .donation-item {
+      background-color: #fff;
+      border-left: 4px solid #2563eb;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .donation-item h4 {
+      margin-top: 0;
+    }
+
+    .donation-item p {
+      margin: 5px 0;
+      font-size: 1rem;
     }
 
     footer {
@@ -199,7 +158,7 @@
 
     @media (max-width: 768px) {
       .hero {
-        margin: 20px;
+        flex-direction: column;
       }
     }
   </style>
@@ -218,58 +177,16 @@
   </header>
 
   <section class="hero" id="about">
-    <h2>Activity Overview</h2>
-    <p>Here’s a snapshot of my recent GitHub and Strava activity.</p>
-    <img src="https://github-readme-activity-graph.vercel.app/graph?username=DanielKohut&theme=github" alt="GitHub Contribution Graph">
-    <iframe title="DanielsLastRuns" class="strava-widget" src="https://www.strava.com/athletes/92721283/latest-rides/8aaeeb054b6d4bd8a8c848f02759b2d856289f3f" allowtransparency="true" scrolling="no"></iframe>
+    <div class="hero-text">
+      <img src="https://github-readme-activity-graph.vercel.app/graph?username=DanielKohut&theme=github" alt="GitHub Contribution Graph">
+      <br><br>
+      <iframe title="DanielsLastRuns" height='454' width='300' frameborder='0' allowtransparency='true' scrolling='no' src='https://www.strava.com/athletes/92721283/latest-rides/8aaeeb054b6d4bd8a8c848f02759b2d856289f3f'></iframe>
+    </div>
   </section>
 
   <section class="experience" id="experience">
     <h3>Experience</h3>
-    <div class="timeline">
-      <div class="timeline-event">
-        <h4>Sept, 2006</h4>
-        <h5>Computer Scientist</h5>
-        <p>Certified • IT & Hardware/Software Diagnosis • Linux & Windows • Networking • Web Development</p>
-        <p class="tags">#Pascal #HTML #PHP #JavaScript #Java #CSS #Gimp #PhotoShop #CMS #Linux #Ubuntu #LAN #WAN #Microsoft Access #SQL</p>
-      </div>
-      <div class="timeline-event">
-        <h4>Sept, 2012</h4>
-        <h5>Mechanical Engineer</h5>
-        <p>Material Studies • Mechanics • CAD & CAE Technics • Diagnostic Protocols</p>
-        <p class="tags">#FEMTO #FESTO #ICE #FEM #MachineElements #Automotive #Diagnostic #Can-Bus #Can-FD #LIN #J1939 #MOST #MOST150 #Flexray</p>
-      </div>
-      <div class="timeline-event">
-        <h4>Jan, 2012</h4>
-        <h5>IT Engineer</h5>
-        <p>Linux servers • Plesk platform • Backups • Troubleshooting • Remote support • Networking</p>
-        <p class="tags">#Linux #IP #Plesk #ITSM #Troubleshooting #HardwareSupport #SoftwareSupport #TicketingSystem #BackUp #Restore #VM</p>
-      </div>
-      <div class="timeline-event">
-        <h4>Dec, 2017</h4>
-        <h5>Electronics Engineer</h5>
-        <p>PCB Repair • Coding & Programming • Oscilloscope • Remote Diagnostics</p>
-        <p class="tags">#PCB #ECM #J2534 #OBD #KWP2000 #J1850 #Coding #Programming #CP #SCN #FSB4 #SVM #FSC #SWaP #IDS #GDS #ODIS #Xentry #ISTA #JLR #Boot #BDM #Hex #Eeprom #InterFlash #ExternalFlash #DFlash #iFlash #WinOLS</p>
-      </div>
-      <div class="timeline-event">
-        <h4>Jan, 2018</h4>
-        <h5>1st Line IT Support</h5>
-        <p>Issue Resolution • Server Configuration • Hardware Support • Security Awareness • Web Development</p>
-        <p class="tags">#Linux #IP #Plesk #ITSM #Troubleshooting #HardwareSupport #SoftwareSupport #TicketingSystem #BackUp #Restore #VM</p>
-      </div>
-      <div class="timeline-event">
-        <h4>Dec, 2021</h4>
-        <h5>Sales Executive</h5>
-        <p>Sales Planning • Negotiation • Learning & Development • Customer Engagement • Teamwork</p>
-        <p class="tags">#SAP #SalesStrategy #Selftraining #Teamwork #SalesClosing #Excel-VBA</p>
-      </div>
-      <div class="timeline-event">
-        <h4>Apr, 2024</h4>
-        <h5>Junior Hosting Engineer</h5>
-        <p>Server & Network Monitoring • Performance Optimization • VMware • CCTV • Virtualization</p>
-        <p class="tags">#ServerHosting #ServerEngineer #CloudComputing #NetworkEngineer #ITInfrastructure #DataCenter #ServerManagement #CloudHosting #TechInfrastructure #ITSupport #Virtualization #Networking</p>
-      </div>
-    </div>
+    <!-- Timeline content will go here -->
   </section>
 
   <section class="skills" id="skills">
@@ -291,7 +208,16 @@
 
   <section id="donations">
     <h3>Donations</h3>
-    <p>...</p>
+    <div class="donation-list">
+      <div class="donation-item">
+        <h4>Heim Pál National Pediatric Institute</h4>
+        <p>Date: March 2025</p>
+        <p>Receipt: 5G6207083********</p>
+        <p><a href="#">Website</a></p>
+        <p>I donated to support children's healthcare in Hungary.</p>
+      </div>
+      <!-- More donation items will go here -->
+    </div>
   </section>
 
   <section id="sports-activity">
@@ -301,26 +227,8 @@
 
   <footer>
     <p>Connect with me:</p>
-    <a href="https://www.linkedin.com/in/danielkohut">LinkedIn</a> | <a href="https://github.com/DanielKohut">GitHub</a>
+    <a href="#">LinkedIn</a> | <a href="#">GitHub</a>
     <p>&copy; 2025 Dániel Kohut</p>
   </footer>
-
-  <button id="scrollTopBtn" title="Go to top">&uarr;</button>
-
-  <script>
-    const scrollTopBtn = document.getElementById("scrollTopBtn");
-
-    window.onscroll = function () {
-      if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-        scrollTopBtn.style.display = "block";
-      } else {
-        scrollTopBtn.style.display = "none";
-      }
-    };
-
-    scrollTopBtn.addEventListener("click", function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  </script>
 </body>
 </html>
