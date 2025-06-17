@@ -224,6 +224,36 @@
       cursor: pointer;
     }
 
+.cert-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+.cert-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 24px;
+  min-width: 260px;
+  max-width: 350px;
+}
+.cert-logo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+.cert-date {
+  color: #64748b;
+  font-size: 0.96rem;
+  margin-bottom: 5px;
+}
+@media (max-width: 768px) {
+  .cert-list { flex-direction: column; gap: 12px; }
+}
+
     @media (max-width: 768px) {
       nav {
         position: absolute;
