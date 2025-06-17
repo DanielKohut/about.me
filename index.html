@@ -361,26 +361,26 @@
   <button id="scrollTopBtn" title="Go to top">&uarr;</button>
 
 <script>
-    const scrollTopBtn = document.getElementById("scrollTopBtn");
+  const scrollTopBtn = document.getElementById("scrollTopBtn");
 
-    window.onscroll = function () {
-      if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-        scrollTopBtn.style.display = "block";
-      } else {
-        scrollTopBtn.style.display = "none";
-      }
-    };
+  window.onscroll = function () {
+    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+      scrollTopBtn.style.display = "block";
+    } else {
+      scrollTopBtn.style.display = "none";
+    }
+  };
 
-    scrollTopBtn.addEventListener("click", function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+  scrollTopBtn.addEventListener("click", function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 
-    const toggleBtn = document.getElementById("menu-toggle");
-    const nav = document.getElementById("nav");
+  const toggleBtn = document.getElementById("menu-toggle");
+  const nav = document.getElementById("nav");
 
-    toggleBtn.addEventListener("click", () => {
-      nav.classList.toggle("open");
-    });
-  </script>
+  toggleBtn.addEventListener("click", () => {
+    nav.classList.toggle("active"); // <<< EZ A FONTOS JAVÍTÁS
+  });
+</script>
 </body>
 </html>
