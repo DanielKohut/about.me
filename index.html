@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dániel Kohut - Portfolio</title>
+  <title>Daniel Kohut Personal Blog</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
     html {
@@ -240,6 +240,10 @@
       min-width: 260px;
       max-width: 320px;
     }
+    .cert-card:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 6px 26px rgba(37,99,235,0.10);
+    }
     .cert-logo {
       width: 48px;
       height: 48px;
@@ -253,7 +257,6 @@
     @media (max-width: 768px) {
       .cert-list { flex-direction: column; gap: 12px; }
     }
-    
     .hero-flex {
       display: flex;
       align-items: center;
@@ -286,15 +289,13 @@
       }
       .hero-text { text-align: center; }
     }
-    
     .race-list {
       display: flex;
       flex-wrap: wrap;
       gap: 32px;
       margin-top: 32px;
       justify-content: center;
-    }
-    
+    } 
     .race-card {
       display: flex;
       align-items: center;
@@ -318,7 +319,6 @@
       height: 40px;
       margin-right: 10px;
     }
-    
     .race-title {
       font-weight: 700;
       color: #2563eb;
@@ -352,12 +352,9 @@
       vertical-align: middle;
       letter-spacing: 0.5px;
     }
-    
     .race-card.upcoming .race-medal {
       filter: none;
-      /* választhatsz másik emoji-t is, pl. zászló vagy rakéta! */
     }
-    
     @media (max-width: 768px) {
       .race-list {
         flex-direction: column;
@@ -371,7 +368,6 @@
         max-width: 480px;
       }
     }
-
     @media (max-width: 768px) {
       nav {
         position: absolute;
@@ -389,22 +385,17 @@
         width: 100%;
         max-width: 100%;
       }
-
       nav.active {
         display: flex;
       }
-
       nav a {
         margin: 8px 0;
-        font-size: 1rem;
+        font-size: 2rem;
       }
-
       #menu-toggle {
         display: block;
       }
     }
-
-  /* Optional: transition for smoother menu */
     nav {
       transition: all 0.3s ease-in-out;
     }
@@ -412,7 +403,7 @@
 </head>
 <body>
   <header>
-    <h1>Dániel Kohut</h1>
+    <h1>Daniel Kohut</h1>
     <nav id="nav">
       <a href="#about">About</a>
       <a href="#experience">Experience</a>
