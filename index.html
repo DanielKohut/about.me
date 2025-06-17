@@ -292,6 +292,7 @@
       flex-wrap: wrap;
       gap: 32px;
       margin-top: 32px;
+      justify-content: center;
     }
     
     .race-card {
@@ -302,7 +303,8 @@
       box-shadow: 0 4px 18px rgba(0,0,0,0.07);
       padding: 18px 28px;
       min-width: 300px;
-      max-width: 320px;
+      max-width: 350px;
+      width: 100%;
       font-size: 1.13rem;
       gap: 20px;
       transition: transform 0.13s;
@@ -356,14 +358,15 @@
       /* választhatsz másik emoji-t is, pl. zászló vagy rakéta! */
     }
     
-    @media (max-width: 900px) {
+    @media (max-width: 768px) {
       .race-list {
         flex-direction: column;
         align-items: center;
         gap: 18px;
       }
       .race-card {
-        width: 90vw;
+        width: 100%;
+        max-width: 100%;
         min-width: unset;
         max-width: 480px;
       }
@@ -383,6 +386,8 @@
         display: none;
         backdrop-filter: blur(12px);
         border: 1px solid rgba(0, 0, 0, 0.05);
+        width: 100%;
+        max-width: 100%;
       }
 
       nav.active {
