@@ -333,6 +333,28 @@
       margin-top: 5px;
       font-size: 1em;
     }
+    .race-card.upcoming {
+  border: 2.5px solid #38bdf8;
+  background: linear-gradient(105deg, #e0f2fe 85%, #f0f9ff 100%);
+  position: relative;
+    }
+    .upcoming-badge {
+      display: inline-block;
+      background: #2563eb;
+      color: #fff;
+      font-size: 0.82em;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 14px;
+      margin-left: 12px;
+      vertical-align: middle;
+      letter-spacing: 0.5px;
+    }
+    
+    .race-card.upcoming .race-medal {
+      filter: none;
+      /* választhatsz másik emoji-t is, pl. zászló vagy rakéta! */
+    }
     
     @media (max-width: 900px) {
       .race-list {
@@ -638,6 +660,18 @@
 <section id="sports-activity">
   <h3>Sports Activity</h3>
   <div class="race-list">
+     <div class="race-card upcoming">
+      <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3c1.png" alt="flag" class="race-medal">
+      <div>
+        <div class="race-title">
+          Cambridge Town & Gown 10k
+          <span class="upcoming-badge">Upcoming</span>
+        </div>
+        <div class="race-info">August 2025</div>
+        <div class="race-info">Cambridge, UK</div>
+        <div class="race-result">Registered</div>
+      </div>
+    </div>
     <div class="race-card">
       <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3c5.png" alt="medal" class="race-medal">
       <div>
