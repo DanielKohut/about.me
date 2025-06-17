@@ -224,68 +224,105 @@
       cursor: pointer;
     }
 
-.cert-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 18px;
-}
-.cert-card {
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 18px 24px;
-  min-width: 260px;
-  max-width: 350px;
-}
-.cert-logo {
-  width: 48px;
-  height: 48px;
-  object-fit: contain;
-}
-.cert-date {
-  color: #64748b;
-  font-size: 0.96rem;
-  margin-bottom: 5px;
-}
-@media (max-width: 768px) {
-  .cert-list { flex-direction: column; gap: 12px; }
-}
+    .cert-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+    .cert-card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 24px;
+      min-width: 260px;
+      max-width: 350px;
+    }
+    .cert-logo {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+    }
+    .cert-date {
+      color: #64748b;
+      font-size: 0.96rem;
+      margin-bottom: 5px;
+    }
+    @media (max-width: 768px) {
+      .cert-list { flex-direction: column; gap: 12px; }
+    }
+    
+    .hero-flex {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+    .profile-pic {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid #fff;
+      box-shadow: 0 6px 28px rgba(38,99,235,0.13), 0 0 0 4px #2563eb10;
+      background: #fff;
+      transition: box-shadow 0.3s;
+    }
+    .profile-pic:hover {
+      box-shadow: 0 12px 32px rgba(38,99,235,0.22), 0 0 0 6px #2563eb33;
+    }
+    .hero-text {
+      text-align: left;
+      max-width: 370px;
+    }
+    @media (max-width: 768px) {
+      .hero-flex {
+        flex-direction: column;
+        gap: 18px;
+      }
+      .hero-text { text-align: center; }
+    }
+    
+    .race-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 32px;
+      justify-content: center;
+    }
+    .race-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.09);
+      padding: 20px 24px 16px 24px;
+      min-width: 220px;
+      max-width: 270px;
+      text-align: left;
+      border-left: 5px solid #2563eb;
+    }
+    .race-title {
+      font-weight: 700;
+      color: #2563eb;
+      margin-bottom: 6px;
+      font-size: 1.08rem;
+    }
+    .race-info {
+      color: #64748b;
+      font-size: 0.98rem;
+      margin-bottom: 6px;
+    }
+    .race-result {
+      font-weight: 500;
+      color: #374151;
+    }
+    @media (max-width: 768px) {
+      .race-list { flex-direction: column; align-items: center; }
+    }
 
-.hero-flex {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 32px;
-  margin-bottom: 30px;
-  flex-wrap: wrap;
-}
-.profile-pic {
-  width: 130px;
-  height: 130px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 5px solid #fff;
-  box-shadow: 0 6px 28px rgba(38,99,235,0.13), 0 0 0 4px #2563eb10;
-  background: #fff;
-  transition: box-shadow 0.3s;
-}
-.profile-pic:hover {
-  box-shadow: 0 12px 32px rgba(38,99,235,0.22), 0 0 0 6px #2563eb33;
-}
-.hero-text {
-  text-align: left;
-  max-width: 370px;
-}
-@media (max-width: 768px) {
-  .hero-flex {
-    flex-direction: column;
-    gap: 18px;
-  }
-  .hero-text { text-align: center; }
-}
     @media (max-width: 768px) {
       nav {
         position: absolute;
@@ -576,11 +613,23 @@
 
   <section id="sports-activity">
     <h3>Sports Activity</h3>
-    <p>In my free time, I enjoy running and participating in various sporting events. Staying active keeps me motivated and balanced in life and work.</p>
-        <div style="display: flex; justify-content: center; margin-top: 2rem;">
-  <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 340px;">
-    <iframe title="DanielsLastRuns" class="strava-widget" src="https://www.strava.com/athletes/92721283/latest-rides/8aaeeb054b6d4bd8a8c848f02759b2d856289f3f" allowtransparency="true" scrolling="no" width="100%" height="454" frameborder="0"></iframe>
+   <div class="race-list">
+  <div class="race-card">
+    <div class="race-title">Cambridge Half Marathon</div>
+    <div class="race-info">March 2025 · Cambridge, UK</div>
+    <div class="race-result">PB: 1:45:17</div>
   </div>
+  <div class="race-card">
+    <div class="race-title">Spar Budapest Marathon</div>
+    <div class="race-info">October 2023 · Budapest, Hungary</div>
+    <div class="race-result">Time: 4:09:33</div>
+  </div>
+  <div class="race-card">
+    <div class="race-title">Northstowe Half</div>
+    <div class="race-info">April 2024 · Northstowe, UK</div>
+    <div class="race-result">Time: 1:49:20</div>
+  </div>
+  <!-- Bővítsd tovább -->
 </div>
   </section>
 
