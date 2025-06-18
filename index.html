@@ -831,18 +831,27 @@
 </section>
   </section>
   
-  <footer>
-    <a href="https://www.linkedin.com/in/danielkohut">LinkedIn</a> | <a href="https://github.com/DanielKohut">GitHub</a>
-    <a href="https://www.strava.com/athletes/daniel-kohut">Strava</a> | <a href="https://www.instagram.com/danielk0hut">Instagram</a>
-    <p>&copy; 2025 Daniel Kohut</p>
-  </footer>
+<footer>
+  <a href="https://www.linkedin.com/in/danielkohut">LinkedIn</a> |
+  <a href="https://github.com/DanielKohut">GitHub</a> |
+  <a href="https://www.strava.com/athletes/daniel-kohut">Strava</a> |
+  <a href="https://www.instagram.com/danielk0hut">Instagram</a>
+  <p style="font-size:0.9em;color:#cbd5e1;">
+    Emojis by <a href="https://twemoji.twitter.com/" target="_blank">Twemoji</a>.
+    Icons/logos: <a href="https://learn.microsoft.com/" target="_blank">Microsoft</a>,
+    <a href="https://linkedin.com/" target="_blank">LinkedIn</a>.
+    Activity Graph from <a href="https://github.com/Ashutosh00710/github-readme-activity-graph" target="_blank">GitHub Readme Activity Graph</a>.
+    Strava widget by <a href="https://www.strava.com/" target="_blank">Strava</a>.
+    Font: <a href="https://fonts.google.com/specimen/Roboto" target="_blank">Roboto</a> by Google Fonts.
+  </p>
+  <p>&copy; 2025 Daniel Kohut</p>
+</footer>
 <script>
   const toggleBtn = document.getElementById("menu-toggle");
   const nav = document.getElementById("nav");
   toggleBtn.addEventListener("click", function() {
     nav.classList.toggle("active");
   });
-  // Opcionális UX: menü zárása, ha mellékattintasz
   document.addEventListener('click', function(e) {
     if (!nav.contains(e.target) && !toggleBtn.contains(e.target)) {
       nav.classList.remove('active');
