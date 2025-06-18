@@ -497,6 +497,31 @@
       text-decoration: none;
     }
   }
+  .race-card.strava-card {
+  align-items: flex-start;
+  min-width: unset;
+  max-width: 400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.race-card.strava-card .strava-widget {
+  width: 100% !important;
+  max-width: 320px;
+  min-width: 120px;
+}
+
+@media (max-width: 768px) {
+  .race-card.strava-card {
+    max-width: 98vw;
+    padding: 12px 2vw;
+    box-sizing: border-box;
+  }
+  .race-card.strava-card .strava-widget {
+    width: 98vw !important;
+    max-width: 95vw;
+  }
+}
   </style>
 </head>
 <body>
@@ -624,21 +649,22 @@
   <section id="sports-activity">
   <h3>Sports Activity</h3>
   <div class="race-list">
-  <div class="race-card">
+  <div class="race-card strava-card">
     <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3c3.png" alt="Strava" class="race-medal">
-    <div>
-      <div class="race-title">Recent Strava Activity</div>
+    <div style="width:100%">
+      <div class="race-title" style="color: #1184E0;">Recent Strava Activity</div>
       <iframe
+        class="strava-widget"
         height="160"
-        width="300"
+        width="100%"
         frameborder="0"
         allowtransparency="true"
         scrolling="no"
         src="https://www.strava.com/athletes/92721283/activity-summary/8aaeeb054b6d4bd8a8c848f02759b2d856289f3f"
-        style="border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); margin-top: 10px;">
+        style="border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); margin-top: 10px; max-width: 330px; min-width: 120px; display: block;">
       </iframe>
-      </div>
     </div>
+  </div>
     <div style="flex-basis: 100%;"></div>
     <div class="race-list">
      <div class="race-card upcoming">
