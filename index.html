@@ -408,23 +408,6 @@
         min-width: 0;
         z-index: 9999;
       }
-      @media (min-width: 769px) {
-      nav {
-        gap: 36px;
-      }
-      nav a {
-        font-size: 1.16rem;       /* nagyobb betűméret */
-        letter-spacing: 0.03em;   /* szellősebb karakterek */
-        padding: 6px 8px;         /* kicsit több hely */
-        border-radius: 8px;
-        transition: background 0.18s, color 0.18s;
-      }
-      nav a:hover, nav a:focus {
-        background: #e8f0fe;
-        color: #2563eb;
-        text-decoration: none;
-        }
-      }
       nav.active {
         display: flex;
       }
@@ -496,6 +479,24 @@
       font-weight: 500;
       margin-top: 7px;
     }
+    /* --- CSS Menu for Desktop --- */
+    @media (min-width: 769px) {
+      nav {
+      gap: 36px;
+    }
+    nav a {
+      font-size: 1.16rem;
+      letter-spacing: 0.03em;
+      padding: 6px 8px;
+      border-radius: 8px;
+      transition: background 0.18s, color 0.18s;
+    }
+    nav a:hover, nav a:focus {
+      background: #e8f0fe;
+      color: #2563eb;
+      text-decoration: none;
+    }
+  }
   </style>
 </head>
 <body>
