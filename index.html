@@ -521,6 +521,40 @@
       transform: translateY(-2px) scale(1.03);
       color: #fff;
     }
+    #backToTop {
+      position: fixed;
+      bottom: 38px;
+      right: 34px;
+      z-index: 9000;
+      border: none;
+      outline: none;
+      background: none;
+      padding: 0;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+      box-shadow: 0 6px 24px rgba(30,41,59,0.18);
+    }
+    #backToTop svg {
+      transition: box-shadow 0.2s, transform 0.17s;
+      box-shadow: 0 2px 9px rgba(30,41,59,0.08);
+      border-radius: 50%;
+    }
+    #backToTop:hover svg {
+      transform: scale(1.08) translateY(-2px);
+      box-shadow: 0 8px 32px rgba(37,99,235,0.12);
+    }
+    #backToTop.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    @media (max-width: 640px) {
+      #backToTop {
+        bottom: 16px;
+        right: 14px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -914,6 +948,12 @@
   </p>
   <p>&copy; 2025 Daniel Kohut</p>
 </footer>
+<button id="backToTop" title="Back to top">
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" style="vertical-align:middle;">
+    <circle cx="14" cy="14" r="14" fill="#233876"/>
+    <path d="M9 16l5-5 5 5" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</button>
 <script>
   const toggleBtn = document.getElementById("menu-toggle");
   const nav = document.getElementById("nav");
@@ -940,6 +980,20 @@ document.getElementById('show-more-donations').addEventListener('click', functio
   });
   this.style.display = 'none';
 });
+</script>
+<script>
+  window.addEventListener('scroll', function() {
+    const btn = document.getElementById('backToTop');
+    if (window.scrollY > 350) {
+      btn.classList.add('visible');
+    } else {
+      btn.classList.remove('visible');
+    }
+  });
+
+  document.getElementById('backToTop').onclick = function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 </script>
 </body>
 </html>
