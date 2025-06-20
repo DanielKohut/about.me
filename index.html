@@ -917,7 +917,7 @@
   // Gomb kattintásra megjeleníti az összeset és eltünteti a gombot
   document.getElementById('show-more-donations').addEventListener('click', function() {
     document.querySelectorAll('.hidden-donation').forEach(function(item) {
-      item.style.display = 'flex';
+      item.style.display = '';
     });
     this.style.display = 'none';
   });
