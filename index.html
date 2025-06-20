@@ -906,21 +906,19 @@
   });
 </script>
 <script>
-  // Első betöltéskor elrejti a 7. donation-tól kezdve az összeset
   document.addEventListener('DOMContentLoaded', function() {
-    const donations = document.querySelectorAll('.donation-item');
-    donations.forEach(function(item, idx) {
-      if(idx >= 4) item.classList.add('hidden-donation');
-    });
+  const donations = document.querySelectorAll('.donation-item');
+  donations.forEach(function(item, idx) {
+    if(idx >= 4) item.classList.add('hidden-donation');
   });
+});
 
-  // Gomb kattintásra megjeleníti az összeset és eltünteti a gombot
-  document.getElementById('show-more-donations').addEventListener('click', function() {
-    document.querySelectorAll('.hidden-donation').forEach(function(item) {
-      item.style.display = '';
-    });
-    this.style.display = 'none';
+document.getElementById('show-more-donations').addEventListener('click', function() {
+  document.querySelectorAll('.hidden-donation').forEach(function(item) {
+    item.classList.remove('hidden-donation'); // helyes!
   });
+  this.style.display = 'none';
+});
 </script>
 </body>
 </html>
