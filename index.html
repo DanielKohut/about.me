@@ -500,6 +500,27 @@
     .hidden-donation {
       display: none;
     }
+    .show-more-btn {
+      display: block;
+      margin: 30px auto 0 auto;
+      padding: 12px 36px;
+      background: linear-gradient(90deg, #2563eb 60%, #38bdf8 100%);
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      font-size: 1.15rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      box-shadow: 0 4px 14px rgba(37,99,235,0.12);
+      cursor: pointer;
+      transition: background 0.18s, box-shadow 0.18s, transform 0.13s;
+    }
+    .show-more-btn:hover, .show-more-btn:focus {
+      background: linear-gradient(90deg, #1e40af 60%, #0ea5e9 100%);
+      box-shadow: 0 8px 32px rgba(37,99,235,0.18);
+      transform: translateY(-2px) scale(1.03);
+      outline: none;
+    }
   </style>
 </head>
 <body>
@@ -760,7 +781,7 @@
       <p><a href="https://www.remenyalapitvany.hu/tamogathato-gyerekek/lius-daganatos.html" target="_blank">Remetealapitvany.hu</a></p>
     </div>
 
-    <button id="show-more-donations" style="margin: 24px auto; display: block;">More</button>
+    <button id="show-more-donations" class="show-more-btn">More</button>
 
     <div class="donation-item">
       <h4>Renato Diagnosed Tumor (Remetealapitvany.hu)</h4>
