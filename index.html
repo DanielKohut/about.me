@@ -497,6 +497,9 @@
       text-decoration: none;
     }
   }
+    .hidden-donation {
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -757,6 +760,8 @@
       <p><a href="https://www.remenyalapitvany.hu/tamogathato-gyerekek/lius-daganatos.html" target="_blank">Remetealapitvany.hu</a></p>
     </div>
 
+    <button id="show-more-donations" style="margin: 24px auto; display: block;">More</button>
+
     <div class="donation-item">
       <h4>Renato Diagnosed Tumor (Remetealapitvany.hu)</h4>
       <p>“Our heart-breaking story began when my 2-month-old baby had a spasm on his back. After extensive tests, a biopsy revealed a malignant soft tissue tumor. He is currently undergoing chemotherapy every three weeks, with four months of treatment remaining. Financially, we are struggling to afford essentials like medications, baby supplies, and the care for his Hickman catheter. My partner works in construction, but one income isn’t enough to cover these costs, especially with extended hospital stays.“</p>
@@ -898,6 +903,23 @@
     if (!nav.contains(e.target) && !toggleBtn.contains(e.target)) {
       nav.classList.remove('active');
     }
+  });
+</script>
+<script>
+  // Első betöltéskor elrejti a 7. donation-tól kezdve az összeset
+  document.addEventListener('DOMContentLoaded', function() {
+    const donations = document.querySelectorAll('.donation-item');
+    donations.forEach(function(item, idx) {
+      if(idx >= 4) item.classList.add('hidden-donation');
+    });
+  });
+
+  // Gomb kattintásra megjeleníti az összeset és eltünteti a gombot
+  document.getElementById('show-more-donations').addEventListener('click', function() {
+    document.querySelectorAll('.hidden-donation').forEach(function(item) {
+      item.style.display = 'flex';
+    });
+    this.style.display = 'none';
   });
 </script>
 </body>
