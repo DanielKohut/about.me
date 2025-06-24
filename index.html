@@ -36,21 +36,21 @@
       font-weight: 700;
     }
 
-    nav {
-      display: flex;
-      gap: 20px;
-    }
-
-    nav a {
-      text-decoration: none;
-      color: #374151;
-      font-weight: 700;
-      transition: color 0.3s ease;
-    }
-
-    nav a:hover {
-      color: #2563eb;
-    }
+   nav a {
+  font-family: 'Fira Mono', 'Consolas', monospace;
+  background: #f4faff;
+  border-radius: 7px;
+  padding: 2px 10px;
+  margin: 0 4px;
+  font-size: 1.09em;
+  border: 1.3px solid #2563eb22;
+  transition: box-shadow 0.18s, background 0.18s;
+}
+nav a:hover, nav a:focus {
+  background: #e7efff;
+  box-shadow: 0 1px 8px #2563eb14;
+  color: #2563eb;
+}
 
     #menu-toggle {
       display: none;
@@ -555,27 +555,6 @@
         right: 14px;
       }
     }
- .typewriter {
-    display: inline-block;
-    border-right: 2px solid #2563eb;
-    white-space: nowrap;
-    overflow: hidden;
-    font-family: 'Fira Mono', 'Consolas', monospace;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    animation: typing 2.2s steps(16, end) 1, blink-caret 0.7s step-end infinite;
-    font-size: 1.14em;
-}
-
-@keyframes typing {
-  from { width: 0 }
-  to { width: 100% }
-}
-
-@keyframes blink-caret {
-  0%, 100% { border-color: #2563eb; }
-  50% { border-color: transparent; }
-}
   </style>
 </head>
 <body>
@@ -585,11 +564,11 @@
     <h1>Daniel Kohut</h1>
   </div>
   <nav id="nav">
-    <a href="#about" class="typewriter">About</a>
-    <a href="#experience" class="typewriter">Experience</a>
-    <a href="#certifications" class="typewriter">Certifications</a>
-    <a href="#sports-activity" class="typewriter">Sports Activity</a>
-    <a href="#donations" class="typewriter">Donations</a>
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#certifications">Certifications</a>
+    <a href="#sports-activity">Sports Activity</a>
+    <a href="#donations">Donations</a>
   </nav>
   <button id="menu-toggle" aria-label="Menu">&#9776;</button>
 </header>
