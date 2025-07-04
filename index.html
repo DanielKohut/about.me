@@ -1064,22 +1064,10 @@ document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
     container.appendChild(renderer.domElement);
 
     const geometry = new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize);
-    const material = new THREE.MeshPhysicalMaterial({
-      color: 0x2563eb,
-      metalness: 0.54,
-      roughness: 0.18,
-      transparent: true,
-      opacity: 0.33,
-      transmission: 0.98,
-      thickness: 0.6,
-      iridescence: 0.3,
-      iridescenceIOR: 1.15,
-      sheen: 0.5,
-      sheenRoughness: 0.37,
-      sheenColor: 0x38bdf8,
-      clearcoat: 0.28
-    });
-    cube = new THREE.Mesh(geometry, material);
+    // Keret (wireframe) generálás
+    const edges = new THREE.EdgesGeometry(geometry);
+    const material = new THREE.LineBasicMaterial({ color: 0x2563eb, linewidth: 3 });
+    cube = new THREE.LineSegments(edges, material);
     scene.add(cube);
 
     // Fények
