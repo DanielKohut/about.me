@@ -112,7 +112,8 @@
 
     .timeline-event {
       position: relative;
-      background: #ffffff;
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: blur(3px);
       border-radius: 8px;
       padding: 20px;
       margin-bottom: 30px;
@@ -126,7 +127,8 @@
       top: 20px;
       width: 16px;
       height: 16px;
-      background-color: #2563eb;
+      background-color: rgba(37, 99, 235, 0.82);
+      backdrop-filter: blur(3px);
       border-radius: 50%;
       border: 3px solid #f0f4f8;
     }
@@ -169,7 +171,8 @@
     }
 
     .donation-item {
-      background-color: #fff;
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: blur(3px);
       border-left: 4px solid #2563eb;
       padding: 20px;
       border-radius: 8px;
@@ -230,7 +233,8 @@
       gap: 18px;
     }
     .cert-card {
-      background: #fff;
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: blur(3px);
       border-radius: 10px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.08);
       display: flex;
@@ -299,7 +303,8 @@
     .race-card {
       display: flex;
       align-items: center;
-      background: #fff;
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: blur(3px);
       border-radius: 14px;
       box-shadow: 0 4px 18px rgba(0,0,0,0.07);
       padding: 18px 28px;
@@ -337,12 +342,14 @@
     }
     .race-card.upcoming {
   border: 2.5px solid #38bdf8;
-  background: linear-gradient(105deg, #e0f2fe 85%, #f0f9ff 100%);
+  background: linear-gradient(105deg, rgba(224,242,254,0.82) 85%, rgba(240,249,255,0.82) 100%);
+  backdrop-filter: blur(3px);
   position: relative;
     }
     .upcoming-badge {
       display: inline-block;
-      background: #2563eb;
+      background: rgba(37, 99, 235, 0.82); 
+      backdrop-filter: blur(3px);
       color: #fff;
       font-size: 0.82em;
       font-weight: 700;
@@ -353,7 +360,7 @@
     }
       .cert-badge {
       display: inline-block;
-      background: #2563eb; /* Kék, alapból az upcoming */
+      background: rgba(37, 99, 235, 0.82);  /* Kék, alapból az upcoming */
       color: #fff;
       font-size: 0.82em;
       font-weight: 700;
@@ -364,7 +371,8 @@
       letter-spacing: 0.5px;
     }
     .cert-badge.inprogress {
-      background: #22c55e; /* Zöld, pl. Tailwind Emerald 500 */
+      background: rgba(34, 197, 94, 0.82); /* Zöld, pl. Tailwind Emerald 500 */
+      backdrop-filter: blur(3px);
       color: #fff;
     }
     .race-card.upcoming .race-medal {
@@ -454,14 +462,16 @@
     }
     .cert-card.upcoming {
       border: 2.5px solid #38bdf8;
-      background: linear-gradient(105deg, #e0f2fe 85%, #f0f9ff 100%);
+      background: linear-gradient(105deg, rgba(224, 242, 254, 0.82) 85%, rgba(240, 249, 255, 0.82) 100%);
+      backdrop-filter: blur(3px);
       position: relative;
       box-shadow: 0 6px 24px rgba(37,99,235,0.08);
     }
     
     .cert-badge {
       display: inline-block;
-      background: #2563eb;
+      background: rgba(37, 99, 235, 0.82);
+      backdrop-filter: blur(3px);
       color: #fff;
       font-size: 0.82em;
       font-weight: 700;
