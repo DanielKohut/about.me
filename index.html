@@ -1041,48 +1041,81 @@ document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
   });
 });
 </script>
+<script src="https://unpkg.com/three@0.153.0/build/three.min.js"></script>
 <script>
 (function() {
   const container = document.getElementById('three-bg');
-  let renderer, scene, camera, cube, animationId;
+  let renderer, scene, camera, mesh, animationId;
 
   function initThree() {
-    // Ha már van canvas, ne csináljunk többet!
+    // Remove existing canvas if exists
     if (container.querySelector('canvas')) return;
 
-    let cubeSize = 1;
-    if(window.innerWidth < 640){ cubeSize = 0.66; } // Mobilon kisebb
-
-    // Ezeket eddig kihagytad:
     scene = new THREE.Scene();
-    camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.1, 100);
-    camera.position.z = 2.8;
+    camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
+    camera.position.z = 5;
 
     renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.domElement.className = 'three-cube-bg';
     container.appendChild(renderer.domElement);
 
-    const geometry = new THREE.IcosahedronGeometry(cubeSize, 0);
-    const edges = new THREE.EdgesGeometry(geometry);
-    const material = new THREE.LineBasicMaterial({ color: 0x38bdf8, linewidth: 2.4 });
-    cube = new THREE.LineSegments(edges, material);
-    scene.add(cube);
+    // --- Generate random points in 3D space ---
+    const vertices = [];
+    const points = [];
+    const POINTS = 24;   // állítsd, mennyi pont legyen
+    for (let i = 0; i < POINTS; i++) {
+      const x = (Math.random() - 0.5) * 5;
+      const y = (Math.random() - 0.5) * 5;
+      const z = (Math.random() - 0.5) * 5;
+      vertices.push(x, y, z);
+      points.push(new THREE.Vector3(x, y, z));
+    }
 
-    // Fények
-    scene.add(new THREE.AmbientLight(0xffffff, 0.68));
-    const pointLight = new THREE.PointLight(0x60a5fa, 0.99, 6);
-    pointLight.position.set(2.7, 2.3, 2.2);
-    scene.add(pointLight);
+    // --- Create lines (edges) between close points ---
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+
+    const lineMaterial = new THREE.LineBasicMaterial({ color: 0x38bdf8, opacity: 0.44, transparent: true });
+    mesh = new THREE.LineSegments(makeEdgesGeometry(points), lineMaterial);
+    scene.add(mesh);
+
+    // Add glow points (optional, csak vizuális extra)
+    const pointMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 0.08, opacity: 0.72, transparent: true });
+    const pointCloud = new THREE.Points(geometry, pointMaterial);
+    scene.add(pointCloud);
 
     animate();
     window.addEventListener('resize', onWindowResize, false);
   }
 
+  // Create edges only between close points
+  function makeEdgesGeometry(points) {
+    const threshold = 1.6;  // csak a közeliek között vonal!
+    const edges = [];
+    for (let i = 0; i < points.length; i++) {
+      for (let j = i + 1; j < points.length; j++) {
+        if (points[i].distanceTo(points[j]) < threshold) {
+          edges.push(points[i].x, points[i].y, points[i].z,
+                     points[j].x, points[j].y, points[j].z);
+        }
+      }
+    }
+    const edgeGeometry = new THREE.BufferGeometry();
+    edgeGeometry.setAttribute('position', new THREE.Float32BufferAttribute(edges, 3));
+    return edgeGeometry;
+  }
+
   function animate() {
     animationId = requestAnimationFrame(animate);
-    cube.rotation.x += 0.005;
-    cube.rotation.y += 0.011;
+    mesh.rotation.x += 0.003;
+    mesh.rotation.y += 0.0045;
+    scene.children.forEach(child => {
+      if (child.type === "Points") {
+        child.rotation.x += 0.003;
+        child.rotation.y += 0.0045;
+      }
+    });
     renderer.render(scene, camera);
   }
 
