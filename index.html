@@ -6,110 +6,172 @@
   <title>Daniel Kohut Personal Blog</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
-    html {
-      scroll-behavior: smooth;
-    }
-
+    html { scroll-behavior: smooth; }
     body {
       font-family: 'Roboto', sans-serif;
       margin: 0;
       padding: 0;
-      background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+      background: radial-gradient(ellipse at 60% 15%, #38bdf8 0%, #2563eb 65%, #232526 110%);
+      background-image:
+        url('data:image/svg+xml;utf8,<svg width="42" height="42" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="21" cy="21" r="1" fill="%2338bdf8" fill-opacity="0.11"/></svg>');
+      background-repeat: repeat;
+      background-size: 170px 170px;
       color: #1f2937;
+      transition: background 0.5s;
     }
-
+    body.dark {
+      background: radial-gradient(ellipse at 60% 15%, #19202e 0%, #111827 70%, #060a13 120%);
+      background-image:
+        url('data:image/svg+xml;utf8,<svg width="42" height="42" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="21" cy="21" r="1" fill="%2338bdf8" fill-opacity="0.09"/></svg>');
+      color: #f0f4f8;
+    }
+    #progress-bar {
+      position: fixed;
+      top: 0; left: 0; height: 3px; z-index: 15000;
+      width: 0;
+      background: linear-gradient(90deg, #38bdf8 30%, #2563eb 90%);
+      border-radius: 0 8px 8px 0;
+      box-shadow: 0 1.5px 8px #2563eb33;
+      transition: width 0.25s;
+      pointer-events: none;
+    }
+    .dark header, .dark .hero, .dark .timeline-event, .dark .cert-card, .dark .race-card, .dark .donation-item {
+      background-color: rgba(30,41,59,0.97) !important;
+      color: #e7ecf7 !important;
+      box-shadow: 0 6px 24px rgba(30,41,59,0.11) !important;
+    }
+    .dark .cert-badge, .dark .upcoming-badge { background: #38bdf8 !important; color: #19202e !important; }
+    .dark .elegant-more-btn { background: linear-gradient(90deg, #0f172a 85%, #334155 100%) !important; color: #e7ecf7 !important; }
+    .dark .elegant-more-btn:hover, .dark .elegant-more-btn:focus { background: linear-gradient(90deg, #2563eb 70%, #233876 100%) !important; color: #fff !important;}
+    .dark footer { background: #101926 !important; color: #dbeafe !important; }
+    .dark nav a.active { background: #1e293b !important; color: #38bdf8 !important;}
+    .dark #backToTop svg circle { fill: #38bdf8; }
+    .dark #backToTop svg path { stroke: #222a38 !important; }
     header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 10%;
-      background-color: rgba(249, 250, 251, 0.80);
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 10%; background-color: rgba(249, 250, 251, 0.85);
       border-bottom: 1px solid #e5e7eb;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
+      position: sticky; top: 0; z-index: 1000;
       backdrop-filter: blur(10px);
+      transition: background 0.5s;
     }
-
-    header h1 {
-      font-size: 2rem;
-      font-weight: 700;
-    }
-
-    nav {
-      display: flex;
-      gap: 20px;
-    }
-
+    .dark header { background-color: rgba(15, 23, 42, 0.85); border-bottom: 1px solid #233876; }
+    header h1 { font-size: 2rem; font-weight: 700; letter-spacing: 0.02em; }
+    nav { display: flex; gap: 24px; }
     nav a {
-      text-decoration: none;
-      color: #374151;
-      font-weight: 700;
-      transition: color 0.3s ease;
+      text-decoration: none; color: #374151; font-weight: 700;
+      padding: 4px 14px; border-radius: 8px;
+      transition: background 0.22s, color 0.22s, font-weight 0.13s;
+      font-size: 1.13rem; letter-spacing: 0.03em;
+      position: relative;
     }
-
-    nav a:hover {
-      color: #2563eb;
-    }
-
+    nav a.active, nav a:focus { background: #e8f0fe; color: #2563eb; font-weight: 800; }
+    nav a:hover { color: #2563eb; background: #e7f3ff; }
     #menu-toggle {
-      display: none;
-      background: none;
-      font-size: 2rem;
-      color: #374151;
-      border: none;
-      cursor: pointer;
+      display: none; background: none; font-size: 2rem; color: #374151;
+      border: none; cursor: pointer;
     }
-
+    .verified-badge {
+      display: inline-block;
+      margin-left: 8px; vertical-align: middle;
+      width: 21px; height: 21px;
+      background: linear-gradient(135deg,#60a5fa,#2563eb 60%);
+      border-radius: 50%;
+      border: 2.5px solid #fff;
+      box-shadow: 0 2px 12px #2563eb33;
+      position: relative;
+    }
+    .verified-badge svg {
+      position: absolute; top: 2px; left: 2px; width: 16px; height: 16px;
+      display: block;
+    }
     .hero {
       text-align: center;
-      padding: 60px 10%;
-      background-color: #ffffff;
-      border-radius: 12px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+      padding: 56px 10%;
+      background-color: #ffffffd9;
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
       margin: 40px 10%;
       animation: fadeInUp 1s forwards;
+      backdrop-filter: blur(8px);
+      border: 1px solid #e0e7ef;
     }
-
     .hero img {
-      max-width: 100%;
-      height: auto;
-      margin: 20px 0;
-      border-radius: 8px;
+      max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;
+      box-shadow: 0 6px 22px #2563eb17;
+      transition: box-shadow 0.3s;
     }
-
-    iframe.strava-widget {
-      width: 300px;
-      height: 454px;
-      border: none;
-      border-radius: 8px;
-      margin-top: 20px;
-    }
-
+    .hero img:hover { box-shadow: 0 12px 42px #2563eb31; }
+    iframe.strava-widget { width: 300px; height: 454px; border: none; border-radius: 8px; margin-top: 20px; }
     section {
       padding: 50px 10%;
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeInUp 1s forwards;
+      opacity: 0; transform: translateY(30px) scale(0.97);
+      animation: fadeInUpSection 1.1s forwards;
+      animation-delay: 0.22s;
+      will-change: opacity, transform;
+      transition: box-shadow 0.35s, background 0.35s;
+      box-sizing: border-box;
     }
-
+    section.visible {
+      opacity: 1 !important;
+      transform: translateY(0) scale(1) !important;
+      transition: opacity 0.7s, transform 0.6s;
+    }
+    @keyframes fadeInUpSection {
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
     section h3 {
       font-size: 2.5rem;
       margin-bottom: 20px;
+      letter-spacing: 0.01em;
+      border-bottom: 2.5px solid #38bdf8;
+      display: inline-block;
+      padding-bottom: 6px;
+      background: linear-gradient(90deg, #38bdf8 33%, #2563eb 130%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text; text-fill-color: transparent;
+      font-weight: 900;
     }
-
-    section p {
-      font-size: 1.2rem;
-      line-height: 1.6;
+    section p { font-size: 1.2rem; line-height: 1.6; }
+        /* Menü mobilon (hamburger) */
+    @media (max-width: 768px) {
+      nav {
+        position: absolute; top: 70px; left: 0; right: 0;
+        background: rgba(255, 255, 255, 0.96);
+        border-radius: 16px;
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+        flex-direction: column; align-items: flex-start;
+        padding: 15px 20px; display: none;
+        backdrop-filter: blur(12px); border: 1px solid rgba(0, 0, 0, 0.05);
+        width: 100vw; max-width: 100vw; min-width: 0; z-index: 9999;
+        animation: fadeInUpSection 0.5s;
+      }
+      nav.active { display: flex; }
+      nav a { margin: 12px 0; font-size: 1.1rem; width: 100%; }
+      #menu-toggle { display: block; }
     }
-
+    @media (max-width: 768px) {
+      .menu-loader {
+        display: flex; align-items: center; margin-left: 12px;
+      }
+      .dot { width: 8px; height: 8px; border-radius: 50%; background: #2563eb; margin: 0 3px; opacity: 0; }
+      .dot1 { animation: pop 1s infinite 0.08s; }
+      .dot2 { animation: pop 1s infinite 0.18s; }
+      .dot3 { animation: pop 1s infinite 0.29s; }
+      @keyframes pop {
+        0% { opacity: 0; transform: scale(0.6);}
+        35% { opacity: 1; transform: scale(1.15);}
+        60% { opacity: 0; transform: scale(0.6);}
+        100% { opacity: 0;}
+      }
+    }
     .timeline {
       position: relative;
       margin-left: 20px;
       padding-left: 20px;
       border-left: 4px solid #2563eb;
     }
-
     .timeline-event {
       position: relative;
       background: #ffffff;
@@ -118,7 +180,6 @@
       margin-bottom: 30px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     }
-
     .timeline-event::before {
       content: '';
       position: absolute;
@@ -130,44 +191,36 @@
       border-radius: 50%;
       border: 3px solid #f0f4f8;
     }
-
     .timeline-event h4 {
       margin: 0 0 10px;
       font-size: 1.3rem;
       color: #2563eb;
     }
-
     .timeline-event h5 {
       margin: 0 0 10px;
       font-weight: 500;
       color: #111827;
     }
-
     .timeline-event p {
       margin: 0 0 10px;
     }
-
     .timeline-event .tags {
       font-size: 0.9rem;
       color: #6b7280;
     }
-
     .experience ul, .certifications ul {
       list-style: none;
       padding: 0;
     }
-
     .experience li, .certifications li {
       margin-bottom: 15px;
       font-size: 1.1rem;
     }
-
     .donation-list {
       display: flex;
       flex-direction: column;
       gap: 20px;
     }
-
     .donation-item {
       background-color: #fff;
       border-left: 4px solid #2563eb;
@@ -175,16 +228,13 @@
       border-radius: 8px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     }
-
     .donation-item h4 {
       margin-top: 0;
     }
-
     .donation-item p {
       margin: 5px 0;
       font-size: 1rem;
     }
-
     footer {
       text-align: center;
       padding: 20px 10%;
@@ -195,26 +245,21 @@
       animation: fadeInUp 1s forwards;
       animation-delay: 1s;
     }
-
     footer a {
       color: #f9fafb;
       text-decoration: none;
       margin: 0 10px;
       transition: color 0.3s ease;
     }
-
     footer a:hover {
       color: #60a5fa;
     }
-
     @keyframes fadeInUp {
       to {
         opacity: 1;
         transform: translateY(0);
       }
     }
-
- /* Hamburger icon */
     #menu-toggle {
       display: none;
       background: none;
@@ -223,7 +268,6 @@
       border: none;
       cursor: pointer;
     }
-
     .cert-list {
       display: flex;
       flex-wrap: wrap;
@@ -295,7 +339,7 @@
       gap: 32px;
       margin-top: 32px;
       justify-content: center;
-    } 
+    }
     .race-card {
       display: flex;
       align-items: center;
@@ -336,9 +380,9 @@
       font-size: 1em;
     }
     .race-card.upcoming {
-  border: 2.5px solid #38bdf8;
-  background: linear-gradient(105deg, #e0f2fe 85%, #f0f9ff 100%);
-  position: relative;
+      border: 2.5px solid #38bdf8;
+      background: linear-gradient(105deg, #e0f2fe 85%, #f0f9ff 100%);
+      position: relative;
     }
     .upcoming-badge {
       display: inline-block;
@@ -351,9 +395,9 @@
       vertical-align: middle;
       letter-spacing: 0.5px;
     }
-      .cert-badge {
+    .cert-badge {
       display: inline-block;
-      background: #2563eb; /* Kék, alapból az upcoming */
+      background: #2563eb;
       color: #fff;
       font-size: 0.82em;
       font-weight: 700;
@@ -364,7 +408,7 @@
       letter-spacing: 0.5px;
     }
     .cert-badge.inprogress {
-      background: #22c55e; /* Zöld, pl. Tailwind Emerald 500 */
+      background: #22c55e;
       color: #fff;
     }
     .race-card.upcoming .race-medal {
@@ -392,8 +436,8 @@
       nav {
         position: absolute;
         top: 70px;
-        left: 0; 
-        right: 0; 
+        left: 0;
+        right: 0;
         background: rgba(255, 255, 255, 0.95);
         border-radius: 16px;
         box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
@@ -403,7 +447,7 @@
         display: none;
         backdrop-filter: blur(12px);
         border: 1px solid rgba(0, 0, 0, 0.05);
-         width: 100vw;  /* Teljes viewport szélesség! */
+        width: 100vw;
         max-width: 100vw;
         min-width: 0;
         z-index: 9999;
@@ -429,7 +473,6 @@
       align-items: center;
       gap: 14px;
     }
-    
     .header-pic {
       width: 70px;
       height: 70px;
@@ -458,7 +501,6 @@
       position: relative;
       box-shadow: 0 6px 24px rgba(37,99,235,0.08);
     }
-    
     .cert-badge {
       display: inline-block;
       background: #2563eb;
@@ -479,24 +521,23 @@
       font-weight: 500;
       margin-top: 7px;
     }
-    /* --- CSS Menu for Desktop --- */
     @media (min-width: 769px) {
       nav {
-      gap: 36px;
+        gap: 36px;
+      }
+      nav a {
+        font-size: 1.16rem;
+        letter-spacing: 0.03em;
+        padding: 6px 8px;
+        border-radius: 8px;
+        transition: background 0.18s, color 0.18s;
+      }
+      nav a:hover, nav a:focus {
+        background: #e8f0fe;
+        color: #2563eb;
+        text-decoration: none;
+      }
     }
-    nav a {
-      font-size: 1.16rem;
-      letter-spacing: 0.03em;
-      padding: 6px 8px;
-      border-radius: 8px;
-      transition: background 0.18s, color 0.18s;
-    }
-    nav a:hover, nav a:focus {
-      background: #e8f0fe;
-      color: #2563eb;
-      text-decoration: none;
-    }
-  }
     .hidden-donation {
       display: none;
     }
@@ -558,21 +599,35 @@
   </style>
 </head>
 <body>
+<div id="progress-bar"></div>
   <header>
-  <div class="header-profile">
-    <img src="https://media.licdn.com/dms/image/v2/D4E03AQEGBZAH-hKCHw/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1704651381091?e=1755734400&v=beta&t=-v6o15V2k95aKP6de7jZ5_aJVQ-7eos3TaXcWgHbVcc" alt="Daniel Kohut" class="header-pic">
-    <h1>Daniel Kohut</h1>
-  </div>
-  <nav id="nav">
-    <a href="#about">About</a>
-    <a href="#experience">Experience</a>
-    <a href="#certifications">Certifications</a>
-    <a href="#sports-activity">Sports Activity</a>
-    <a href="#donations">Donations</a>
-  </nav>
-  <button id="menu-toggle" aria-label="Menu">&#9776;</button>
-</header>
-
+    <div class="header-profile">
+      <img src="https://media.licdn.com/dms/image/v2/D4E03AQEGBZAH-hKCHw/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1704651381091?e=1755734400&v=beta&t=-v6o15V2k95aKP6de7jZ5_aJVQ-7eos3TaXcWgHbVcc" alt="Daniel Kohut" class="header-pic">
+      <span class="verified-badge" title="Verified">
+        <svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="#fff" stroke-width="1.5"/><path d="M7.7 11.3l1.8 1.7 3-4.2" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <h1>Daniel Kohut</h1>
+    </div>
+    <nav id="nav">
+      <a href="#about" class="active">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#sports-activity">Sports Activity</a>
+      <a href="#donations">Donations</a>
+    </nav>
+    <button id="menu-toggle" aria-label="Menu">&#9776;</button>
+    <span class="menu-loader" id="menuLoader" style="display:none;">
+      <span class="dot dot1"></span>
+      <span class="dot dot2"></span>
+      <span class="dot dot3"></span>
+    </span>
+    <button id="theme-toggle" style="margin-left:22px;background:none;border:none;cursor:pointer;" aria-label="Toggle theme">
+      <svg id="themeIcon" width="25" height="25" fill="none" viewBox="0 0 25 25">
+        <circle cx="12.5" cy="12.5" r="10" stroke="#2563eb" stroke-width="2"/>
+        <path id="moon" d="M15 12.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z" fill="#2563eb"/>
+      </svg>
+    </button>
+  </header>
 <section class="hero" id="about">
   <div class="hero-flex">
     <div class="hero-text">
@@ -581,85 +636,83 @@
   </div>
   <img src="https://github-readme-activity-graph.vercel.app/graph?username=DanielKohut&theme=github" alt="GitHub Contribution Graph">
 </section>
-  <section class="experience" id="experience">
-    <h3>Experience</h3>
-<div class="timeline">
-  <div class="timeline-event">
-    <h4>Apr, 2024</h4>
-    <h5>Hosting Engineer</h5>
-    <p>Server & Network Monitoring • Performance Optimization • VMware • Virtualization</p>
-    <p class="tags">#ServerHosting #ServerEngineer #CloudComputing #NetworkEngineer #ITInfrastructure #DataCenter #ServerManagement #CloudHosting #TechInfrastructure #ITSupport #Virtualization #Networking</p>
+<section class="experience" id="experience">
+  <h3>Experience</h3>
+  <div class="timeline">
+    <div class="timeline-event">
+      <h4>Apr, 2024</h4>
+      <h5>Hosting Engineer</h5>
+      <p>Server & Network Monitoring • Performance Optimization • VMware • Virtualization</p>
+      <p class="tags">#ServerHosting #ServerEngineer #CloudComputing #NetworkEngineer #ITInfrastructure #DataCenter #ServerManagement #CloudHosting #TechInfrastructure #ITSupport #Virtualization #Networking</p>
+    </div>
+    <div class="timeline-event">
+      <h4>Dec, 2021</h4>
+      <h5>Sales Executive</h5>
+      <p>Sales Planning • Negotiation • Learning & Development • Customer Engagement • Teamwork</p>
+      <p class="tags">#SAP #SalesStrategy #Selftraining #Teamwork #SalesClosing #Excel-VBA</p>
+    </div>
+    <div class="timeline-event">
+      <h4>Jan, 2018</h4>
+      <h5>1st Line IT Support</h5>
+      <p>Issue Resolution • Server Configuration • Hardware Support • Security Awareness • Web Development</p>
+      <p class="tags">#Linux #IP #Plesk #ITSM #Troubleshooting #HardwareSupport #SoftwareSupport #TicketingSystem #BackUp #Restore #VM</p>
+    </div>
+    <div class="timeline-event">
+      <h4>Dec, 2017</h4>
+      <h5>Electronics Engineer</h5>
+      <p>PCB Repair • Coding & Programming • Oscilloscope • Remote Diagnostics</p>
+      <p class="tags">#PCB #ECM #J2534 #OBD #KWP2000 #J1850 #Coding #Programming #CP #SCN #FSB4 #SVM #FSC #SWaP #IDS #GDS #ODIS #Xentry #ISTA #JLR #Boot #BDM #Hex #Eeprom #InterFlash #ExternalFlash #DFlash #iFlash #WinOLS</p>
+    </div>
+    <div class="timeline-event">
+      <h4>Jan, 2012</h4>
+      <h5>IT Engineer</h5>
+      <p>Linux servers • Plesk platform • Backups • Troubleshooting • Remote support • Networking</p>
+      <p class="tags">#Linux #IP #Plesk #ITSM #Troubleshooting #HardwareSupport #SoftwareSupport #TicketingSystem #BackUp #Restore #VM</p>
+    </div>
+    <div class="timeline-event">
+      <h4>Sept, 2012</h4>
+      <h5>Mechanical Engineer</h5>
+      <p>Material Studies • Mechanics • CAD & CAE Technics • Diagnostic Protocols</p>
+      <p class="tags">#FEMTO #FESTO #ICE #FEM #MachineElements #Automotive #Diagnostic #Can-Bus #Can-FD #LIN #J1939 #MOST #MOST150 #Flexray</p>
+    </div>
+    <div class="timeline-event">
+      <h4>Sept, 2006</h4>
+      <h5>Computer Scientist</h5>
+      <p>Certified • IT & Hardware/Software Diagnosis • Linux & Windows • Networking • Web Development</p>
+      <p class="tags">#Pascal #HTML #PHP #JavaScript #Java #CSS #Gimp #PhotoShop #CMS #Linux #Ubuntu #LAN #WAN #Microsoft Access #SQL</p>
+    </div>
   </div>
-  <div class="timeline-event">
-    <h4>Dec, 2021</h4>
-    <h5>Sales Executive</h5>
-    <p>Sales Planning • Negotiation • Learning & Development • Customer Engagement • Teamwork</p>
-    <p class="tags">#SAP #SalesStrategy #Selftraining #Teamwork #SalesClosing #Excel-VBA</p>
-  </div>
-  <div class="timeline-event">
-    <h4>Jan, 2018</h4>
-    <h5>1st Line IT Support</h5>
-    <p>Issue Resolution • Server Configuration • Hardware Support • Security Awareness • Web Development</p>
-    <p class="tags">#Linux #IP #Plesk #ITSM #Troubleshooting #HardwareSupport #SoftwareSupport #TicketingSystem #BackUp #Restore #VM</p>
-  </div>
-  <div class="timeline-event">
-    <h4>Dec, 2017</h4>
-    <h5>Electronics Engineer</h5>
-    <p>PCB Repair • Coding & Programming • Oscilloscope • Remote Diagnostics</p>
-    <p class="tags">#PCB #ECM #J2534 #OBD #KWP2000 #J1850 #Coding #Programming #CP #SCN #FSB4 #SVM #FSC #SWaP #IDS #GDS #ODIS #Xentry #ISTA #JLR #Boot #BDM #Hex #Eeprom #InterFlash #ExternalFlash #DFlash #iFlash #WinOLS</p>
-  </div>
-  <div class="timeline-event">
-    <h4>Jan, 2012</h4>
-    <h5>IT Engineer</h5>
-    <p>Linux servers • Plesk platform • Backups • Troubleshooting • Remote support • Networking</p>
-    <p class="tags">#Linux #IP #Plesk #ITSM #Troubleshooting #HardwareSupport #SoftwareSupport #TicketingSystem #BackUp #Restore #VM</p>
-  </div>
-  <div class="timeline-event">
-    <h4>Sept, 2012</h4>
-    <h5>Mechanical Engineer</h5>
-    <p>Material Studies • Mechanics • CAD & CAE Technics • Diagnostic Protocols</p>
-    <p class="tags">#FEMTO #FESTO #ICE #FEM #MachineElements #Automotive #Diagnostic #Can-Bus #Can-FD #LIN #J1939 #MOST #MOST150 #Flexray</p>
-  </div>
-  <div class="timeline-event">
-    <h4>Sept, 2006</h4>
-    <h5>Computer Scientist</h5>
-    <p>Certified • IT & Hardware/Software Diagnosis • Linux & Windows • Networking • Web Development</p>
-    <p class="tags">#Pascal #HTML #PHP #JavaScript #Java #CSS #Gimp #PhotoShop #CMS #Linux #Ubuntu #LAN #WAN #Microsoft Access #SQL</p>
-  </div>
-</div>
 </section>
 
 <section class="certifications" id="certifications">
   <h3>Certifications (Past 12 Months)</h3>
   <div class="cert-list">
     <div class="cert-card upcoming">
-  <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f393.png" alt="ITIL 4" class="cert-logo">
-  <div>
-    <strong>ITIL 4 Foundation <span class="cert-badge">Upcoming</span></strong>
-    <div class="cert-date">July 2025</div>
-    <div class="cert-status">Registered</div>
-    <!--  <a href="#">Show credential</a> -->
+      <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f393.png" alt="ITIL 4" class="cert-logo">
+      <div>
+        <strong>ITIL 4 Foundation <span class="cert-badge">Upcoming</span></strong>
+        <div class="cert-date">July 2025</div>
+        <div class="cert-status">Registered</div>
+      </div>
     </div>
-  </div>
     <div class="cert-card upcoming">
-  <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f393.png" alt="ITIL 4" class="cert-logo">
-  <div>
-    <strong>CNet CDCTP <span class="cert-badge">Upcoming</span></strong>
-    <div class="cert-date">August 2025</div>
-    <div class="cert-status">Registered</div>
-    <!--  <a href="#">Show credential</a> -->
+      <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f393.png" alt="ITIL 4" class="cert-logo">
+      <div>
+        <strong>CNet CDCTP <span class="cert-badge">Upcoming</span></strong>
+        <div class="cert-date">August 2025</div>
+        <div class="cert-status">Registered</div>
+      </div>
     </div>
-  </div>
-  <div style="flex-basis: 100%; height: 0;"></div>
+    <div style="flex-basis: 100%; height: 0;"></div>
     <div class="cert-card inprogress">
       <img src="https://learn.microsoft.com/favicon.ico" alt="Course" class="cert-logo">
       <div>
         <strong>Microsoft: AZ-104<span class="cert-badge inprogress">In Progress</span></strong>
         <div class="cert-date">Ongoing</div>
         <div class="cert-status">Training</div>
+      </div>
     </div>
-  </div>
-  <div style="flex-basis: 100%; height: 0;"></div>
+    <div style="flex-basis: 100%; height: 0;"></div>
     <div class="cert-card">
       <img src="https://learn.microsoft.com/favicon.ico" alt="Micorosft Azure" class="cert-logo">
       <div>
@@ -670,56 +723,56 @@
     </div>
     <div style="flex-basis: 100%; height: 0;"></div>
     <div class="cert-card">
-        <img src="https://static.licdn.com/scds/common/u/images/logos/favicons/v1/favicon.ico" alt="LinkedIn" class="cert-logo">
-        <div>
-          <strong>Programming Foundations: AI</strong>
-          <div class="cert-date">Dec 2024</div>
-          <a href="https://www.linkedin.com/learning/certificates/9b0059de7719360f6b126f3db555a24719cca800d4c03ac45f1fd368d8163c3b?u=2963594" target="_blank">Show credentials</a>
-        </div>
+      <img src="https://static.licdn.com/scds/common/u/images/logos/favicons/v1/favicon.ico" alt="LinkedIn" class="cert-logo">
+      <div>
+        <strong>Programming Foundations: AI</strong>
+        <div class="cert-date">Dec 2024</div>
+        <a href="https://www.linkedin.com/learning/certificates/9b0059de7719360f6b126f3db555a24719cca800d4c03ac45f1fd368d8163c3b?u=2963594" target="_blank">Show credentials</a>
       </div>
-      <div class="cert-card">
-        <img src="https://static.licdn.com/scds/common/u/images/logos/favicons/v1/favicon.ico" alt="LinkedIn" class="cert-logo">
-        <div>
-          <strong>Using AI Imagery</strong>
-          <div class="cert-date">Dec 2024</div>
-          <a href="https://www.linkedin.com/learning/certificates/1c45978409a83832afde91a3acb3112a8439eabfb0d575384420d906358ab3a1?u=2963594" target="_blank">Show credentials</a>
-        </div>
+    </div>
+    <div class="cert-card">
+      <img src="https://static.licdn.com/scds/common/u/images/logos/favicons/v1/favicon.ico" alt="LinkedIn" class="cert-logo">
+      <div>
+        <strong>Using AI Imagery</strong>
+        <div class="cert-date">Dec 2024</div>
+        <a href="https://www.linkedin.com/learning/certificates/1c45978409a83832afde91a3acb3112a8439eabfb0d575384420d906358ab3a1?u=2963594" target="_blank">Show credentials</a>
       </div>
-      <div class="cert-card">
-        <img src="https://static.licdn.com/scds/common/u/images/logos/favicons/v1/favicon.ico" alt="LinkedIn" class="cert-logo">
-        <div>
-          <strong>AI Cybersecurity</strong>
-          <div class="cert-date">Nov 2024</div>
-          <a href="https://www.linkedin.com/learning/certificates/e01d43859ef4c5f3cae89da551b102656ee9c17d1dc61bf0883da4de2f34febd?u=2963594" target="_blank">Show credentials</a>
-        </div>
+    </div>
+    <div class="cert-card">
+      <img src="https://static.licdn.com/scds/common/u/images/logos/favicons/v1/favicon.ico" alt="LinkedIn" class="cert-logo">
+      <div>
+        <strong>AI Cybersecurity</strong>
+        <div class="cert-date">Nov 2024</div>
+        <a href="https://www.linkedin.com/learning/certificates/e01d43859ef4c5f3cae89da551b102656ee9c17d1dc61bf0883da4de2f34febd?u=2963594" target="_blank">Show credentials</a>
       </div>
-      <div class="cert-card">
-        <img src="https://static.licdn.com/scds/common/u/images/logos/favicons/v1/favicon.ico" alt="LinkedIn" class="cert-logo">
-        <div>
-          <strong>AI Beyond Engineering</strong>
-          <div class="cert-date">Sept 2024</div>
-          <a href="https://www.linkedin.com/learning/certificates/ea8e32128a1db825b994fc01e7392f22199e3d46d7b7b4eff532c03d87300ab4?u=2963594" target="_blank">Show credentials</a>
-        </div>
+    </div>
+    <div class="cert-card">
+      <img src="https://static.licdn.com/scds/common/u/images/logos/favicons/v1/favicon.ico" alt="LinkedIn" class="cert-logo">
+      <div>
+        <strong>AI Beyond Engineering</strong>
+        <div class="cert-date">Sept 2024</div>
+        <a href="https://www.linkedin.com/learning/certificates/ea8e32128a1db825b994fc01e7392f22199e3d46d7b7b4eff532c03d87300ab4?u=2963594" target="_blank">Show credentials</a>
       </div>
-      <div class="cert-card">
-        <img src="https://static.licdn.com/scds/common/u/images/logos/favicons/v1/favicon.ico" alt="LinkedIn" class="cert-logo">
-        <div>
-          <strong>AI Excel</strong>
-          <div class="cert-date">Jul 2024</div>
-          <a href="https://www.linkedin.com/learning/certificates/27d097d1ae4afe84253c9edc17d4dc4d4f4be60bfd7918a6d0ae2b2ad0ed9899?u=2963594" target="_blank">Show credentials</a>
-        </div>
+    </div>
+    <div class="cert-card">
+      <img src="https://static.licdn.com/scds/common/u/images/logos/favicons/v1/favicon.ico" alt="LinkedIn" class="cert-logo">
+      <div>
+        <strong>AI Excel</strong>
+        <div class="cert-date">Jul 2024</div>
+        <a href="https://www.linkedin.com/learning/certificates/27d097d1ae4afe84253c9edc17d4dc4d4f4be60bfd7918a6d0ae2b2ad0ed9899?u=2963594" target="_blank">Show credentials</a>
       </div>
+    </div>
   </div>
 </section>
 
-  <section id="sports-activity">
+<section id="sports-activity">
   <h3>Sports Activity (Past 12 Months)</h3>
-    <div class="race-list">
-      <div class="race-card">
-        <center><iframe height='160' width='300' frameborder='0' allowtransparency='true' scrolling='no' src='https://www.strava.com/athletes/92721283/activity-summary/8aaeeb054b6d4bd8a8c848f02759b2d856289f3f'></iframe></center>
-      </div>
-      <div style="flex-basis: 100%;"></div>
-        <div class="race-card upcoming">
+  <div class="race-list">
+    <div class="race-card">
+      <center><iframe height='160' width='300' frameborder='0' allowtransparency='true' scrolling='no' src='https://www.strava.com/athletes/92721283/activity-summary/8aaeeb054b6d4bd8a8c848f02759b2d856289f3f'></iframe></center>
+    </div>
+    <div style="flex-basis: 100%;"></div>
+    <div class="race-card upcoming">
       <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3c1.png" alt="flag" class="race-medal">
       <div>
         <div class="race-title">
@@ -778,11 +831,10 @@
       </div>
     </div>
   </div>
-  </section>
-
-  <section id="donations">
-    <h3>Donations</h3>
-    <div class="donation-list">
+</section>
+<section id="donations">
+  <h3>Donations</h3>
+  <div class="donation-list">
     <div class="donation-item">
       <h4>Brajen Diagnosed With Cancer (Remetealapitvany.hu)</h4>
       <p>Brajen is a 15-year-old boy diagnosed with a rare, advanced cancer. He needs proton therapy in Vienna because local treatment risks damaging his eyesight. His family faces high travel and accommodation costs, and they are seeking financial support to help cover these expenses.</p>
@@ -790,7 +842,6 @@
       <p>Receipt: 0UT8157**********</p>
       <p><a href="https://www.remenyalapitvany.hu/tamogathato-gyerekek/brajen-megyaszo.html" target="_blank">Remetealapitvany.hu</a></p>
     </div>
-      
     <div class="donation-item">
       <h4>Heim Pál National Pediatric Institute</h4>
       <p>I have just made a donation to a Hungarian children’s hospital, aiming to support the healthcare needs of children there, not to any specific child. I’m trying to help out a little here too.</p>
@@ -798,7 +849,6 @@
       <p>Receipt: 5G6207083********</p>
       <p><a href="https://heimalap.hu" target="_blank">Heimalap.hu</a></p>
     </div>
-
     <div class="donation-item">
       <h4>Tibike Diagnosed Leukemia (Remetealapitvany.hu)</h4>
       <p>“In September 2024, Tibike was diagnosed with Acute Myeloid Leukemia (AML) after months of illness. He began chemotherapy, and his condition showed improvement by the end of October. He’s currently undergoing treatment with hopeful signs, though the process remains challenging for our family, both emotionally and financially. We are focused on his recovery and hopeful for a positive outcome.“</p>
@@ -806,7 +856,6 @@
       <p>Receipt: #PAYID-M6NV3ZA67X18654XC*******</p>
       <p><a href="https://www.remenyalapitvany.hu/tamogathato-gyerekek/tibi-leukemias.html" target="_blank">Remetealapitvany.hu</a></p>
     </div>
-
     <div class="donation-item">
       <h4>Lius Diagnosed Tumor (Remetealapitvany.hu)</h4>
       <p>“In May 2024, a small bump appeared on my daughter, Lia. Doctors initially thought it was harmless, but it grew larger, and she was diagnosed with a rare cancer, alveolar rhabdomyosarcoma, in October. After starting chemotherapy in Debrecen, she faced tough side effects, but showed signs of improvement. Our lives became a constant back-and-forth between the hospital and home, while dealing with the emotional and financial toll of her treatment.“</p>
@@ -824,7 +873,6 @@
       <p>Receipt: #PAYID-M5GM2EA8RJ4152********</p>
       <p><a href="https://www.remenyalapitvany.hu/tamogathato-gyerekek/renato-daganatos.html" target="_blank">Remetealapitvany.hu</a></p>
     </div>
-
     <div class="donation-item">
       <h4>Istvan Diagnosed Ewing Sarcoma (Remetealapitvany.hu)</h4>
       <p>“My son’s illness began in April 2024 with strange speech and a large swelling in his mouth. After tests in Miskolc, he was diagnosed with Ewing Sarcoma. The tumor spread quickly, blocking his airway, so a tube was inserted for oxygen. He’s undergoing chemotherapy (10 cycles done, 5 left) but still can’t eat solid food and will need a gastrostomy tube. Proton therapy is required in Wiener Neustadt, starting after a planning session. NEAK will cover the treatment, but travel costs are reimbursed later. We’re facing significant challenges with his care and recovery.“</p>
@@ -832,7 +880,6 @@
       <p>Receipt: #PAYID-M5GMVLI7ER9605**********</p>
       <p><a href="https://www.remenyalapitvany.hu/tamogathato-gyerekek/istvan-daganatos-beteg.html" target="_blank">Remetealapitvany.hu</a></p>
     </div>
-
     <div class="donation-item">
       <h4>Marko Diagnosed Tumor (Remetealapitvany.hu)</h4>
       <p>“From December 2021, Márkó started chemotherapy, and on April 11, 2022, he underwent surgery during which doctors removed the tumor on his adrenal gland and kidney along with the organs. The tumor was also present in the spinal cord, so he underwent a bone marrow transplant. On June 27, 2022, we were placed in a sterile box for a month. In September 2022, it became clear that the transplant had not been successful, and his illness had returned. Therefore, he needed chemotherapy again, followed by radiation therapy. He then started maintenance therapy, and we had high hopes that he would finally recover, but unfortunately, that was not the case. On May 15, 2024, it was discovered that the illness had relapsed and metastasized, with a tumor now appearing in the lymph nodes on the left side of his neck. On July 9, 2024, his chemotherapy treatment began in Budapest, which is now expected to be even more challenging than before. Currently, he is undergoing his fourth treatment, which had to be stopped due to very poor blood results. An MRI scan was done on September 27, and it revealed that Márkó cannot be operated on.“</p>
@@ -840,7 +887,6 @@
       <p>Receipt: #PAYID-M4OKL5Y54X4936**********</p>
       <p><a href="https://www.remenyalapitvany.hu/tamogathato-gyerekek/marko-869.html" target="_blank">Remetealapitvany.hu</a></p>
     </div>
-
     <div class="donation-item">
       <h4>Luna Majoros Diagnosed SMA</h4>
       <p>“Spinal muscular atrophy (SMA) is a genetically inherited disease. One of its common accompanying conditions is the almost inevitable development of scoliosis. Therefore, early diagnosis is crucial, as is the use of the most advanced procedures and equipment in treatment. Luna was diagnosed with the disease in January this year, and since then, she has undergone comprehensive examinations and has started medication.”</p>
@@ -848,7 +894,6 @@
       <p>Wise Receipt: #122869****</p>
       <p><a href="https://ma7.sk/tajaink/segitsuk-egyutt-a-csodat" target="_blank">Ma7.sk</a></p>
     </div>
-
     <div class="donation-item">
       <h4>Sagi Dominik Diagnosed Duchenne Muscular Dystrophy</h4>
       <p>“I believe that for almost everyone, the greatest joy in life is the birth of a child. We felt the same way, but our unclouded happiness did not last long. Our little boy, Dominik, was barely a year old when it was discovered that he was born with a genetic condition called Duchenne muscular dystrophy. As a result of this disease, Dominik will experience a gradual deterioration over the next few years due to the destruction of muscle cells. Although the process is slow, it is fatal.”</p>
@@ -856,7 +901,6 @@
       <p>Wise Receipt: #118537****</p>
       <p><a href="https://www.facebook.com/groups/153580627850387" target="_blank">facebook.com/groups/153580627850387</a></p>
     </div>
-
     <div class="donation-item">
       <h4>Penzes Annabella Diagnosed Brain Stem Tumor</h4>
       <p>“Our heart-wrenching story began in 2021 when, on a September day, our child hit their head at the nursery! A few weeks later, their left eye, and then the right, started to squint. We immediately went to the ophthalmologist, who recommended glasses and an eye patch. We started using them, but there was no improvement. I felt this couldn’t be simple childhood strabismus, so we sought a private ophthalmologist who immediately requested an MRI. Never in my worst nightmares did I imagine the diagnosis that would completely turn our lives upside down…”</p>
@@ -864,7 +908,6 @@
       <p>Wise Receipt: #115082****</p>
       <p><a href="https://www.facebook.com/100086878103265" target="_blank">facebook.com/100086878103265</a></p>
     </div>
-
     <div class="donation-item">
       <h4>Leimsider Szofi Diagnosed Cerebral Palsy</h4>
       <p>“Szofi was born very, very prematurely; she was smaller than a loaf of bread when she was born at 27 weeks and she also suffered a brain hemorrhage. Nine years have passed since then, and Szofi is developing well; she is smart, intelligent, and already goes to school. However, the brain hemorrhage did not disappear without a trace. Unfortunately, her movement is not at all like that of other children. Her condition is called cerebral palsy, which means brain-induced paralysis, and as a result, her right hand and right leg do not really serve her intentions.”</p>
@@ -872,7 +915,6 @@
       <p>Wise Receipt: #109953****</p>
       <p><a href="https://facebook.com/rozsa.leimsider" target="_blank">facebook.com/rozsa.leimsider</a></p>
     </div>
-
     <div class="donation-item">
       <h4>Micsko Benjamin Duchenne Muscular Dystrophy</h4>
       <p>“My name is Benjámin Micskó. I was born on 20. 02. 2020. I just turned 4 years old. I am a wonderful, cheerful, curious, ever-moving little boy. I was diagnosed with severe Duchenne Muscular Dystrophy”</p>
@@ -880,7 +922,6 @@
       <p>PayPal Receipt: 4J759212V73******</p>
       <p><a href="https://facebook.com/61556606205392" target="_blank">facebook.com/61556606205392</a></p>
     </div>
-
     <div class="donation-item">
       <h4>Northstowe Half Marathon/Cambridge Acorn Project</h4>
       <p>Cambridge Acorn Project provides life-changing support to children and their families who have experienced trauma and abuse and are living in poverty. That`s a small local charity that has a huge impact on families and communities across Cambridgeshire.</p>
@@ -888,7 +929,6 @@
       <p>Order ID: 660087149c**************</p>
       <p><a href="https://northstowehalf.co.uk" target="_blank">Northstowehalf.co.uk</a></p>
     </div>
-
     <div class="donation-item">
       <h4>Kneifel Adin Duchenne Muscular Dystrophy</h4>
       <p>“Adin’s mother and father noticed that their son had become quite loss of appetite, so they took him for a blood test. However, the cause of the loss of appetite was not what the parents expected. The liver function values and CK level were very high, leading to further investigations. Finally, on December 17, 2022, the results of the genetic test arrived, revealing that Ádin suffers from the extremely rare Duchenne Muscular Dystrophy.“</p>
@@ -896,7 +936,6 @@
       <p>PayPal Receipt: 3R341372L14****** and 3XU75955KU*******</p>
       <p><a href="https://adin.hu/en" target="_blank">Adin.hu/en</a></p>
     </div>
-
     <div class="donation-item">
       <h4>Jazmin SMA Diagnosed (Charity Run for Jasmin 18th of Feb @ Zalaegerszeg HU)</h4>
       <p>“Jasmine was born in August 2023 and lives with her family in Bocföld. The little girl arrived into her family with a significant genetic disease: the diagnosis is SMA I, spinal muscular atrophy.”</p>
@@ -904,7 +943,6 @@
       <p>Wise Transaction: #95100****</p>
       <p><a href="https://facebook.com/profile.php?id=61554431925585" target="_blank">facebook.com/profile.php?id=61554431925585</a></p>
     </div>
-
     <div class="donation-item">
       <h4>Tamas Galo SMA Diagnosed</h4>
       <p>“Tomika is a 5 years old, chatty, bubbly little boy. He was diagnosed with SMA 1 4,5 years ago and we are fighting for his recovery ever since…”</p>
@@ -912,7 +950,6 @@
       <p>Receipt numbers: #1078-48**, #1983-26**</p>
       <p><a href="https://egyuttgalotomikaert.hu/en" target="_blank">Egyuttgalotomikaert.hu/en</a></p>
     </div>
-
     <div class="donation-item">
       <h4>The Cogwheel Canter Running Fest 2023</h4>
       <p>Donation made by The Cogwheel Canter Running Fest 2023</p>
@@ -920,7 +957,6 @@
       <p>Reference: TCCRF2023-130-******</p>
       <p><a href="https://cogwheel5kcanter.co.uk" target="_blank">Cogwheel5kcanter.co.uk</a></p>
     </div>
-
     <div class="donation-item">
       <h4>Movember Men`s Health</h4>
       <p>Men’s mental health, innovative medical research, and groundbreaking tests and treatments for prostate cancer and testicular cancer.</p>
@@ -928,11 +964,8 @@
       <p>Receipt number: R-54079282-6785****</p>
       <p><a href="https://uk.movember.com" target="_blank">Uk.movember.com</a></p>
     </div>
-
   </div>
 </section>
-  </section>
-  
 <footer>
   <a href="https://www.linkedin.com/in/danielkohut">LinkedIn</a> |
   <a href="https://github.com/DanielKohut">GitHub</a> |
@@ -955,66 +988,102 @@
   </svg>
 </button>
 <script>
+  // Progress bar scrollhoz
+  window.addEventListener('scroll', function() {
+    const bar = document.getElementById('progress-bar');
+    const h = document.documentElement;
+    const percent = (window.scrollY) / (h.scrollHeight - h.clientHeight);
+    bar.style.width = (percent*100) + '%';
+  });
+
+  // Section fadeIn anim observer (section.visible class)
+  document.addEventListener('DOMContentLoaded', function() {
+    const sections = document.querySelectorAll('section');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.17 });
+    sections.forEach(sec => observer.observe(sec));
+  });
+
+  // Menü hamburger (mobil) + loader anim
   const toggleBtn = document.getElementById("menu-toggle");
   const nav = document.getElementById("nav");
+  const menuLoader = document.getElementById("menuLoader");
   toggleBtn.addEventListener("click", function() {
     nav.classList.toggle("active");
+    if(window.innerWidth < 769){
+      menuLoader.style.display = nav.classList.contains("active") ? "flex" : "none";
+    }
   });
   document.addEventListener('click', function(e) {
     if (!nav.contains(e.target) && !toggleBtn.contains(e.target)) {
       nav.classList.remove('active');
+      menuLoader.style.display = "none";
     }
   });
-</script>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-  const donations = document.querySelectorAll('.donation-item');
-  donations.forEach(function(item, idx) {
-    if(idx >= 4) item.classList.add('hidden-donation');
-  });
-});
 
-document.getElementById('show-more-donations').addEventListener('click', function() {
-  document.querySelectorAll('.hidden-donation').forEach(function(item) {
-    item.classList.remove('hidden-donation'); // helyes!
+  // Aktív nav menüpont
+  document.querySelectorAll('nav a').forEach(link => {
+    link.addEventListener('click', function(e){
+      document.querySelectorAll('nav a').forEach(l=>l.classList.remove('active'));
+      this.classList.add('active');
+      nav.classList.remove('active');
+      menuLoader.style.display = "none";
+    });
   });
-  this.style.display = 'none';
-});
-</script>
-<script>
+
+  // Light/dark mode váltó
+  const themeBtn = document.getElementById("theme-toggle");
+  const themeIcon = document.getElementById("themeIcon");
+  themeBtn.onclick = function(){
+    document.body.classList.toggle('dark');
+    // Moon/sun SVG swap
+    if(document.body.classList.contains('dark')){
+      themeIcon.querySelector('circle').setAttribute('stroke','#38bdf8');
+      themeIcon.querySelector('#moon').setAttribute('fill','#f0f9ff');
+    } else {
+      themeIcon.querySelector('circle').setAttribute('stroke','#2563eb');
+      themeIcon.querySelector('#moon').setAttribute('fill','#2563eb');
+    }
+  };
+
+  // Smooth scroll offset sticky headerhez + nav zárás
+  document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      let target = document.querySelector(this.getAttribute('href'));
+      if(target) {
+        const headerOffset = document.querySelector('header').offsetHeight || 0;
+        const elementPosition = target.getBoundingClientRect().top + window.pageYOffset;
+        const offsetPosition = elementPosition - headerOffset - 8;
+        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+      }
+      nav.classList.remove('active');
+      menuLoader.style.display = "none";
+    });
+  });
+
+  // Back to top button
   window.addEventListener('scroll', function() {
     const btn = document.getElementById('backToTop');
-    if (window.scrollY > 350) {
-      btn.classList.add('visible');
-    } else {
-      btn.classList.remove('visible');
-    }
+    if (window.scrollY > 350) btn.classList.add('visible');
+    else btn.classList.remove('visible');
   });
-
   document.getElementById('backToTop').onclick = function() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
-</script>
-<script>
-// Smooth scroll offset sticky headerhez
-document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function(e) {
-    e.preventDefault();
-    let target = document.querySelector(this.getAttribute('href'));
-    if(target) {
-      const headerOffset = document.querySelector('header').offsetHeight || 0;
-      const elementPosition = target.getBoundingClientRect().top + window.pageYOffset;
-      const offsetPosition = elementPosition - headerOffset - 8; // 8px extra padding
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
-    // Opció: zárja be mobil menüt is:
-    nav.classList.remove('active');
+  // Donation show more (ez marad)
+  document.addEventListener('DOMContentLoaded', function() {
+    const donations = document.querySelectorAll('.donation-item');
+    donations.forEach(function(item, idx) { if(idx >= 4) item.classList.add('hidden-donation'); });
+    document.getElementById('show-more-donations').addEventListener('click', function() {
+      document.querySelectorAll('.hidden-donation').forEach(item => item.classList.remove('hidden-donation'));
+      this.style.display = 'none';
+    });
   });
-});
 </script>
 </body>
 </html>
+
