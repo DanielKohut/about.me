@@ -1063,10 +1063,9 @@ document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
     renderer.domElement.className = 'three-cube-bg';
     container.appendChild(renderer.domElement);
 
-    const geometry = new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize);
-    // Keret (wireframe) generálás
+    const geometry = new THREE.IcosahedronGeometry(cubeSize, 0);
     const edges = new THREE.EdgesGeometry(geometry);
-    const material = new THREE.LineBasicMaterial({ color: 0x2563eb, linewidth: 3 });
+    const material = new THREE.LineBasicMaterial({ color: 0x38bdf8, linewidth: 2.4 });
     cube = new THREE.LineSegments(edges, material);
     scene.add(cube);
 
