@@ -6,104 +6,175 @@
   <title>Daniel Kohut Personal Blog</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
-    html {
-      scroll-behavior: smooth;
-    }
-
+    html { scroll-behavior: smooth; }
     body {
       font-family: 'Roboto', sans-serif;
       margin: 0;
       padding: 0;
-      background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+      background: radial-gradient(ellipse at 60% 15%, #38bdf8 0%, #2563eb 65%, #232526 110%);
+      /* Tech pöttyös SVG overlay */
+      background-image:
+        url('data:image/svg+xml;utf8,<svg width="42" height="42" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="21" cy="21" r="1" fill="%2338bdf8" fill-opacity="0.11"/></svg>');
+      background-repeat: repeat;
+      background-size: 170px 170px;
       color: #1f2937;
+      transition: background 0.5s;
     }
+    body.dark {
+      background: radial-gradient(ellipse at 60% 15%, #19202e 0%, #111827 70%, #060a13 120%);
+      background-image:
+        url('data:image/svg+xml;utf8,<svg width="42" height="42" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="21" cy="21" r="1" fill="%2338bdf8" fill-opacity="0.09"/></svg>');
+      color: #f0f4f8;
+    }
+    /* Scroll progress bar */
+    #progress-bar {
+      position: fixed;
+      top: 0; left: 0; height: 3px; z-index: 15000;
+      width: 0;
+      background: linear-gradient(90deg, #38bdf8 30%, #2563eb 90%);
+      border-radius: 0 8px 8px 0;
+      box-shadow: 0 1.5px 8px #2563eb33;
+      transition: width 0.25s;
+      pointer-events: none;
+    }
+    /* Dark mode */
+    .dark header, .dark .hero, .dark .timeline-event, .dark .cert-card, .dark .race-card, .dark .donation-item {
+      background-color: rgba(30,41,59,0.97) !important;
+      color: #e7ecf7 !important;
+      box-shadow: 0 6px 24px rgba(30,41,59,0.11) !important;
+    }
+    .dark .cert-badge, .dark .upcoming-badge { background: #38bdf8 !important; color: #19202e !important; }
+    .dark .elegant-more-btn { background: linear-gradient(90deg, #0f172a 85%, #334155 100%) !important; color: #e7ecf7 !important; }
+    .dark .elegant-more-btn:hover, .dark .elegant-more-btn:focus { background: linear-gradient(90deg, #2563eb 70%, #233876 100%) !important; color: #fff !important;}
+    .dark footer { background: #101926 !important; color: #dbeafe !important; }
+    .dark nav a.active { background: #1e293b !important; color: #38bdf8 !important;}
+    .dark #backToTop svg circle { fill: #38bdf8; }
+    .dark #backToTop svg path { stroke: #222a38 !important; }
 
     header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 10%;
-      background-color: rgba(249, 250, 251, 0.80);
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 10%; background-color: rgba(249, 250, 251, 0.85);
       border-bottom: 1px solid #e5e7eb;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
+      position: sticky; top: 0; z-index: 1000;
       backdrop-filter: blur(10px);
+      transition: background 0.5s;
     }
-
-    header h1 {
-      font-size: 2rem;
-      font-weight: 700;
-    }
-
-    nav {
-      display: flex;
-      gap: 20px;
-    }
-
+    .dark header { background-color: rgba(15, 23, 42, 0.85); border-bottom: 1px solid #233876; }
+    header h1 { font-size: 2rem; font-weight: 700; letter-spacing: 0.02em; }
+    nav { display: flex; gap: 24px; }
     nav a {
-      text-decoration: none;
-      color: #374151;
-      font-weight: 700;
-      transition: color 0.3s ease;
+      text-decoration: none; color: #374151; font-weight: 700;
+      padding: 4px 14px; border-radius: 8px;
+      transition: background 0.22s, color 0.22s, font-weight 0.13s;
+      font-size: 1.13rem; letter-spacing: 0.03em;
+      position: relative;
     }
-
-    nav a:hover {
-      color: #2563eb;
-    }
-
+    nav a.active, nav a:focus { background: #e8f0fe; color: #2563eb; font-weight: 800; }
+    nav a:hover { color: #2563eb; background: #e7f3ff; }
     #menu-toggle {
-      display: none;
-      background: none;
-      font-size: 2rem;
-      color: #374151;
-      border: none;
-      cursor: pointer;
+      display: none; background: none; font-size: 2rem; color: #374151;
+      border: none; cursor: pointer;
     }
-
+    /* Verified badge a profilkép mellett */
+    .verified-badge {
+      display: inline-block;
+      margin-left: 8px; vertical-align: middle;
+      width: 21px; height: 21px;
+      background: linear-gradient(135deg,#60a5fa,#2563eb 60%);
+      border-radius: 50%;
+      border: 2.5px solid #fff;
+      box-shadow: 0 2px 12px #2563eb33;
+      position: relative;
+    }
+    .verified-badge svg {
+      position: absolute; top: 2px; left: 2px; width: 16px; height: 16px;
+      display: block;
+    }
     .hero {
       text-align: center;
-      padding: 60px 10%;
-      background-color: #ffffff;
-      border-radius: 12px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+      padding: 56px 10%;
+      background-color: #ffffffd9;
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
       margin: 40px 10%;
       animation: fadeInUp 1s forwards;
+      /* Glass hatás */
+      backdrop-filter: blur(8px);
+      border: 1px solid #e0e7ef;
     }
-
     .hero img {
-      max-width: 100%;
-      height: auto;
-      margin: 20px 0;
-      border-radius: 8px;
+      max-width: 100%; height: auto; margin: 20px 0; border-radius: 8px;
+      box-shadow: 0 6px 22px #2563eb17;
+      transition: box-shadow 0.3s;
     }
-
-    iframe.strava-widget {
-      width: 300px;
-      height: 454px;
-      border: none;
-      border-radius: 8px;
-      margin-top: 20px;
-    }
-
+    .hero img:hover { box-shadow: 0 12px 42px #2563eb31; }
+    iframe.strava-widget { width: 300px; height: 454px; border: none; border-radius: 8px; margin-top: 20px; }
     section {
       padding: 50px 10%;
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeInUp 1s forwards;
+      opacity: 0; transform: translateY(30px) scale(0.97);
+      animation: fadeInUpSection 1.1s forwards;
+      animation-delay: 0.22s;
+      will-change: opacity, transform;
+      transition: box-shadow 0.35s, background 0.35s;
+      box-sizing: border-box;
     }
-
+    section.visible {
+      opacity: 1 !important;
+      transform: translateY(0) scale(1) !important;
+      transition: opacity 0.7s, transform 0.6s;
+    }
+    @keyframes fadeInUpSection {
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
     section h3 {
       font-size: 2.5rem;
       margin-bottom: 20px;
+      letter-spacing: 0.01em;
+      border-bottom: 2.5px solid #38bdf8;
+      display: inline-block;
+      padding-bottom: 6px;
+      background: linear-gradient(90deg, #38bdf8 33%, #2563eb 130%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text; text-fill-color: transparent;
+      font-weight: 900;
     }
-
-    section p {
-      font-size: 1.2rem;
-      line-height: 1.6;
+    section p { font-size: 1.2rem; line-height: 1.6; }
+    /* ... a további szekció/kártya stílusokat (timeline, cert, race, donation) meghagytam, de nem írom ki újra hogy spóroljunk karaktert ... */
+    /* Menü mobilon (hamburger) */
+    @media (max-width: 768px) {
+      nav {
+        position: absolute; top: 70px; left: 0; right: 0;
+        background: rgba(255, 255, 255, 0.96);
+        border-radius: 16px;
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+        flex-direction: column; align-items: flex-start;
+        padding: 15px 20px; display: none;
+        backdrop-filter: blur(12px); border: 1px solid rgba(0, 0, 0, 0.05);
+        width: 100vw; max-width: 100vw; min-width: 0; z-index: 9999;
+        animation: fadeInUpSection 0.5s;
+      }
+      nav.active { display: flex; }
+      nav a { margin: 12px 0; font-size: 1.1rem; width: 100%; }
+      #menu-toggle { display: block; }
     }
-
-    .timeline {
+    /* Menü loader animation csak mobilra */
+    @media (max-width: 768px) {
+      .menu-loader {
+        display: flex; align-items: center; margin-left: 12px;
+      }
+      .dot { width: 8px; height: 8px; border-radius: 50%; background: #2563eb; margin: 0 3px; opacity: 0; }
+      .dot1 { animation: pop 1s infinite 0.08s; }
+      .dot2 { animation: pop 1s infinite 0.18s; }
+      .dot3 { animation: pop 1s infinite 0.29s; }
+      @keyframes pop {
+        0% { opacity: 0; transform: scale(0.6);}
+        35% { opacity: 1; transform: scale(1.15);}
+        60% { opacity: 0; transform: scale(0.6);}
+        100% { opacity: 0;}
+      }
+    }
+        .timeline {
       position: relative;
       margin-left: 20px;
       padding-left: 20px;
@@ -555,24 +626,39 @@
         right: 14px;
       }
     }
-  </style>
 </head>
 <body>
+<div id="progress-bar"></div>
   <header>
-  <div class="header-profile">
-    <img src="https://media.licdn.com/dms/image/v2/D4E03AQEGBZAH-hKCHw/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1704651381091?e=1755734400&v=beta&t=-v6o15V2k95aKP6de7jZ5_aJVQ-7eos3TaXcWgHbVcc" alt="Daniel Kohut" class="header-pic">
-    <h1>Daniel Kohut</h1>
-  </div>
-  <nav id="nav">
-    <a href="#about">About</a>
-    <a href="#experience">Experience</a>
-    <a href="#certifications">Certifications</a>
-    <a href="#sports-activity">Sports Activity</a>
-    <a href="#donations">Donations</a>
-  </nav>
-  <button id="menu-toggle" aria-label="Menu">&#9776;</button>
-</header>
-
+    <div class="header-profile">
+      <img src="https://media.licdn.com/dms/image/v2/D4E03AQEGBZAH-hKCHw/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1704651381091?e=1755734400&v=beta&t=-v6o15V2k95aKP6de7jZ5_aJVQ-7eos3TaXcWgHbVcc" alt="Daniel Kohut" class="header-pic">
+      <!-- Verified badge (LinkedIn style) -->
+      <span class="verified-badge" title="Verified">
+        <svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8.5" stroke="#fff" stroke-width="1.5"/><path d="M7.7 11.3l1.8 1.7 3-4.2" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <h1>Daniel Kohut</h1>
+    </div>
+    <nav id="nav">
+      <a href="#about" class="active">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#sports-activity">Sports Activity</a>
+      <a href="#donations">Donations</a>
+    </nav>
+    <button id="menu-toggle" aria-label="Menu">&#9776;</button>
+    <span class="menu-loader" id="menuLoader" style="display:none;">
+      <span class="dot dot1"></span>
+      <span class="dot dot2"></span>
+      <span class="dot dot3"></span>
+    </span>
+    <!-- Light/Dark mód váltó -->
+    <button id="theme-toggle" style="margin-left:22px;background:none;border:none;cursor:pointer;" aria-label="Toggle theme">
+      <svg id="themeIcon" width="25" height="25" fill="none" viewBox="0 0 25 25">
+        <circle cx="12.5" cy="12.5" r="10" stroke="#2563eb" stroke-width="2"/>
+        <path id="moon" d="M15 12.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z" fill="#2563eb"/>
+      </svg>
+    </button>
+  </header>
 <section class="hero" id="about">
   <div class="hero-flex">
     <div class="hero-text">
@@ -955,66 +1041,109 @@
   </svg>
 </button>
 <script>
+  // Progress bar scrollhoz
+  window.addEventListener('scroll', function() {
+    const bar = document.getElementById('progress-bar');
+    const h = document.documentElement;
+    const percent = (window.scrollY) / (h.scrollHeight - h.clientHeight);
+    bar.style.width = (percent*100) + '%';
+  });
+
+  // Section fadeIn anim observer (section.visible class)
+  document.addEventListener('DOMContentLoaded', function() {
+    const sections = document.querySelectorAll('section');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.17 });
+    sections.forEach(sec => observer.observe(sec));
+  });
+
+  // Menü hamburger (mobil) + loader anim
   const toggleBtn = document.getElementById("menu-toggle");
   const nav = document.getElementById("nav");
+  const menuLoader = document.getElementById("menuLoader");
   toggleBtn.addEventListener("click", function() {
     nav.classList.toggle("active");
+    if(window.innerWidth < 769){
+      menuLoader.style.display = nav.classList.contains("active") ? "flex" : "none";
+    }
   });
   document.addEventListener('click', function(e) {
     if (!nav.contains(e.target) && !toggleBtn.contains(e.target)) {
       nav.classList.remove('active');
+      menuLoader.style.display = "none";
     }
   });
-</script>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-  const donations = document.querySelectorAll('.donation-item');
-  donations.forEach(function(item, idx) {
-    if(idx >= 4) item.classList.add('hidden-donation');
-  });
-});
 
-document.getElementById('show-more-donations').addEventListener('click', function() {
-  document.querySelectorAll('.hidden-donation').forEach(function(item) {
-    item.classList.remove('hidden-donation'); // helyes!
+  // Aktív nav menüpont
+  document.querySelectorAll('nav a').forEach(link => {
+    link.addEventListener('click', function(e){
+      document.querySelectorAll('nav a').forEach(l=>l.classList.remove('active'));
+      this.classList.add('active');
+      nav.classList.remove('active');
+      menuLoader.style.display = "none";
+    });
   });
-  this.style.display = 'none';
-});
-</script>
-<script>
+
+  // Light/dark mode váltó
+  const themeBtn = document.getElementById("theme-toggle");
+  const themeIcon = document.getElementById("themeIcon");
+  themeBtn.onclick = function(){
+    document.body.classList.toggle('dark');
+    // Moon/sun SVG swap
+    if(document.body.classList.contains('dark')){
+      themeIcon.querySelector('circle').setAttribute('stroke','#38bdf8');
+      themeIcon.querySelector('#moon').setAttribute('fill','#f0f9ff');
+    } else {
+      themeIcon.querySelector('circle').setAttribute('stroke','#2563eb');
+      themeIcon.querySelector('#moon').setAttribute('fill','#2563eb');
+    }
+  };
+
+  // Smooth scroll offset sticky headerhez + nav zárás
+  document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      let target = document.querySelector(this.getAttribute('href'));
+      if(target) {
+        const headerOffset = document.querySelector('header').offsetHeight || 0;
+        const elementPosition = target.getBoundingClientRect().top + window.pageYOffset;
+        const offsetPosition = elementPosition - headerOffset - 8;
+        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+      }
+      nav.classList.remove('active');
+      menuLoader.style.display = "none";
+    });
+  });
+
+  // Back to top button
   window.addEventListener('scroll', function() {
     const btn = document.getElementById('backToTop');
-    if (window.scrollY > 350) {
-      btn.classList.add('visible');
-    } else {
-      btn.classList.remove('visible');
-    }
+    if (window.scrollY > 350) btn.classList.add('visible');
+    else btn.classList.remove('visible');
   });
-
   document.getElementById('backToTop').onclick = function() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
-</script>
-<script>
-// Smooth scroll offset sticky headerhez
-document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function(e) {
-    e.preventDefault();
-    let target = document.querySelector(this.getAttribute('href'));
-    if(target) {
-      const headerOffset = document.querySelector('header').offsetHeight || 0;
-      const elementPosition = target.getBoundingClientRect().top + window.pageYOffset;
-      const offsetPosition = elementPosition - headerOffset - 8; // 8px extra padding
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
-    // Opció: zárja be mobil menüt is:
-    nav.classList.remove('active');
+  // Donation show more (ez marad)
+  document.addEventListener('DOMContentLoaded', function() {
+    const donations = document.querySelectorAll('.donation-item');
+    donations.forEach(function(item, idx) { if(idx >= 4) item.classList.add('hidden-donation'); });
+    document.getElementById('show-more-donations').addEventListener('click', function() {
+      document.querySelectorAll('.hidden-donation').forEach(item => item.classList.remove('hidden-donation'));
+      this.style.display = 'none';
+    });
   });
-});
 </script>
+<!-- A back-to-top button változatlanul -->
+<button id="backToTop" title="Back to top" style="position:fixed;bottom:38px;right:34px;z-index:9000;border:none;outline:none;background:none;padding:0;cursor:pointer;opacity:0;pointer-events:none;transition:opacity 0.25s;">
+  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" style="vertical-align:middle;">
+    <circle cx="14" cy="14" r="14" fill="#233876"/>
+    <path d="M9 16l5-5 5 5" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</button>
+<!-- A footer és a többi tartalom mehet, ahogy eddig is. -->
 </body>
 </html>
