@@ -1050,38 +1050,27 @@ document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
     // Ha már van canvas, ne csináljunk többet!
     if (container.querySelector('canvas')) return;
 
-    let cubeSize = 1;
-    if(window.innerWidth < 640){ cubeSize = 0.66; } // Mobilon kisebb
-    const geometry = new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize);
-
-    scene = new THREE.Scene();
-    camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.1, 100);
-    camera.position.z = 2.8;
-
-    renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.domElement.className = 'three-cube-bg';
-    container.appendChild(renderer.domElement);
-
-    // Kocka – átlátszó, színes, IT-hatású
-    const geometry = new THREE.BoxGeometry(1, 1, 1);
-    const material = new THREE.MeshPhysicalMaterial({
-      color: 0x2563eb,
-      metalness: 0.54,
-      roughness: 0.18,
-      transparent: true,
-      opacity: 0.33,
-      transmission: 0.98,   // üvegszerű áttetszőség
-      thickness: 0.6,
-      iridescence: 0.3,
-      iridescenceIOR: 1.15,
-      sheen: 0.5,
-      sheenRoughness: 0.37,
-      sheenColor: 0x38bdf8, // világoskék csillanás
-      clearcoat: 0.28
-    });
-    cube = new THREE.Mesh(geometry, material);
-    scene.add(cube);
+  let cubeSize = 1;
+  if(window.innerWidth < 640){ cubeSize = 0.66; } // Mobilon kisebb
+  const geometry = new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize);
+  
+  const material = new THREE.MeshPhysicalMaterial({
+    color: 0x2563eb,
+    metalness: 0.54,
+    roughness: 0.18,
+    transparent: true,
+    opacity: 0.33,
+    transmission: 0.98,   // üvegszerű áttetszőség
+    thickness: 0.6,
+    iridescence: 0.3,
+    iridescenceIOR: 1.15,
+    sheen: 0.5,
+    sheenRoughness: 0.37,
+    sheenColor: 0x38bdf8, // világoskék csillanás
+    clearcoat: 0.28
+  });
+  cube = new THREE.Mesh(geometry, material);
+  scene.add(cube);
 
     // Fények
     scene.add(new THREE.AmbientLight(0xffffff, 0.68));
