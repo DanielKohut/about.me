@@ -1061,13 +1061,14 @@ document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
     // Ha már van canvas, ne csináljunk többet!
     if (container.querySelector('canvas')) return;
 
-    let cubeSize = 1;
-    if(window.innerWidth < 640){ cubeSize = 0.66; } // Mobilon kisebb
+    // Mobilon kisebb legyen a méret és távolabb a kamera!
+    const isMobile = window.innerWidth < 640;
+    const cubeSize = isMobile ? 0.4 : 1;
+    const cameraZ = isMobile ? 4 : 2.8;
 
-    // Ezeket eddig kihagytad:
     scene = new THREE.Scene();
-    camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.1, 100);
-    camera.position.z = 2.8;
+    camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
+    camera.position.z = cameraZ;
 
     renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -1098,7 +1099,11 @@ document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
   }
 
   function onWindowResize() {
+    // Újraméretezéskor is figyeljünk, hogy mobil vagy desktop!
+    const isMobile = window.innerWidth < 640;
+    const cameraZ = isMobile ? 4 : 2.8;
     camera.aspect = window.innerWidth / window.innerHeight;
+    camera.position.z = cameraZ;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
   }
