@@ -555,9 +555,34 @@
         right: 14px;
       }
     }
+    #three-bg {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: 0;
+  pointer-events: none;    /* Ne lehessen kattintani rá, ne zavarjon */
+  overflow: hidden;
+}
+canvas.three-cube-bg {
+  display: block;
+  width: 100vw !important;
+  height: 100vh !important;
+  position: absolute;
+  top: 0; left: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.93;           /* Lehet még halványabbra venni */
+  filter: blur(0.1px);
+  /* Próbáld ki a filter: blur(0.5px) is, ha “lágyabb” kell */
+}
+body > *:not(#three-bg) {
+  position: relative;
+  z-index: 1;
+}
   </style>
+  <script src="https://unpkg.com/three@0.153.0/build/three.min.js"></script>
 </head>
 <body>
+  <div id="three-bg"></div>
   <header>
   <div class="header-profile">
     <img src="https://media.licdn.com/dms/image/v2/D4E03AQEGBZAH-hKCHw/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1704651381091?e=1755734400&v=beta&t=-v6o15V2k95aKP6de7jZ5_aJVQ-7eos3TaXcWgHbVcc" alt="Daniel Kohut" class="header-pic">
@@ -1015,6 +1040,70 @@ document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
     nav.classList.remove('active');
   });
 });
+</script>
+<script>
+(function() {
+  const container = document.getElementById('three-bg');
+  let renderer, scene, camera, cube, animationId;
+
+  function initThree() {
+    // Ha már van canvas, ne csináljunk többet!
+    if (container.querySelector('canvas')) return;
+
+    scene = new THREE.Scene();
+    camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.1, 100);
+    camera.position.z = 2.8;
+
+    renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.domElement.className = 'three-cube-bg';
+    container.appendChild(renderer.domElement);
+
+    // Kocka – átlátszó, színes, IT-hatású
+    const geometry = new THREE.BoxGeometry(1, 1, 1);
+    const material = new THREE.MeshPhysicalMaterial({
+      color: 0x2563eb,
+      metalness: 0.54,
+      roughness: 0.18,
+      transparent: true,
+      opacity: 0.55,
+      transmission: 0.98,   // üvegszerű áttetszőség
+      thickness: 0.6,
+      iridescence: 0.3,
+      iridescenceIOR: 1.15,
+      sheen: 0.5,
+      sheenRoughness: 0.37,
+      sheenColor: 0x38bdf8, // világoskék csillanás
+      clearcoat: 0.28
+    });
+    cube = new THREE.Mesh(geometry, material);
+    scene.add(cube);
+
+    // Fények
+    scene.add(new THREE.AmbientLight(0xffffff, 0.68));
+    const pointLight = new THREE.PointLight(0x60a5fa, 0.99, 6);
+    pointLight.position.set(2.7, 2.3, 2.2);
+    scene.add(pointLight);
+
+    animate();
+    window.addEventListener('resize', onWindowResize, false);
+  }
+
+  function animate() {
+    animationId = requestAnimationFrame(animate);
+    cube.rotation.x += 0.005;
+    cube.rotation.y += 0.011;
+    renderer.render(scene, camera);
+  }
+
+  function onWindowResize() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  }
+
+  document.addEventListener('DOMContentLoaded', initThree);
+})();
 </script>
 </body>
 </html>
