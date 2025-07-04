@@ -1050,6 +1050,10 @@ document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
     // Ha már van canvas, ne csináljunk többet!
     if (container.querySelector('canvas')) return;
 
+    let cubeSize = 1;
+    if(window.innerWidth < 640){ cubeSize = 0.66; } // Mobilon kisebb
+    const geometry = new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize);
+
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.1, 100);
     camera.position.z = 2.8;
@@ -1066,7 +1070,7 @@ document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
       metalness: 0.54,
       roughness: 0.18,
       transparent: true,
-      opacity: 0.55,
+      opacity: 0.33,
       transmission: 0.98,   // üvegszerű áttetszőség
       thickness: 0.6,
       iridescence: 0.3,
