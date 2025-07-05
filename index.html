@@ -589,6 +589,12 @@ body > *:not(#three-bg) {
   position: relative;
   z-index: 1;
 }
+@media (max-width: 640px) {
+  .hero {
+    background: #fff !important;
+    backdrop-filter: none !important;
+  }
+}
   </style>
   <script src="https://unpkg.com/three@0.153.0/build/three.min.js"></script>
 </head>
