@@ -590,16 +590,10 @@ body > *:not(#three-bg) {
   z-index: 1;
 }
 @media (max-width: 640px) {
-  header, nav {
-    position: sticky; /* vagy relative/fixed attól függően, menütől mit akarsz */
-    z-index: 1002;
-  }
-  .hero {
-    position: relative;
-    z-index: 2;
-  }
-  #three-bg {
-    z-index: 0;
+  nav {
+    background: #fff !important;     /* teljesen fehér, NE legyen áttetsző */
+    z-index: 9999 !important;        /* extra magas */
+    box-shadow: 0 12px 24px rgba(0,0,0,0.1);
   }
 }
   </style>
