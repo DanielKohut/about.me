@@ -589,11 +589,15 @@ body > *:not(#three-bg) {
   position: relative;
   z-index: 1;
 }
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   nav {
-    background: #fff !important;
-    z-index: 9999 !important;
-    /* Egyéb menüs CSS maradhat */
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 0;
+    background: #fff !important; /* FULLY OPAQUE */
+    z-index: 99999 !important; /* Higher than anything */
+    /* ...többi stílus */
   }
 }
   </style>
