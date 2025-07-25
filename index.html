@@ -573,7 +573,7 @@
   position: fixed;
   top: 0; left: 0; width: 100vw; height: 100vh;
   z-index: 0;
-  pointer-events: none;    /* Ne lehessen kattintani rá, ne zavarjon */
+  pointer-events: none;   
   overflow: hidden;
 }
 canvas.three-cube-bg {
@@ -584,13 +584,8 @@ canvas.three-cube-bg {
   top: 0; left: 0;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.93;           /* Lehet még halványabbra venni */
+  opacity: 0.93;           
   filter: blur(0.1px);
-  /* Próbáld ki a filter: blur(0.5px) is, ha “lágyabb” kell */
-}
-body > *:not(#three-bg) {
-  position: relative;
-  z-index: 1;
 }
   </style>
   <script src="https://unpkg.com/three@0.153.0/build/three.min.js"></script>
