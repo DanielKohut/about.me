@@ -397,42 +397,42 @@
         margin: 0 auto;
       }
     }
-    @media (max-width: 768px) {
-      nav {
-        position: absolute;
-        top: 70px;
-        left: 0; 
-        right: 0; 
-        background: rgba(255, 255, 255, 0.95);
-        border-radius: 16px;
-        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 15px 20px;
-        display: none;
-        backdrop-filter: blur(12px);
-        border: 1px solid rgba(0, 0, 0, 0.05);
-         width: 100vw;  /* Teljes viewport szélesség! */
-        max-width: 100vw;
-        min-width: 0;
-        z-index: 9999;
-      }
-      nav.active {
-        display: flex;
-      }
-      nav a {
-        margin: 12px 0;
-        font-size: 1.2rem;
-        width: 100%;
-        font-size: 1rem;
-      }
-      #menu-toggle {
-        display: block;
-      }
-    }
+  @media (max-width: 768px) {
     nav {
-      transition: all 0.3s ease-in-out;
+      position: absolute;
+      top: 70px;
+      left: 0; 
+      right: 0; 
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 16px;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 15px 20px;
+      display: none;
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      width: 100vw;  /* Teljes viewport szélesség! */
+      max-width: 100vw;
+      min-width: 0;
+      z-index: 10;  /* Alapból csak 10, hogy ne lógjon ki, ha valami bug van */
     }
+    nav.active {
+      display: flex;
+      z-index: 99999 !important; /* CSAK AKKOR LEGYEN ULTRAMAGAS, HA NYITVA VAN! */
+    }
+    nav a {
+      margin: 12px 0;
+      width: 100%;
+      font-size: 1rem;
+    }
+    #menu-toggle {
+      display: block;
+    }
+  }
+  nav {
+    transition: all 0.3s ease-in-out;
+  }
     .header-profile {
       display: flex;
       align-items: center;
