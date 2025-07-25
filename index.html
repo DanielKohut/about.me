@@ -397,35 +397,40 @@
         margin: 0 auto;
       }
     }
-  @media (max-width: 768px) {
+   @media (max-width: 768px) {
     nav {
-      position: fixed;
+      position: fixed !important;
       top: 0;
       left: 0;
       right: 0;
       width: 100vw;
+      height: 100vh;
       background: #fff !important;
       box-shadow: 0 12px 24px rgba(0,0,0,0.13);
       flex-direction: column;
       align-items: flex-start;
-      padding: 65px 20px 20px 20px; /* nagy top padding */
+      padding: 80px 20px 20px 20px; /* nagy top padding a header miatt */
       display: none;
       backdrop-filter: blur(12px);
-      border: 1px solid rgba(0,0,0,0.04);
-      z-index: 99999 !important;
+      border: none;
+      z-index: 100002 !important; /* NAGYOBB mint header, hero, minden más */
       border-radius: 0 !important;
     }
     nav.active {
-      display: flex;
+      display: flex !important;
     }
     nav a {
-      margin: 12px 0;
+      margin: 18px 0;
       width: 100%;
       font-size: 1.13rem;
     }
     #menu-toggle {
       display: block;
-      z-index: 100000;
+      z-index: 110000;
+    }
+    .hero, section, .hero-flex {
+      z-index: 1 !important;
+      position: relative;
     }
   }
   nav {
