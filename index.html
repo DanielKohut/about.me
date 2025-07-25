@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Daniel Kohut Personal Blog</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <style>
     html {
       scroll-behavior: smooth;
@@ -51,7 +52,18 @@
     nav a:hover {
       color: #2563eb;
     }
-
+    
+    nav a i {
+      margin-right: 8px;
+      font-size: 1.1em;
+      vertical-align: middle;
+      color: #2563eb; /* vagy ugyanaz, mint hover-kor */
+      transition: color 0.3s;
+    }
+    nav a:hover i {
+      color: #1e40af; /* kicsit sötétebb hover */
+    }
+    
     #menu-toggle {
       display: none;
       background: none;
@@ -597,11 +609,11 @@ canvas.three-cube-bg {
     <h1>Daniel Kohut</h1>
   </div>
   <nav id="nav">
-    <a href="#about">About</a>
-    <a href="#experience">Experience</a>
-    <a href="#certifications">Certifications</a>
-    <a href="#sports-activity">Sports Activity</a>
-    <a href="#donations">Donations</a>
+    <a href="#about"><i class="fa-solid fa-user"></i> About</a>
+    <a href="#experience"><i class="fa-solid fa-briefcase"></i> Experience</a>
+    <a href="#certifications"><i class="fa-solid fa-certificate"></i> Certifications</a>
+    <a href="#sports-activity"><i class="fa-solid fa-running"></i> Sports Activity</a>
+    <a href="#donations"><i class="fa-solid fa-hand-holding-heart"></i> Donations</a>
   </nav>
   <button id="menu-toggle" aria-label="Menu">&#9776;</button>
 </header>
