@@ -598,6 +598,32 @@ canvas.three-cube-bg {
   opacity: 0.93;           
   filter: blur(0.1px);
 }
+.email-float-btn {
+  position: fixed;
+  bottom: 18px;
+  right: 18px;
+  background: #2563eb;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 12px 18px;
+  border-radius: 50px;
+  text-decoration: none;
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
+  transition: all 0.25s ease;
+  z-index: 9999;
+}
+.email-float-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.45);
+}
+/* Csak mobilon látszódjon */
+@media (min-width: 769px) {
+  .email-float-btn {
+    display: none;
+  }
+}
   </style>
   <script src="https://unpkg.com/three@0.153.0/build/three.min.js"></script>
 </head>
@@ -1120,5 +1146,8 @@ document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
   document.addEventListener('DOMContentLoaded', initThree);
 })();
 </script>
+<a class="email-float-btn" href="mailto:daniel.kohut@example.com?subject=Opportunity%20for%20Daniel">
+  📧 Email Me
+</a>
 </body>
 </html>
