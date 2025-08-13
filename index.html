@@ -627,19 +627,25 @@ canvas.three-cube-bg {
 }
 /* Personal Records */
 .pr-wrap { margin-top: 30px; }
-.pr-title {
+
+.pr-title{
   margin: 0 0 12px 0;
   font-size: 1.4rem;
   color: #0b192f;
 }
 
-.pr-grid {
+/* Rács */
+.pr-grid{
   display: grid;
   grid-template-columns: repeat(4, minmax(180px, 1fr));
   gap: 14px;
 }
+@media (max-width: 1024px){ .pr-grid{ grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 768px) { .pr-grid{ grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .pr-grid{ grid-template-columns: 1fr; } }
 
-.pr-card {
+/* Kártya */
+.pr-card{
   background: rgba(255,255,255,0.82);
   backdrop-filter: blur(3px);
   border-radius: 12px;
@@ -648,56 +654,101 @@ canvas.three-cube-bg {
   border-left: 4px solid #2563eb;
   transition: transform .12s ease, box-shadow .2s ease;
 }
-.pr-card:hover {
+.pr-card:hover{
   transform: translateY(-2px);
   box-shadow: 0 8px 28px rgba(37,99,235,0.10);
 }
 
-.pr-line {
-  display: flex; align-items: baseline; justify-content: space-between;
+/* Felső sor: táv + idő */
+.pr-line{
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
   margin-bottom: 6px;
 }
-.pr-dist {
-  font-weight: 800; letter-spacing: .02em; color: #2563eb;
+.pr-dist{
+  font-weight: 800;
+  letter-spacing: .02em;
+  color: #2563eb;
 }
-.pr-time {
-  font-weight: 800; font-size: 1.15rem; color: #0b192f;
-}
-
-.pr-meta {
-  display: flex; gap: 10px; flex-wrap: wrap; font-size: .95rem; color: #64748b;
-}
-.pr-meta .pr-loc::before { content: "📍 "; }
-.pr-meta .pr-date::before { content: "📅 "; }
-
-.pr-link {
-  display: inline-block; margin-top: 8px; font-weight: 700; font-size: .95rem;
-  color: #2563eb; text-decoration: none;
-}
-.pr-link:hover { text-decoration: underline; }
-
-/* Üres / jövőbeli rekord stílusa */
-.pr-ghost { border-left-color: #94a3b8; opacity: .85; }
-
-/* Reszponzív rács */
-@media (max-width: 1024px) { .pr-grid { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 768px)  { .pr-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 480px)  { .pr-grid { grid-template-columns: 1fr; } }
-
-.pr-pace {
-  font-size: 0.9rem;
-  color: #475569;
-  margin-bottom: 2px;
+.pr-time{
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: #0b192f;
 }
 
-.pr-pace-wrap {
+/* Meta sorok */
+.pr-meta{
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: .95rem;
+  color: #64748b;
+}
+.pr-meta .pr-loc,
+.pr-meta .pr-date,
+.pr-meta .pr-pace{
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Ikonok CSAK CSS-ből (ne legyen emoji a HTML-ben) */
+.pr-loc::before,
+.pr-date::before,
+.pr-pace::before{
+  display: inline-block;
+  margin-right: 8px;
+}
+.pr-loc::before  { content: "📍"; }
+.pr-date::before { content: "📅"; }
+.pr-pace::before { content: "⏱"; margin-right: 6px; }
+
+/* Pace + link tördelése */
+.pr-pace-wrap{
   display: flex;
   flex-direction: column;
-  margin-top: 4px;
+  gap: 2px;
+  margin-top: 6px;
+}
+@media (min-width: 641px){
+  .pr-pace-wrap{
+    flex-direction: row;
+    align-items: center;
+    gap: 14px;
+    margin-top: 4px;
+  }
 }
 
-.pr-pace::before {
-  content: ""; 
+/* Link */
+.pr-link{
+  display: inline-block;
+  font-weight: 700;
+  font-size: .95rem;
+  color: #2563eb;
+  text-decoration: none;
+  margin-top: 6px;          /* mobilon külön sorban */
+}
+@media (min-width: 641px){
+  .pr-link{ margin-top: 0; } /* desktopon egy sorban a pace-szel */
+}
+.pr-link:hover{ text-decoration: underline; }
+
+/* Pace szín finomítása */
+.pr-pace{
+  font-size: 0.9rem;
+  color: #475569;
+}
+
+/* Üres / jövőbeli rekord stílusa */
+.pr-ghost{
+  border-left-color: #94a3b8;
+  opacity: .88;
+}
+/* Ghost kártyán ne legyenek ikonok a kötőjelek mellett */
+.pr-ghost .pr-loc::before,
+.pr-ghost .pr-date::before,
+.pr-ghost .pr-pace::before{
+  content: none;
 }
 </style>
 <script src="https://unpkg.com/three@0.153.0/build/three.min.js"></script>
@@ -829,10 +880,10 @@ canvas.three-cube-bg {
         <span class="pr-time">19:48</span>
       </div>
       <div class="pr-meta">
-        <span class="pr-loc">📍 Northstowe ParkRun</span>
-        <span class="pr-date">📅 09 Aug 2025</span>
+        <span class="pr-loc">Northstowe ParkRun</span>
+        <span class="pr-date">09 Aug 2025</span>
         <div class="pr-pace-wrap">
-          <span class="pr-pace">⏱ 3:57/km</span>
+          <span class="pr-pace">3:57/km</span>
           <a class="pr-link" href="https://www.strava.com/activities/15395796018" target="_blank" rel="noopener">View activity</a>
         </div>
       </div>
@@ -845,10 +896,10 @@ canvas.three-cube-bg {
         <span class="pr-time">40:43</span>
       </div>
       <div class="pr-meta">
-        <span class="pr-loc">📍 Histon</span>
-        <span class="pr-date">📅 03 Nov 2024</span>
+        <span class="pr-loc">Histon</span>
+        <span class="pr-date">03 Nov 2024</span>
         <div class="pr-pace-wrap">
-          <span class="pr-pace">⏱ 4:04/km</span>
+          <span class="pr-pace">4:04/km</span>
           <a class="pr-link" href="https://www.strava.com/activities/12811912732" target="_blank" rel="noopener">View activity</a>
         </div>
       </div>
@@ -861,31 +912,31 @@ canvas.three-cube-bg {
         <span class="pr-time">1:32:29</span>
       </div>
       <div class="pr-meta">
-        <span class="pr-loc">📍 Cambridge Half Marathon</span>
-        <span class="pr-date">📅 09 Mar 2025</span>
+        <span class="pr-loc">Cambridge Half Marathon</span>
+        <span class="pr-date">09 Mar 2025</span>
         <div class="pr-pace-wrap">
-          <span class="pr-pace">⏱ 4:22/km</span>
+          <span class="pr-pace">4:22/km</span>
           <a class="pr-link" href="https://www.strava.com/activities/13831772438" target="_blank" rel="noopener">View activity</a>
         </div>
       </div>
     </article>
 
-    <!-- Marathon -->
+    <!-- Marathon (ghost) -->
     <article class="pr-card pr-ghost">
       <div class="pr-line">
         <span class="pr-dist">Marathon</span>
         <span class="pr-time">—</span>
       </div>
       <div class="pr-meta">
-        <span class="pr-loc">📍 —</span>
-        <span class="pr-date">📅 —</span>
+        <span class="pr-loc">—</span>
+        <span class="pr-date">—</span>
         <div class="pr-pace-wrap">
-          <span class="pr-pace">⏱ —</span>
+          <span class="pr-pace">—</span>
         </div>
       </div>
     </article>
   </div>
-</div>
+  </div>
   <div style="flex-basis: 100%;"></div>
     <div class="race-list">
       <div class="race-card">
