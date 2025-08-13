@@ -685,10 +685,15 @@ canvas.three-cube-bg {
 @media (max-width: 480px)  { .pr-grid { grid-template-columns: 1fr; } }
 
 .pr-pace {
-  display: block; 
   font-size: 0.9rem;
-  color: #475569;       
-  margin-top: 2px;
+  color: #475569;
+  margin-bottom: 2px;
+}
+
+.pr-pace-wrap {
+  display: flex;
+  flex-direction: column;
+  margin-top: 4px;
 }
 
 .pr-pace::before {
@@ -812,67 +817,75 @@ canvas.three-cube-bg {
 
   <section id="sports-activity">
   <h3>Sports Activity (Past 12 months) <span style="font-size:1.2em;">🏃‍♂️</span></h3>
-  <!-- Personal Records -->
-  <div class="pr-wrap">
-    <h4 class="pr-title">Personal Records</h4>
-    <div class="pr-grid">
-      <article class="pr-card">
-        <div class="pr-line">
-          <span class="pr-dist">5K</span>
-          <span class="pr-time">19:48</span>
+<!-- Personal Records -->
+<div class="pr-wrap">
+  <h4 class="pr-title">Personal Records</h4>
+  <div class="pr-grid">
+
+    <!-- 5K -->
+    <article class="pr-card">
+      <div class="pr-line">
+        <span class="pr-dist">5K</span>
+        <span class="pr-time">19:48</span>
+      </div>
+      <div class="pr-meta">
+        <span class="pr-loc">📍 Northstowe ParkRun</span>
+        <span class="pr-date">📅 09 Aug 2025</span>
+        <div class="pr-pace-wrap">
+          <span class="pr-pace">⏱ 3:57/km</span>
+          <a class="pr-link" href="https://www.strava.com/activities/15395796018" target="_blank" rel="noopener">View activity</a>
         </div>
-        <div class="pr-meta">
-          <span class="pr-loc">📍 Northstowe ParkRun</span>
-          <span class="pr-date">📅 09 Aug 2025</span>
-          
-          <!-- Pace új sorban -->
-          <div class="pr-pace-wrap">
-            <span class="pr-pace">⏱ 3:57/km</span>
-            <a class="pr-link" href="https://www.strava.com/activities/15395796018" target="_blank" rel="noopener">View activity</a>
-          </div>
-        </div>
-      </article>
-    </div>
-    </div>
-  
-      <article class="pr-card">
-        <div class="pr-line">
-          <span class="pr-dist">10K</span>
-          <span class="pr-time">40:43</span>
-        </div>
-        <div class="pr-meta">
-          <span class="pr-loc">Histon</span>
-          <span class="pr-date">03 Nov 2024</span>
+      </div>
+    </article>
+
+    <!-- 10K -->
+    <article class="pr-card">
+      <div class="pr-line">
+        <span class="pr-dist">10K</span>
+        <span class="pr-time">40:43</span>
+      </div>
+      <div class="pr-meta">
+        <span class="pr-loc">📍 Histon</span>
+        <span class="pr-date">📅 03 Nov 2024</span>
+        <div class="pr-pace-wrap">
           <span class="pr-pace">⏱ 4:04/km</span>
           <a class="pr-link" href="https://www.strava.com/activities/12811912732" target="_blank" rel="noopener">View activity</a>
         </div>
-      </article>
-  
-      <article class="pr-card">
-        <div class="pr-line">
-          <span class="pr-dist">½ Marathon</span>
-          <span class="pr-time">1:32:29</span>
+      </div>
+    </article>
+
+    <!-- Half Marathon -->
+    <article class="pr-card">
+      <div class="pr-line">
+        <span class="pr-dist">½ Marathon</span>
+        <span class="pr-time">1:32:29</span>
+      </div>
+      <div class="pr-meta">
+        <span class="pr-loc">📍 Cambridge Half Marathon</span>
+        <span class="pr-date">📅 09 Mar 2025</span>
+        <div class="pr-pace-wrap">
           <span class="pr-pace">⏱ 4:22/km</span>
-        </div>
-        <div class="pr-meta">
-          <span class="pr-loc">Cambridge Half Marathon</span>
-          <span class="pr-date">09 Mar 2025</span>
           <a class="pr-link" href="https://www.strava.com/activities/13831772438" target="_blank" rel="noopener">View activity</a>
         </div>
-      </article>
-  
-      <article class="pr-card pr-ghost">
-        <div class="pr-line">
-          <span class="pr-dist">Marathon</span>
-          <span class="pr-time">—</span>
+      </div>
+    </article>
+
+    <!-- Marathon -->
+    <article class="pr-card pr-ghost">
+      <div class="pr-line">
+        <span class="pr-dist">Marathon</span>
+        <span class="pr-time">—</span>
+      </div>
+      <div class="pr-meta">
+        <span class="pr-loc">📍 —</span>
+        <span class="pr-date">📅 —</span>
+        <div class="pr-pace-wrap">
+          <span class="pr-pace">⏱ —</span>
         </div>
-        <div class="pr-meta">
-          <span class="pr-loc">—</span>
-          <span class="pr-date">—</span>
-        </div>
-      </article>
-    </div>
+      </div>
+    </article>
   </div>
+</div>
   <div style="flex-basis: 100%;"></div>
     <div class="race-list">
       <div class="race-card">
