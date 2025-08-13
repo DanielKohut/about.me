@@ -683,6 +683,17 @@ canvas.three-cube-bg {
 @media (max-width: 1024px) { .pr-grid { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 768px)  { .pr-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 480px)  { .pr-grid { grid-template-columns: 1fr; } }
+
+.pr-pace {
+  display: block; 
+  font-size: 0.9rem;
+  color: #475569;       
+  margin-top: 2px;
+}
+
+.pr-pace::before {
+  content: ""; 
+}
 </style>
 <script src="https://unpkg.com/three@0.153.0/build/three.min.js"></script>
 </head>
