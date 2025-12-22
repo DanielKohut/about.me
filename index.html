@@ -44,6 +44,7 @@
       --upcoming-bg: linear-gradient(105deg, rgba(224,242,254,0.82) 85%, rgba(240,249,255,0.82) 100%);
       --upcoming-border: rgba(14,165,233,0.45);
       --upcoming-title: var(--accent);
+      --nav-panel-bg: rgba(255, 255, 255, 0.93);
     }
 
     :root[data-theme="dark"] {
@@ -68,6 +69,7 @@
       --upcoming-bg: linear-gradient(105deg, rgba(13, 27, 42, 0.82) 85%, rgba(2, 6, 23, 0.82) 100%);
       --upcoming-border: rgba(45,212,191,0.35);
       --upcoming-title: #e5e7eb;
+      --nav-panel-bg: rgba(2, 6, 23, 0.92);
     }
     html {
       scroll-behavior: smooth;
@@ -504,7 +506,7 @@
         left: 0;
         right: 0;
         width: 100vw;
-        background: rgba(255, 255, 255, 0.93) !important;
+        background: var(--nav-panel-bg) !important;
         box-shadow: 0 12px 24px rgba(0,0,0,0.13);
         flex-direction: column;
         align-items: flex-start;
@@ -515,6 +517,12 @@
         z-index: 100002 !important;
         border-radius: 0 !important;
       }
+    @media (max-width: 768px) {
+      nav a i {
+        color: var(--accent) !important;
+        }
+      }
+      
       nav.active {
         display: flex !important;
       }
@@ -522,6 +530,7 @@
         margin: 18px 0;
         width: 100%;
         font-size: 1.13rem;
+        color: var(--nav-text) !important;
       }
       #menu-toggle {
         display: block;
