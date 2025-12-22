@@ -969,6 +969,22 @@
     :root[data-theme="dark"] .race-card .race-result {
     color: color-mix(in srgb, var(--accent) 60%, var(--text)) !important;
     }
+
+    /* Dark mode – normalize all links */
+    :root[data-theme="dark"] a,
+    :root[data-theme="dark"] a:visited {
+      color: #ffffff !important;
+      text-decoration: underline;
+      text-decoration-color: rgba(255,255,255,0.6);
+      text-underline-offset: 3px;
+    }
+    
+    /* Hover / focus – finom accent */
+    :root[data-theme="dark"] a:hover,
+    :root[data-theme="dark"] a:focus-visible {
+      color: var(--accent) !important;
+      text-decoration-color: var(--accent);
+    }
     
   </style>
   
