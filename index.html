@@ -28,26 +28,46 @@
       --text:#0b1220;
       --muted:#516074;
 
-      /* Accent palette (CHANGE THESE to restyle site fast) */
       --accent:#14b8a6;     /* teal */
       --accent2:#0ea5e9;    /* sky */
 
       --border: rgba(15,23,42,0.10);
       --shadow: 0 10px 40px rgba(2,8,23,0.06);
+
+      --header-bg: rgba(249, 250, 251, 0.80);
+      --nav-text: #374151;
+      --hero-bg: rgba(255,255,255,0.72);
+    
+      --card-solid: rgba(255,255,255,0.78);
+    
+      /* upcoming highlight (light) */
+      --upcoming-bg: linear-gradient(105deg, rgba(224,242,254,0.82) 85%, rgba(240,249,255,0.82) 100%);
+      --upcoming-border: rgba(14,165,233,0.45);
+      --upcoming-title: var(--accent);
     }
 
     :root[data-theme="dark"] {
-      --bg1: #0b1220;       /* mély kékes-szürke */
-      --bg2: #020617;       /* majdnem fekete */
+      --bg1: #0b1220; 
+      --bg2: #020617;    
     
       --card: rgba(15,23,42,0.75);
       --text: #e5e7eb;
       --muted: #9ca3af;
     
-      --accent: #2dd4bf;    /* világosabb teal sötéten */
+      --accent: #2dd4bf; 
       --accent2: #38bdf8;
     
       --border: rgba(148,163,184,0.12);
+      --header-bg: rgba(2, 6, 23, 0.72);
+      --nav-text: #e5e7eb;
+      --hero-bg: rgba(15, 23, 42, 0.72);
+    
+      --card-solid: rgba(15, 23, 42, 0.75);
+    
+      /* upcoming highlight (dark) */
+      --upcoming-bg: linear-gradient(105deg, rgba(13, 27, 42, 0.82) 85%, rgba(2, 6, 23, 0.82) 100%);
+      --upcoming-border: rgba(45,212,191,0.35);
+      --upcoming-title: #e5e7eb;
     }
     html {
       scroll-behavior: smooth;
