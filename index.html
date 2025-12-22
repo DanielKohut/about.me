@@ -540,44 +540,63 @@
       margin-top: 7px;
     }
 
-/* Back to top – accent style (SVG-safe, no square background) */
+/* Back to top  */
+
+#backToTop {
+  all: unset !important;
+  position: fixed !important;
+  bottom: 38px !important;
+  right: 34px !important;
+  z-index: 9000 !important;
+  cursor: pointer !important;
+
+  /* hard reset */
+  background: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+  border: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  line-height: 0 !important;
+}
+
+#backToTop * {
+  background: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
 
 .backtotop-bg {
-  fill: var(--accent);
-  transition: fill 0.25s ease;
+  fill: var(--accent) !important;
+  transition: fill 0.25s ease !important;
 }
 
 #backToTop:hover .backtotop-bg {
-  fill: color-mix(in srgb, var(--accent) 75%, black);
+  fill: color-mix(in srgb, var(--accent) 75%, black) !important;
 }
 
-#backToTop {
-  all: unset;
-  position: fixed;
-  bottom: 38px;
-  right: 34px;
-  z-index: 9000;
-  cursor: pointer;
-}
-
-/* IMPORTANT: no box-shadow here */
+/* SVG: box-shadow OFF, drop-shadow ON */
 #backToTop svg {
-  display: block;
+  display: block !important;
+  width: 28px !important;
+  height: 28px !important;
+
   background: transparent !important;
-  border-radius: 0 !important;     /* nem kell SVG-n */
-  box-shadow: none !important;     /* EZ okozza a négyzetet */
-  filter: drop-shadow(0 8px 28px rgba(20,184,166,0.35));
-  transition: transform 0.18s ease, filter 0.18s ease;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+
+  filter: drop-shadow(0 8px 28px rgba(20,184,166,0.35)) !important;
+  transition: transform 0.18s ease, filter 0.18s ease !important;
 }
 
 #backToTop:hover svg {
-  transform: translateY(-2px) scale(1.05);
-  filter: drop-shadow(0 12px 36px rgba(20,184,166,0.45));
+  transform: translateY(-2px) scale(1.05) !important;
+  filter: drop-shadow(0 12px 36px rgba(20,184,166,0.45)) !important;
 }
 
 #backToTop:focus,
 #backToTop:active {
-  outline: none;
+  outline: none !important;
 }
     
     /* --- CSS Menu for Desktop --- */
