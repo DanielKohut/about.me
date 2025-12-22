@@ -109,7 +109,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 20px 10%;
-      background-color: rgba(249, 250, 251, 0.80);
+      background-color: var(--header-bg);
       border-bottom: 1px solid rgba(15,23,42,0.08);
       position: sticky;
       top: 0;
@@ -131,7 +131,7 @@
 
     nav a {
       text-decoration: none;
-      color: #374151;
+      color: var(--nav-text);
       font-weight: 700;
       transition: color 0.3s ease;
     }
@@ -163,7 +163,7 @@
     .hero {
       text-align: center;
       padding: 60px 10%;
-      background: rgba(255,255,255,0.72);
+      background: var(--hero-bg);
       backdrop-filter: blur(3px);
       border-radius: 12px;
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
@@ -171,6 +171,7 @@
       animation: fadeInUp 1s forwards;
       position: relative;
       z-index: 1;
+      color: var(--text);
     }
 
     .hero img {
@@ -425,7 +426,7 @@
     }
     .race-title {
       font-weight: 700;
-      color: var(--accent);
+      color: var(--upcoming-title);
       font-size: 1.1em;
       margin-bottom: 4px;
     }
@@ -440,8 +441,8 @@
       font-size: 1em;
     }
     .race-card.upcoming {
-      border: 2.5px solid color-mix(in srgb, var(--accent2) 70%, transparent);
-      background: linear-gradient(105deg, rgba(224,242,254,0.82) 85%, rgba(240,249,255,0.82) 100%);
+      border: 2.5px solid var(--upcoming-border);
+      background: background: var(--upcoming-bg);
       backdrop-filter: blur(3px);
       position: relative;
     }
@@ -562,8 +563,8 @@
     }
 
     .cert-card.upcoming {
-      border: 2.5px solid color-mix(in srgb, var(--accent2) 70%, transparent);
-      background: linear-gradient(105deg, rgba(224, 242, 254, 0.82) 85%, rgba(240, 249, 255, 0.82) 100%);
+      border: 2.5px solid var(--upcoming-border);
+      background: var(--upcoming-bg);
       backdrop-filter: blur(3px);
       position: relative;
       box-shadow: 0 6px 24px rgba(2,8,23,0.08);
