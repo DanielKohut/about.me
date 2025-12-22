@@ -4,19 +4,65 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Daniel Kohut Personal Blog</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <!-- Fonts (UPDATED) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
   <style>
+    /* =========================
+       THEME VARIABLES (NEW)
+       ========================= */
+    :root{
+      --bg1:#f6f7fb;
+      --bg2:#e9eef6;
+
+      --card: rgba(255,255,255,0.78);
+      --text:#0b1220;
+      --muted:#516074;
+
+      /* Accent palette (CHANGE THESE to restyle site fast) */
+      --accent:#14b8a6;     /* teal */
+      --accent2:#0ea5e9;    /* sky */
+
+      --border: rgba(15,23,42,0.10);
+      --shadow: 0 10px 40px rgba(2,8,23,0.06);
+    }
+
     html {
       scroll-behavior: smooth;
     }
 
     body {
-      font-family: 'Roboto', sans-serif;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
       margin: 0;
       padding: 0;
-      background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
-      color: #1f2937;
+      background: linear-gradient(135deg, var(--bg1), var(--bg2));
+      color: var(--text);
+    }
+
+    h1,h2,h3,h4,h5{
+      font-family: "Space Grotesk", Inter, system-ui, sans-serif;
+      letter-spacing: -0.02em;
+    }
+
+    /* =========================
+       REUSABLE CARD (NEW)
+       ========================= */
+    .card{
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(6px);
+      transition: transform 0.15s ease, box-shadow 0.2s ease;
+    }
+    .card--accent{
+      border-left: 4px solid var(--accent);
+    }
+    .card:hover{
+      transform: translateY(-2px);
     }
 
     header {
@@ -25,7 +71,7 @@
       align-items: center;
       padding: 20px 10%;
       background-color: rgba(249, 250, 251, 0.80);
-      border-bottom: 1px solid #e5e7eb;
+      border-bottom: 1px solid rgba(15,23,42,0.08);
       position: sticky;
       top: 0;
       z-index: 1000;
@@ -35,11 +81,13 @@
     header h1 {
       font-size: 2rem;
       font-weight: 700;
+      margin: 0;
     }
 
     nav {
       display: flex;
       gap: 20px;
+      transition: all 0.3s ease-in-out;
     }
 
     nav a {
@@ -50,20 +98,20 @@
     }
 
     nav a:hover {
-      color: #2563eb;
+      color: var(--accent);
     }
-    
+
     nav a i {
       margin-right: 8px;
       font-size: 1.1em;
       vertical-align: middle;
-      color: #2563eb; /* vagy ugyanaz, mint hover-kor */
+      color: var(--accent);
       transition: color 0.3s;
     }
     nav a:hover i {
-      color: #1e40af; /* kicsit sötétebb hover */
+      color: var(--accent2);
     }
-    
+
     #menu-toggle {
       display: none;
       background: none;
@@ -82,6 +130,8 @@
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
       margin: 40px 10%;
       animation: fadeInUp 1s forwards;
+      position: relative;
+      z-index: 1;
     }
 
     .hero img {
@@ -104,11 +154,20 @@
       opacity: 0;
       transform: translateY(30px);
       animation: fadeInUp 1s forwards;
+      position: relative;
+      z-index: 1;
     }
 
     section h3 {
       font-size: 2.5rem;
       margin-bottom: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    section h3 i{
+      color: var(--accent);
+      font-size: 0.95em;
     }
 
     section p {
@@ -120,17 +179,13 @@
       position: relative;
       margin-left: 20px;
       padding-left: 20px;
-      border-left: 4px solid #2563eb;
+      border-left: 4px solid var(--accent);
     }
 
     .timeline-event {
       position: relative;
-      background: rgba(255,255,255,0.82);
-      backdrop-filter: blur(3px);
-      border-radius: 8px;
       padding: 20px;
       margin-bottom: 30px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     }
 
     .timeline-event::before {
@@ -140,21 +195,21 @@
       top: 20px;
       width: 16px;
       height: 16px;
-      background-color: rgba(37, 99, 235, 0.82);
+      background-color: color-mix(in srgb, var(--accent) 82%, transparent);
       backdrop-filter: blur(3px);
       border-radius: 50%;
-      border: 3px solid #f0f4f8;
+      border: 3px solid var(--bg1);
     }
 
     .timeline-event h4 {
       margin: 0 0 10px;
       font-size: 1.3rem;
-      color: #2563eb;
+      color: var(--accent);
     }
 
     .timeline-event h5 {
       margin: 0 0 10px;
-      font-weight: 500;
+      font-weight: 600;
       color: #111827;
     }
 
@@ -184,12 +239,7 @@
     }
 
     .donation-item {
-      background: rgba(255,255,255,0.82);
-      backdrop-filter: blur(3px);
-      border-left: 4px solid #2563eb;
       padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     }
 
     .donation-item h4 {
@@ -204,12 +254,14 @@
     footer {
       text-align: center;
       padding: 20px 10%;
-      background-color: #1f2937;
+      background-color: #0b1220;
       color: #f9fafb;
       opacity: 0;
       transform: translateY(30px);
       animation: fadeInUp 1s forwards;
       animation-delay: 1s;
+      position: relative;
+      z-index: 1;
     }
 
     footer a {
@@ -220,7 +272,7 @@
     }
 
     footer a:hover {
-      color: #60a5fa;
+      color: var(--accent2);
     }
 
     @keyframes fadeInUp {
@@ -230,7 +282,7 @@
       }
     }
 
- /* Hamburger icon */
+    /* Hamburger icon (kept) */
     #menu-toggle {
       display: none;
       background: none;
@@ -246,10 +298,6 @@
       gap: 18px;
     }
     .cert-card {
-      background: rgba(255,255,255,0.82);
-      backdrop-filter: blur(3px);
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
       display: flex;
       align-items: center;
       gap: 16px;
@@ -259,7 +307,7 @@
     }
     .cert-card:hover {
       transform: translateY(-3px) scale(1.03);
-      box-shadow: 0 6px 26px rgba(37,99,235,0.10);
+      box-shadow: 0 6px 26px rgba(2,8,23,0.12);
     }
     .cert-logo {
       width: 48px;
@@ -274,6 +322,7 @@
     @media (max-width: 768px) {
       .cert-list { flex-direction: column; gap: 12px; }
     }
+
     .hero-flex {
       display: flex;
       align-items: center;
@@ -288,12 +337,12 @@
       border-radius: 50%;
       object-fit: cover;
       border: 5px solid #fff;
-      box-shadow: 0 6px 28px rgba(38,99,235,0.13), 0 0 0 4px #2563eb10;
+      box-shadow: 0 6px 28px rgba(2,8,23,0.10), 0 0 0 4px rgba(20,184,166,0.08);
       background: #fff;
       transition: box-shadow 0.3s;
     }
     .profile-pic:hover {
-      box-shadow: 0 12px 32px rgba(38,99,235,0.22), 0 0 0 6px #2563eb33;
+      box-shadow: 0 12px 32px rgba(2,8,23,0.14), 0 0 0 6px rgba(20,184,166,0.18);
     }
     .hero-text {
       text-align: left;
@@ -306,20 +355,18 @@
       }
       .hero-text { text-align: center; }
     }
+
     .race-list {
       display: flex;
       flex-wrap: wrap;
       gap: 32px;
       margin-top: 32px;
       justify-content: center;
-    } 
+    }
     .race-card {
       display: flex;
       align-items: center;
-      background: rgba(255,255,255,0.82);
-      backdrop-filter: blur(3px);
       border-radius: 14px;
-      box-shadow: 0 4px 18px rgba(0,0,0,0.07);
       padding: 18px 28px;
       min-width: 300px;
       max-width: 350px;
@@ -330,7 +377,7 @@
     }
     .race-card:hover {
       transform: translateY(-3px) scale(1.03);
-      box-shadow: 0 6px 26px rgba(37,99,235,0.10);
+      box-shadow: 0 6px 26px rgba(2,8,23,0.12);
     }
     .race-medal {
       width: 40px;
@@ -339,7 +386,7 @@
     }
     .race-title {
       font-weight: 700;
-      color: #2563eb;
+      color: var(--accent);
       font-size: 1.1em;
       margin-bottom: 4px;
     }
@@ -349,19 +396,19 @@
     }
     .race-result {
       color: #0b192f;
-      font-weight: 500;
+      font-weight: 600;
       margin-top: 5px;
       font-size: 1em;
     }
     .race-card.upcoming {
-  border: 2.5px solid #38bdf8;
-  background: linear-gradient(105deg, rgba(224,242,254,0.82) 85%, rgba(240,249,255,0.82) 100%);
-  backdrop-filter: blur(3px);
-  position: relative;
+      border: 2.5px solid color-mix(in srgb, var(--accent2) 70%, transparent);
+      background: linear-gradient(105deg, rgba(224,242,254,0.82) 85%, rgba(240,249,255,0.82) 100%);
+      backdrop-filter: blur(3px);
+      position: relative;
     }
     .upcoming-badge {
       display: inline-block;
-      background: rgba(37, 99, 235, 0.82); 
+      background: color-mix(in srgb, var(--accent) 82%, transparent);
       backdrop-filter: blur(3px);
       color: #fff;
       font-size: 0.82em;
@@ -371,9 +418,10 @@
       vertical-align: middle;
       letter-spacing: 0.5px;
     }
-      .cert-badge {
+
+    .cert-badge {
       display: inline-block;
-      background: rgba(37, 99, 235, 0.82);  /* Kék, alapból az upcoming */
+      background: color-mix(in srgb, var(--accent) 82%, transparent);
       color: #fff;
       font-size: 0.82em;
       font-weight: 700;
@@ -382,15 +430,14 @@
       margin-left: 10px;
       vertical-align: middle;
       letter-spacing: 0.5px;
+      backdrop-filter: blur(3px);
     }
     .cert-badge.inprogress {
-      background: rgba(34, 197, 94, 0.82); /* Zöld, pl. Tailwind Emerald 500 */
+      background: rgba(34, 197, 94, 0.82);
       backdrop-filter: blur(3px);
       color: #fff;
     }
-    .race-card.upcoming .race-medal {
-      filter: none;
-    }
+
     @media (max-width: 768px) {
       .race-list {
         flex-direction: column;
@@ -409,62 +456,61 @@
         margin: 0 auto;
       }
     }
-   @media (max-width: 768px) {
-    nav {
-      position: fixed !important;
-      top: 0;
-      left: 0;
-      right: 0;
-      width: 100vw;
-      background: rgba(255, 255, 255, 0.93) !important;
-      box-shadow: 0 12px 24px rgba(0,0,0,0.13);
-      flex-direction: column;
-      align-items: flex-start;
-      padding: 80px 20px 20px 20px; /* nagy top padding a header miatt */
-      display: none;
-      backdrop-filter: blur(12px);
-      border: none;
-      z-index: 100002 !important; /* NAGYOBB mint header, hero, minden más */
-      border-radius: 0 !important;
+
+    @media (max-width: 768px) {
+      nav {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100vw;
+        background: rgba(255, 255, 255, 0.93) !important;
+        box-shadow: 0 12px 24px rgba(0,0,0,0.13);
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 80px 20px 20px 20px;
+        display: none;
+        backdrop-filter: blur(12px);
+        border: none;
+        z-index: 100002 !important;
+        border-radius: 0 !important;
+      }
+      nav.active {
+        display: flex !important;
+      }
+      nav a {
+        margin: 18px 0;
+        width: 100%;
+        font-size: 1.13rem;
+      }
+      #menu-toggle {
+        display: block;
+        z-index: 110000;
+      }
+      .hero, section, .hero-flex {
+        z-index: 1 !important;
+        position: relative;
+      }
     }
-    nav.active {
-      display: flex !important;
-    }
-    nav a {
-      margin: 18px 0;
-      width: 100%;
-      font-size: 1.13rem;
-    }
-    #menu-toggle {
-      display: block;
-      z-index: 110000;
-    }
-    .hero, section, .hero-flex {
-      z-index: 1 !important;
-      position: relative;
-    }
-  }
-  nav {
-    transition: all 0.3s ease-in-out;
-  }
+
     .header-profile {
       display: flex;
       align-items: center;
       gap: 14px;
     }
-    
+
     .header-pic {
       width: 70px;
       height: 70px;
       border-radius: 50%;
       object-fit: cover;
-      border: 2.5px solid #2563eb;
+      border: 2.5px solid var(--accent);
       background: #fff;
-      box-shadow: 0 2px 12px rgba(37,99,235,0.07);
+      box-shadow: 0 2px 12px rgba(2,8,23,0.08);
       transition: box-shadow 0.2s;
     }
     .header-pic:hover {
-      box-shadow: 0 6px 24px rgba(37,99,235,0.18);
+      box-shadow: 0 6px 24px rgba(2,8,23,0.14);
     }
     @media (max-width: 768px) {
       .header-profile h1 {
@@ -475,66 +521,54 @@
         height: 44px;
       }
     }
+
     .cert-card.upcoming {
-      border: 2.5px solid #38bdf8;
+      border: 2.5px solid color-mix(in srgb, var(--accent2) 70%, transparent);
       background: linear-gradient(105deg, rgba(224, 242, 254, 0.82) 85%, rgba(240, 249, 255, 0.82) 100%);
       backdrop-filter: blur(3px);
       position: relative;
-      box-shadow: 0 6px 24px rgba(37,99,235,0.08);
+      box-shadow: 0 6px 24px rgba(2,8,23,0.08);
     }
-    
-    .cert-badge {
-      display: inline-block;
-      background: rgba(37, 99, 235, 0.82);
-      backdrop-filter: blur(3px);
-      color: #fff;
-      font-size: 0.82em;
-      font-weight: 700;
-      padding: 2px 10px;
-      border-radius: 14px;
-      margin-left: 8px;
-      vertical-align: middle;
-      letter-spacing: 0.5px;
-    }
-    .cert-card.upcoming .cert-logo {
-      filter: none;
-    }
+
     .cert-card .cert-status {
       color: #0b192f;
-      font-weight: 500;
+      font-weight: 600;
       margin-top: 7px;
     }
+
     /* --- CSS Menu for Desktop --- */
     @media (min-width: 769px) {
       nav {
-      gap: 36px;
+        gap: 36px;
+      }
+      nav a {
+        font-size: 1.16rem;
+        letter-spacing: 0.03em;
+        padding: 6px 8px;
+        border-radius: 8px;
+        transition: background 0.18s, color 0.18s;
+      }
+      nav a:hover, nav a:focus {
+        background: rgba(20,184,166,0.10);
+        color: var(--accent);
+        text-decoration: none;
+      }
     }
-    nav a {
-      font-size: 1.16rem;
-      letter-spacing: 0.03em;
-      padding: 6px 8px;
-      border-radius: 8px;
-      transition: background 0.18s, color 0.18s;
-    }
-    nav a:hover, nav a:focus {
-      background: #e8f0fe;
-      color: #2563eb;
-      text-decoration: none;
-    }
-  }
+
     .hidden-donation {
       display: none;
     }
+
     .elegant-more-btn {
       display: block;
       margin: 32px auto 0 auto;
       padding: 10px 34px;
       border: none;
-      border-radius: 8px;
-      background: linear-gradient(90deg, #233876 80%, #1e293b 100%);
+      border-radius: 10px;
+      background: linear-gradient(90deg, rgba(15,23,42,0.92) 10%, rgba(2,8,23,0.92) 100%);
       color: #f8fafc;
       font-size: 1.07rem;
-      font-weight: 700;
+      font-weight: 800;
       letter-spacing: 0.03em;
       box-shadow: 0 4px 20px rgba(30,41,59,0.07);
       cursor: pointer;
@@ -542,10 +576,11 @@
       outline: none;
     }
     .elegant-more-btn:hover, .elegant-more-btn:focus {
-      background: linear-gradient(90deg, #2563eb 70%, #233876 100%);
+      background: linear-gradient(90deg, var(--accent) 30%, rgba(15,23,42,0.92) 100%);
       transform: translateY(-2px) scale(1.03);
       color: #fff;
     }
+
     #backToTop {
       position: fixed;
       bottom: 38px;
@@ -568,7 +603,7 @@
     }
     #backToTop:hover svg {
       transform: scale(1.08) translateY(-2px);
-      box-shadow: 0 8px 32px rgba(37,99,235,0.12);
+      box-shadow: 0 8px 32px rgba(2,8,23,0.16);
     }
     #backToTop.visible {
       opacity: 1;
@@ -576,576 +611,658 @@
     }
     @media (max-width: 640px) {
       #backToTop {
-      right: auto; 
-      left: 18px;    
-      bottom: 18px;   
+        right: auto;
+        left: 18px;
+        bottom: 18px;
       }
     }
-#three-bg {
-  position: fixed;
-  top: 0; left: 0; width: 100vw; height: 100vh;
-  z-index: 0;
-  pointer-events: none;   
-  overflow: hidden;
-}
-canvas.three-cube-bg {
-  display: block;
-  width: 100vw !important;
-  height: 100vh !important;
-  position: absolute;
-  top: 0; left: 0;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.93;           
-  filter: blur(0.1px);
-}
-.email-float-btn {
-  position: fixed;
-  bottom: 18px;
-  right: 18px;
-  background: #2563eb;
-  color: #fff;
-  font-weight: 600;
-  font-size: 1rem;
-  padding: 12px 18px;
-  border-radius: 50px;
-  text-decoration: none;
-  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35);
-  transition: all 0.25s ease;
-  z-index: 9999;
-}
-.email-float-btn:hover {
-  background: #1d4ed8;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.45);
-}
-/* Csak mobilon látszódjon */
-@media (min-width: 769px) {
-  .email-float-btn {
-    display: none;
-  }
-}
-/* Personal Records */
-.pr-wrap{ 
-    margin-top: 30px;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* vízszintes közép */
-}
 
-.pr-title{
-  margin: 0 0 12px 0;
-  font-size: 1.4rem;
-  color: #0b192f;
-}
+    #three-bg {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    canvas.three-cube-bg {
+      display: block;
+      width: 100vw !important;
+      height: 100vh !important;
+      position: absolute;
+      top: 0; left: 0;
+      z-index: 0;
+      pointer-events: none;
 
-/* Rács */
-.pr-grid{
-  display: grid;
-  grid-template-columns: repeat(4, minmax(180px, 1fr));
-  gap: 14px;
-  justify-content: center;
-}
-@media (max-width: 1024px){ .pr-grid{ grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 768px) { .pr-grid{ grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 480px) { .pr-grid{ grid-template-columns: 1fr; } }
+      /* UPDATED: less "tech demo", more subtle */
+      opacity: 0.22;
+      filter: blur(0.3px);
+    }
 
-/* Kártya */
-.pr-card{
-  background: rgba(255,255,255,0.82);
-  backdrop-filter: blur(3px);
-  border-radius: 12px;
-  box-shadow: 0 4px 18px rgba(0,0,0,0.07);
-  padding: 14px 16px;
-  border-left: 4px solid #2563eb;
-  transition: transform .12s ease, box-shadow .2s ease;
-}
-.pr-card:hover{
-  transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(37,99,235,0.10);
-}
+    .email-float-btn {
+      position: fixed;
+      bottom: 18px;
+      right: 18px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 12px 18px;
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 6px 18px rgba(20, 184, 166, 0.30);
+      transition: all 0.25s ease;
+      z-index: 9999;
+    }
+    .email-float-btn:hover {
+      background: color-mix(in srgb, var(--accent) 80%, black);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(20, 184, 166, 0.40);
+    }
+    @media (min-width: 769px) {
+      .email-float-btn {
+        display: none;
+      }
+    }
 
-/* Felső sor: táv + idő */
-.pr-line{
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  margin-bottom: 6px;
-}
-.pr-dist{
-  font-weight: 800;
-  letter-spacing: .02em;
-  color: #2563eb;
-}
-.pr-time{
-  font-weight: 800;
-  font-size: 1.15rem;
-  color: #0b192f;
-}
+    /* Personal Records */
+    .pr-wrap{
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-/* Meta sorok */
-.pr-meta{
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  font-size: .95rem;
-  color: #64748b;
-}
-.pr-meta .pr-loc,
-.pr-meta .pr-date,
-.pr-meta .pr-pace{
-  display: inline-flex;
-  align-items: center;
-}
+    .pr-title{
+      margin: 0 0 12px 0;
+      font-size: 1.4rem;
+      color: #0b192f;
+    }
 
-/* Ikonok CSAK CSS-ből (ne legyen emoji a HTML-ben) */
-.pr-loc::before,
-.pr-date::before,
-.pr-pace::before{
-  display: inline-block;
-  margin-right: 8px;
-}
-.pr-loc::before  { content: "📍"; }
-.pr-date::before { content: "📅"; }
-.pr-pace::before { content: "⏱"; margin-right: 6px; }
+    .pr-grid{
+      display: grid;
+      grid-template-columns: repeat(4, minmax(180px, 1fr));
+      gap: 14px;
+      justify-content: center;
+    }
+    @media (max-width: 1024px){ .pr-grid{ grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 768px) { .pr-grid{ grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .pr-grid{ grid-template-columns: 1fr; } }
 
-/* Pace + link tördelése */
-.pr-pace-wrap{
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  margin-top: 6px;
-}
-@media (min-width: 641px){
-  .pr-pace-wrap{
-    flex-direction: row;
-    align-items: center;
-    gap: 14px;
-    margin-top: 4px;
-  }
-}
+    .pr-card{
+      padding: 14px 16px;
+      transition: transform .12s ease, box-shadow .2s ease;
+    }
+    .pr-card:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(2,8,23,0.12);
+    }
 
-/* Link */
-.pr-link{
-  display: inline-block;
-  font-weight: 700;
-  font-size: .95rem;
-  color: #2563eb;
-  text-decoration: none;
-  margin-top: 6px;          /* mobilon külön sorban */
-}
-@media (min-width: 641px){
-  .pr-link{ margin-top: 0; } /* desktopon egy sorban a pace-szel */
-}
-.pr-link:hover{ text-decoration: underline; }
+    .pr-line{
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .pr-dist{
+      font-weight: 900;
+      letter-spacing: .02em;
+      color: var(--accent);
+    }
+    .pr-time{
+      font-weight: 900;
+      font-size: 1.15rem;
+      color: #0b192f;
+    }
 
-/* Pace szín finomítása */
-.pr-pace{
-  font-size: 0.9rem;
-  color: #475569;
-}
+    .pr-meta{
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      font-size: .95rem;
+      color: #64748b;
+    }
+    .pr-meta .pr-loc,
+    .pr-meta .pr-date,
+    .pr-meta .pr-pace{
+      display: inline-flex;
+      align-items: center;
+    }
 
-/* Üres / jövőbeli rekord stílusa */
-.pr-ghost{
-  border-left-color: #94a3b8;
-  opacity: .88;
-}
-/* Ghost kártyán ne legyenek ikonok a kötőjelek mellett */
-.pr-ghost .pr-loc::before,
-.pr-ghost .pr-date::before,
-.pr-ghost .pr-pace::before{
-  content: none;
-}
-</style>
-<script src="https://unpkg.com/three@0.153.0/build/three.min.js"></script>
+    /* You can later replace these with FA icons if you want */
+    .pr-loc::before,
+    .pr-date::before,
+    .pr-pace::before{
+      display: inline-block;
+      margin-right: 8px;
+    }
+    .pr-loc::before  { content: "📍"; }
+    .pr-date::before { content: "📅"; }
+    .pr-pace::before { content: "⏱"; margin-right: 6px; }
+
+    .pr-pace-wrap{
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      margin-top: 6px;
+    }
+    @media (min-width: 641px){
+      .pr-pace-wrap{
+        flex-direction: row;
+        align-items: center;
+        gap: 14px;
+        margin-top: 4px;
+      }
+    }
+
+    .pr-link{
+      display: inline-block;
+      font-weight: 800;
+      font-size: .95rem;
+      color: var(--accent);
+      text-decoration: none;
+      margin-top: 6px;
+    }
+    @media (min-width: 641px){
+      .pr-link{ margin-top: 0; }
+    }
+    .pr-link:hover{ text-decoration: underline; }
+
+    .pr-pace{
+      font-size: 0.9rem;
+      color: #475569;
+    }
+
+    .pr-ghost{
+      border-left-color: #94a3b8;
+      opacity: .88;
+    }
+    .pr-ghost .pr-loc::before,
+    .pr-ghost .pr-date::before,
+    .pr-ghost .pr-pace::before{
+      content: none;
+    }
+  </style>
+
+  <script src="https://unpkg.com/three@0.153.0/build/three.min.js"></script>
 </head>
 <body>
+
+  <!-- Three.js background -->
   <div id="three-bg"></div>
+
+  <!-- HEADER -->
   <header>
-  <div class="header-profile">
-    <img src="https://github.com/DanielKohut/about.me/blob/main/small_profile_picture.jpg?raw=true" alt="Daniel Kohut" class="header-pic">
-    <h1>Daniel Kohut</h1>
-  </div>
-  <nav id="nav">
-    <a href="#about"><i class="fa-solid fa-user"></i> About</a>
-    <a href="#experience"><i class="fa-solid fa-briefcase"></i> Experience</a>
-    <a href="#certifications"><i class="fa-solid fa-certificate"></i> Certifications</a>
-    <a href="#sports-activity"><i class="fa-solid fa-running"></i> Sports Activity</a>
-    <a href="#donations"><i class="fa-solid fa-hand-holding-heart"></i> Donations</a>
-  </nav>
-  <button id="menu-toggle" aria-label="Menu">&#9776;</button>
-</header>
+    <div class="header-profile">
+      <img src="https://github.com/DanielKohut/about.me/blob/main/small_profile_picture.jpg?raw=true"
+           alt="Daniel Kohut"
+           class="header-pic">
+      <h1>Daniel Kohut</h1>
+    </div>
 
-<section class="hero" id="about">
-  <div class="hero-flex">
-    <div class="hero-text">
-      <h2>Github Contributions</h2>
-    </div>
-  </div>
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=DanielKohut&theme=github" alt="GitHub Contribution Graph">
-</section>
-  <section class="experience" id="experience">
-    <h3>Experience <span style="font-size:1.2em;">💼</span></h3>
-<div class="timeline">
-  <div class="timeline-event">
-    <h4>Apr, 2024</h4>
-    <h5>Hosting Engineer</h5>
-    <p>Data Center Infrastructure • Network Administration • VMware • Virtualization • Iaas • PaaS • SaaS</p>
-    <p class="tags">#ServerHosting #ServerEngineer #CloudComputing #NetworkEngineer #ITInfrastructure #DataCenter #ServerManagement #CloudHosting #TechInfrastructure #ITSupport #Virtualization #Networking</p>
-  </div>
-  <div class="timeline-event">
-    <h4>Dec, 2021</h4>
-    <h5>Sales Executive</h5>
-    <p>Sales Planning • Negotiation • Learning & Development • Customer Engagement • Teamwork</p>
-    <p class="tags">#SAP #SalesStrategy #Selftraining #Teamwork #SalesClosing #Excel-VBA</p>
-  </div>
-  <div class="timeline-event">
-    <h4>Jan, 2018</h4>
-    <h5>1st Line IT Support</h5>
-    <p>Issue Resolution • Server Configuration • Hardware Support • Security Awareness • Web Development</p>
-    <p class="tags">#Linux #IP #Plesk #ITSM #Troubleshooting #HardwareSupport #SoftwareSupport #TicketingSystem #BackUp #Restore #VM</p>
-  </div>
-  <div class="timeline-event">
-    <h4>Dec, 2017</h4>
-    <h5>Electronics Engineer</h5>
-    <p>PCB Repair • Coding & Programming • Oscilloscope • Remote Diagnostics</p>
-    <p class="tags">#PCB #ECM #J2534 #OBD #KWP2000 #J1850 #Coding #Programming #CP #SCN #FSB4 #SVM #FSC #SWaP #IDS #GDS #ODIS #Xentry #ISTA #JLR #Boot #BDM #Hex #Eeprom #InterFlash #ExternalFlash #DFlash #iFlash #WinOLS</p>
-  </div>
-  <div class="timeline-event">
-    <h4>Jan, 2012</h4>
-    <h5>IT Engineer</h5>
-    <p>Linux servers • Plesk platform • Backups • Troubleshooting • Remote support • Networking</p>
-    <p class="tags">#Linux #IP #Plesk #ITSM #Troubleshooting #HardwareSupport #SoftwareSupport #TicketingSystem #BackUp #Restore #VM</p>
-  </div>
-  <div class="timeline-event">
-    <h4>Sept, 2012</h4>
-    <h5>Mechanical Engineer</h5>
-    <p>Material Studies • Mechanics • CAD & CAE Technics • Diagnostic Protocols</p>
-    <p class="tags">#FEMTO #FESTO #ICE #FEM #MachineElements #Automotive #Diagnostic #Can-Bus #Can-FD #LIN #J1939 #MOST #MOST150 #Flexray</p>
-  </div>
-  <div class="timeline-event">
-    <h4>Sept, 2006</h4>
-    <h5>Computer Scientist</h5>
-    <p>Certified • IT & Hardware/Software Diagnosis • Linux & Windows • Networking • Web Development</p>
-    <p class="tags">#Pascal #HTML #PHP #JavaScript #Java #CSS #Gimp #PhotoShop #CMS #Linux #Ubuntu #LAN #WAN #Microsoft Access #SQL</p>
-  </div>
-</div>
-</section>
+    <nav id="nav">
+      <a href="#about"><i class="fa-solid fa-user"></i> About</a>
+      <a href="#experience"><i class="fa-solid fa-briefcase"></i> Experience</a>
+      <a href="#certifications"><i class="fa-solid fa-certificate"></i> Certifications</a>
+      <a href="#sports-activity"><i class="fa-solid fa-running"></i> Sports</a>
+      <a href="#donations"><i class="fa-solid fa-hand-holding-heart"></i> Donations</a>
+    </nav>
 
-<section class="certifications" id="certifications">
- <h3>Certifications (Past 12 months) <span style="font-size:1.2em;">🎓</span></h3>
-  <div class="cert-list">
-    <div class="cert-card upcoming">
-  <img src="https://learn.microsoft.com/favicon.ico" alt="Microsoft AI-900" class="cert-logo">
-  <div>
-    <strong>Microsoft: AI-900<span class="cert-badge">Upcoming</span></strong>
-    <div class="cert-date">October 2025</div>
-    <div class="cert-status">Planned</div>
-    <!--  <a href="#">Show credential</a> -->
-    </div>
-  </div>
-  <div style="flex-basis: 100%; height: 0;"></div>
-    <div class="cert-card inprogress">
-      <img src="https://learn.microsoft.com/favicon.ico" alt="Course" class="cert-logo">
-      <div>
-        <strong>Microsoft: AZ-104<span class="cert-badge inprogress">In Progress</span></strong>
-        <div class="cert-date">Ongoing</div>
-        <div class="cert-status">Training</div>
-    </div>
-  </div>
-  <div style="flex-basis: 100%; height: 0;"></div>
-     <div class="cert-card">
-      <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f393.png" alt="CNet" class="cert-logo">
-      <div>
-        <strong>CNet CDCTP</strong>
-        <div class="cert-date">Aug 2025</div>
-        <a href="https://cnet-training.com/programs/certified-data-centre-technician-professional-cdctp/" target="_blank">Show credential</a>
-      </div>
-    </div>
-    <div class="cert-card">
-      <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f393.png" alt="PeopleCert" class="cert-logo">
-      <div>
-        <strong>ITIL 4 Foundation</strong>
-        <div class="cert-date">July 2025</div>
-        <a href="https://candidate.peoplecert.org/MobileReports.aspx?id=C50C19EEFA75816463DAB366FC04C94F4E81CE3301C77789E096E783A234CFC5EAEEA417218326415A052D96E0E08FF17369FA0C01251952BEC158B789CDEFAECE8E0A6A0BB73470EF3F0C468D667C4C65EF1D972BE46A5822F26C21148BAECC13E1A6B884E706E60BC694C815A6B5F36379136AE97671CDC1A0591C8433B869&_gl=1*wjf6c8*_gcl_au*OTE5NDUyNTYxLjE3NTEyODg2NDQuODM1NzczMjcwLjE3NTMxOTA5ODUuMTc1MzE5MDk4NQ..*_ga*MTcwNzc0OTgyNC4xNzUxMjg4NjQ1*_ga_W2BY6QBVG5*czE3NTMxOTA5ODQkbzE4JGcxJHQxNzUzMTkxMDAxJGo0MyRsMCRoOTc5MjgxNzU5" target="_blank">Show credential</a>
-      </div>
-    </div>
-        <div class="cert-card">
-      <img src="https://learn.microsoft.com/favicon.ico" alt="Micorosft Azure" class="cert-logo">
-      <div>
-        <strong>Microsoft: AZ-900</strong>
-        <div class="cert-date">Jan 2025</div>
-        <a href="https://learn.microsoft.com/api/credentials/share/en-gb/DanielKohut-6824/3C2C56CB96B4107E?sharingId" target="_blank">Show credential</a>
-      </div>
-    </div>
-</section>
+    <button id="menu-toggle" aria-label="Menu">&#9776;</button>
+  </header>
 
-  <section id="sports-activity">
-  <h3>Sports Activity (Past 12 months) <span style="font-size:1.2em;">🏃‍♂️</span></h3>
-<!-- Personal Records -->
-<div class="pr-wrap">
-  <h4 class="pr-title">Personal Records</h4>
-  <div class="pr-grid">
+  <!-- ABOUT / HERO -->
+  <section class="hero" id="about">
+    <div class="hero-flex">
+      <img src="https://github.com/DanielKohut/about.me/blob/main/small_profile_picture.jpg?raw=true"
+           alt="Profile picture"
+           class="profile-pic">
 
-    <!-- 5K -->
-    <article class="pr-card">
-      <div class="pr-line">
-        <span class="pr-dist">5K</span>
-        <span class="pr-time">19:30</span>
+      <div class="hero-text">
+        <h2>GitHub Contributions</h2>
+        <p>
+          Engineer with strong interest in infrastructure, cloud technologies,
+          automation and continuous learning.
+        </p>
       </div>
-      <div class="pr-meta">
-        <span class="pr-loc">Northstowe ParkRun</span>
-        <span class="pr-date">16 Aug 2025</span>
-        <div class="pr-pace-wrap">
-          <span class="pr-pace">3:53/km</span>
-          <a class="pr-link" href="https://www.strava.com/activities/15395796018" target="_blank" rel="noopener">View activity</a>
-        </div>
-      </div>
-    </article>
+    </div>
 
-    <!-- 10K -->
-    <article class="pr-card">
-      <div class="pr-line">
-        <span class="pr-dist">10K</span>
-        <span class="pr-time">40:43</span>
-      </div>
-      <div class="pr-meta">
-        <span class="pr-loc">Histon</span>
-        <span class="pr-date">03 Nov 2024</span>
-        <div class="pr-pace-wrap">
-          <span class="pr-pace">4:04/km</span>
-          <a class="pr-link" href="https://www.strava.com/activities/12811912732" target="_blank" rel="noopener">View activity</a>
-        </div>
-      </div>
-    </article>
-
-    <!-- Half Marathon -->
-    <article class="pr-card">
-      <div class="pr-line">
-        <span class="pr-dist">½ Marathon</span>
-        <span class="pr-time">1:32:29</span>
-      </div>
-      <div class="pr-meta">
-        <span class="pr-loc">Cambridge Half Marathon</span>
-        <span class="pr-date">09 Mar 2025</span>
-        <div class="pr-pace-wrap">
-          <span class="pr-pace">4:22/km</span>
-          <a class="pr-link" href="https://www.strava.com/activities/13831772438" target="_blank" rel="noopener">View activity</a>
-        </div>
-      </div>
-    </article>
-    <!-- Marathon (ghost)
-   <article class="pr-card pr-ghost">
-      <div class="pr-line">
-        <span class="pr-dist">Marathon</span>
-        <span class="pr-time">—</span>
-      </div>
-      <div class="pr-meta">
-        <span class="pr-loc">—</span>
-        <span class="pr-date">—</span>
-        <div class="pr-pace-wrap">
-          <span class="pr-pace">—</span>
-        </div>
-      </div>
-    </article> -->
-  </div>
-  </div>
-  <div style="flex-basis: 100%;"></div>
-    <div class="race-list">
-      <div class="race-card">
-        <center><iframe height='160' width='300' frameborder='0' allowtransparency='true' scrolling='no' src='https://www.strava.com/athletes/92721283/activity-summary/8aaeeb054b6d4bd8a8c848f02759b2d856289f3f'></iframe></center>
-      </div>
-      <div style="flex-basis: 100%;"></div>
-        <div class="race-card upcoming">
-      <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3c1.png" alt="flag" class="race-medal">
-      <div>
-        <div class="race-title">
-          Spar Marathon
-          <span class="upcoming-badge">Upcoming</span>
-        </div>
-        <div class="race-info">October 2026</div>
-        <div class="race-info">BP, HU</div>
-        <div class="race-result">Pending</div>
-      </div>
-    </div>
-        <div class="race-card upcoming">
-      <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3c1.png" alt="flag" class="race-medal">
-      <div>
-        <div class="race-title">
-          Cambridge 21k
-          <span class="upcoming-badge">Upcoming</span>
-        </div>
-        <div class="race-info">March 2026</div>
-        <div class="race-info">Cambridge, UK</div>
-        <div class="race-result">Registered</div>
-      </div>
-    </div>
-        <div class="race-card upcoming">
-      <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3c1.png" alt="flag" class="race-medal">
-      <div>
-        <div class="race-title">
-          Cogwheel C. 10k
-          <span class="upcoming-badge">Upcoming</span>
-        </div>
-        <div class="race-info">December 2025</div>
-        <div class="race-info">Girton, UK</div>
-        <div class="race-result">Registered</div>
-      </div>
-    </div>
-    <div style="flex-basis: 100%;"></div>
-      <div class="race-card">
-        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3c5.png" alt="medal" class="race-medal">
-      <div>
-        <div class="race-title">Town G. 10k</div>
-        <div class="race-info">October 2025</div>
-        <div class="race-info">Cambridge, UK</div>
-        <div class="race-result">Time: 42:28</div>
-      </div>
-    </div>
-     <div class="race-card">
-      <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3c5.png" alt="medal" class="race-medal">
-      <div>
-        <div class="race-title">Northstowe 21k</div>
-        <div class="race-info">August 2025</div>
-        <div class="race-info">Cambridge, UK</div>
-        <div class="race-result">Time: 1:33:04</div>
-      </div>
-    </div>
-    <div class="race-card">
-      <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3c5.png" alt="medal" class="race-medal">
-      <div>
-        <div class="race-title">Cambridge 21k</div>
-        <div class="race-info">March 2025</div>
-        <div class="race-info">Cambridge, UK</div>
-        <div class="race-result">PB: 1:32:29</div>
-      </div>
-    </div>
-    <div class="race-card">
-      <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3c5.png" alt="medal" class="race-medal">
-      <div>
-        <div class="race-title">Cogwheel C. 10k </div>
-        <div class="race-info">December 2024</div>
-        <div class="race-info">Girton, UK</div>
-        <div class="race-result">Time: 0:41:47</div>
-      </div>
-    </div>
-    <div class="race-card">
-      <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3c5.png" alt="medal" class="race-medal">
-      <div>
-        <div class="race-title">Bonfire B. 10k </div>
-        <div class="race-info">November 2024</div>
-        <div class="race-info">Histon, UK</div>
-        <div class="race-result">PB: 0:40:43</div>
-      </div>
-    </div>
-    <div class="race-card">
-      <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3c5.png" alt="medal" class="race-medal">
-      <div>
-        <div class="race-title">Town G. 10k </div>
-        <div class="race-info">October 2024</div>
-        <div class="race-info">Cambridge, UK</div>
-        <div class="race-result">Time: 0:42:11</div>
-      </div>
-    </div>
-    <div class="race-card">
-      <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3c5.png" alt="medal" class="race-medal">
-      <div>
-        <div class="race-title">Flaming J. 21k </div>
-        <div class="race-info">June 2024</div>
-        <div class="race-info">Impington, UK</div>
-        <div class="race-result">Time: 1:34:12</div>
-      </div>
-    </div>
-  </div>
+    <img
+      src="https://github-readme-activity-graph.vercel.app/graph?username=DanielKohut&theme=github"
+      alt="GitHub Contribution Graph">
   </section>
 
+  <!-- EXPERIENCE -->
+  <section class="experience" id="experience">
+    <h3><i class="fa-solid fa-briefcase"></i> Experience</h3>
+
+    <div class="timeline">
+
+      <div class="timeline-event card card--accent">
+        <h4>Apr, 2024</h4>
+        <h5>Hosting Engineer</h5>
+        <p>Data Center Infrastructure • Network Administration • VMware • Virtualization • IaaS • PaaS • SaaS</p>
+        <p class="tags">
+          #ServerHosting #CloudComputing #Networking #DataCenter #Virtualization
+        </p>
+      </div>
+
+      <div class="timeline-event card card--accent">
+        <h4>Dec, 2021</h4>
+        <h5>Sales Executive</h5>
+        <p>Sales Planning • Negotiation • Customer Engagement • Learning & Development</p>
+        <p class="tags">
+          #Sales #SAP #Excel #Negotiation #CustomerRelations
+        </p>
+      </div>
+
+      <div class="timeline-event card card--accent">
+        <h4>Jan, 2018</h4>
+        <h5>1st Line IT Support</h5>
+        <p>Issue Resolution • Server Configuration • Hardware Support • Security Awareness</p>
+        <p class="tags">
+          #Linux #Windows #ITSM #Troubleshooting #Networking
+        </p>
+      </div>
+
+      <div class="timeline-event card card--accent">
+        <h4>Dec, 2017</h4>
+        <h5>Electronics Engineer</h5>
+        <p>PCB Repair • Embedded Diagnostics • Oscilloscope • Automotive Protocols</p>
+        <p class="tags">
+          #PCB #ECU #CAN #LIN #Diagnostics #Automotive
+        </p>
+      </div>
+
+      <div class="timeline-event card card--accent">
+        <h4>Jan, 2012</h4>
+        <h5>IT Engineer</h5>
+        <p>Linux Servers • Plesk • Backups • Remote Support • Networking</p>
+        <p class="tags">
+          #Linux #Plesk #Backup #Servers #Support
+        </p>
+      </div>
+
+      <div class="timeline-event card card--accent">
+        <h4>Sept, 2006</h4>
+        <h5>Computer Scientist</h5>
+        <p>Programming • Web Development • Hardware & Software Diagnostics</p>
+        <p class="tags">
+          #HTML #CSS #JavaScript #PHP #SQL #Linux
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section class="certifications" id="certifications">
+    <h3><i class="fa-solid fa-certificate"></i> Certifications (Past 12 months)</h3>
+
+    <div class="cert-list">
+
+      <div class="cert-card upcoming card">
+        <img src="https://learn.microsoft.com/favicon.ico" alt="Microsoft AI-900" class="cert-logo">
+        <div>
+          <strong>Microsoft: AI-900 <span class="cert-badge">Upcoming</span></strong>
+          <div class="cert-date">October 2025</div>
+          <div class="cert-status">Planned</div>
+        </div>
+      </div>
+
+      <div class="cert-card card">
+        <img src="https://learn.microsoft.com/favicon.ico" alt="Microsoft AZ-104" class="cert-logo">
+        <div>
+          <strong>Microsoft: AZ-104 <span class="cert-badge inprogress">In progress</span></strong>
+          <div class="cert-date">Ongoing</div>
+          <div class="cert-status">Training</div>
+        </div>
+      </div>
+
+      <div class="cert-card card">
+        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f393.png"
+             alt="CNet"
+             class="cert-logo">
+        <div>
+          <strong>CNet CDCTP</strong>
+          <div class="cert-date">Aug 2025</div>
+          <a href="https://cnet-training.com/programs/certified-data-centre-technician-professional-cdctp/"
+             target="_blank">Show credential</a>
+        </div>
+      </div>
+
+      <div class="cert-card card">
+        <img src="https://learn.microsoft.com/favicon.ico" alt="Microsoft AZ-900" class="cert-logo">
+        <div>
+          <strong>Microsoft: AZ-900</strong>
+          <div class="cert-date">Jan 2025</div>
+          <a href="https://learn.microsoft.com/api/credentials/share/en-gb/DanielKohut-6824/3C2C56CB96B4107E?sharingId"
+             target="_blank">Show credential</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <!-- SPORTS ACTIVITY -->
+  <section id="sports-activity">
+    <h3><i class="fa-solid fa-running"></i> Sports Activity (Past 12 months)</h3>
+
+    <!-- Personal Records -->
+    <div class="pr-wrap">
+      <h4 class="pr-title">Personal Records</h4>
+
+      <div class="pr-grid">
+
+        <!-- 5K -->
+        <article class="pr-card card card--accent">
+          <div class="pr-line">
+            <span class="pr-dist">5K</span>
+            <span class="pr-time">19:30</span>
+          </div>
+          <div class="pr-meta">
+            <span class="pr-loc">Northstowe ParkRun</span>
+            <span class="pr-date">16 Aug 2025</span>
+            <div class="pr-pace-wrap">
+              <span class="pr-pace">3:53/km</span>
+              <a class="pr-link" href="https://www.strava.com/activities/15395796018" target="_blank" rel="noopener">View activity</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 10K -->
+        <article class="pr-card card card--accent">
+          <div class="pr-line">
+            <span class="pr-dist">10K</span>
+            <span class="pr-time">40:43</span>
+          </div>
+          <div class="pr-meta">
+            <span class="pr-loc">Histon</span>
+            <span class="pr-date">03 Nov 2024</span>
+            <div class="pr-pace-wrap">
+              <span class="pr-pace">4:04/km</span>
+              <a class="pr-link" href="https://www.strava.com/activities/12811912732" target="_blank" rel="noopener">View activity</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Half Marathon -->
+        <article class="pr-card card card--accent">
+          <div class="pr-line">
+            <span class="pr-dist">½ Marathon</span>
+            <span class="pr-time">1:32:29</span>
+          </div>
+          <div class="pr-meta">
+            <span class="pr-loc">Cambridge Half Marathon</span>
+            <span class="pr-date">09 Mar 2025</span>
+            <div class="pr-pace-wrap">
+              <span class="pr-pace">4:22/km</span>
+              <a class="pr-link" href="https://www.strava.com/activities/13831772438" target="_blank" rel="noopener">View activity</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Marathon (ghost example) -->
+        <!--
+        <article class="pr-card pr-ghost card">
+          <div class="pr-line">
+            <span class="pr-dist">Marathon</span>
+            <span class="pr-time">—</span>
+          </div>
+          <div class="pr-meta">
+            <span class="pr-loc">—</span>
+            <span class="pr-date">—</span>
+            <div class="pr-pace-wrap">
+              <span class="pr-pace">—</span>
+            </div>
+          </div>
+        </article>
+        -->
+
+      </div>
+    </div>
+
+    <div class="race-list">
+
+      <!-- Strava widget card -->
+      <div class="race-card card">
+        <center>
+          <iframe
+            height="160"
+            width="300"
+            frameborder="0"
+            allowtransparency="true"
+            scrolling="no"
+            src="https://www.strava.com/athletes/92721283/activity-summary/8aaeeb054b6d4bd8a8c848f02759b2d856289f3f">
+          </iframe>
+        </center>
+      </div>
+
+      <div style="flex-basis: 100%; height: 0;"></div>
+
+      <!-- Upcoming -->
+      <div class="race-card upcoming card">
+        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3c1.png" alt="flag" class="race-medal">
+        <div>
+          <div class="race-title">
+            Spar Marathon
+            <span class="upcoming-badge">Upcoming</span>
+          </div>
+          <div class="race-info">October 2026</div>
+          <div class="race-info">BP, HU</div>
+          <div class="race-result">Pending</div>
+        </div>
+      </div>
+
+      <div class="race-card upcoming card">
+        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3c1.png" alt="flag" class="race-medal">
+        <div>
+          <div class="race-title">
+            Cambridge 21k
+            <span class="upcoming-badge">Upcoming</span>
+          </div>
+          <div class="race-info">March 2026</div>
+          <div class="race-info">Cambridge, UK</div>
+          <div class="race-result">Registered</div>
+        </div>
+      </div>
+
+      <div class="race-card upcoming card">
+        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3c1.png" alt="flag" class="race-medal">
+        <div>
+          <div class="race-title">
+            Cogwheel C. 10k
+            <span class="upcoming-badge">Upcoming</span>
+          </div>
+          <div class="race-info">December 2025</div>
+          <div class="race-info">Girton, UK</div>
+          <div class="race-result">Registered</div>
+        </div>
+      </div>
+
+      <div style="flex-basis: 100%; height: 0;"></div>
+
+      <!-- Completed -->
+      <div class="race-card card">
+        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3c5.png" alt="medal" class="race-medal">
+        <div>
+          <div class="race-title">Town G. 10k</div>
+          <div class="race-info">October 2025</div>
+          <div class="race-info">Cambridge, UK</div>
+          <div class="race-result">Time: 42:28</div>
+        </div>
+      </div>
+
+      <div class="race-card card">
+        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3c5.png" alt="medal" class="race-medal">
+        <div>
+          <div class="race-title">Northstowe 21k</div>
+          <div class="race-info">August 2025</div>
+          <div class="race-info">Cambridge, UK</div>
+          <div class="race-result">Time: 1:33:04</div>
+        </div>
+      </div>
+
+      <div class="race-card card">
+        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3c5.png" alt="medal" class="race-medal">
+        <div>
+          <div class="race-title">Cambridge 21k</div>
+          <div class="race-info">March 2025</div>
+          <div class="race-info">Cambridge, UK</div>
+          <div class="race-result">PB: 1:32:29</div>
+        </div>
+      </div>
+
+      <div class="race-card card">
+        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3c5.png" alt="medal" class="race-medal">
+        <div>
+          <div class="race-title">Cogwheel C. 10k</div>
+          <div class="race-info">December 2024</div>
+          <div class="race-info">Girton, UK</div>
+          <div class="race-result">Time: 0:41:47</div>
+        </div>
+      </div>
+
+      <div class="race-card card">
+        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3c5.png" alt="medal" class="race-medal">
+        <div>
+          <div class="race-title">Bonfire B. 10k</div>
+          <div class="race-info">November 2024</div>
+          <div class="race-info">Histon, UK</div>
+          <div class="race-result">PB: 0:40:43</div>
+        </div>
+      </div>
+
+      <div class="race-card card">
+        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3c5.png" alt="medal" class="race-medal">
+        <div>
+          <div class="race-title">Town G. 10k</div>
+          <div class="race-info">October 2024</div>
+          <div class="race-info">Cambridge, UK</div>
+          <div class="race-result">Time: 0:42:11</div>
+        </div>
+      </div>
+
+      <div class="race-card card">
+        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3c5.png" alt="medal" class="race-medal">
+        <div>
+          <div class="race-title">Flaming J. 21k</div>
+          <div class="race-info">June 2024</div>
+          <div class="race-info">Impington, UK</div>
+          <div class="race-result">Time: 1:34:12</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <!-- DONATIONS -->
   <section id="donations">
-    <h3>Donations <span style="font-size:1.2em;">❤️</span></h3>
+    <h3><i class="fa-solid fa-hand-holding-heart"></i> Donations</h3>
+
     <div class="donation-list">
 
-    <div class="donation-item">
-      <h4>Mark Diagnosed With DMD</h4>
-      <p>His parents founded the Együtt Márkért Foundation to raise the funds needed for vital overseas treatment in the United States or Dubai – the only hope for slowing down this rare and progressive muscle disease. Every contribution brings Márk closer to the therapy that could give him a longer and fuller life.</p>
-      <p>Date: October 2025</p>
-      <p>Receipt: 3ST64722S********</p>
-      <p><a href="https://egyuttmarkert.hu/en/story" target="_blank">Egyuttmarkert.hu</a></p>
-    </div>
+      <div class="donation-item card card--accent">
+        <h4>Mark Diagnosed With DMD</h4>
+        <p>
+          His parents founded the Együtt Márkért Foundation to raise the funds needed for vital overseas treatment in the United States or Dubai.
+          Every contribution brings Márk closer to the therapy that could give him a longer and fuller life.
+        </p>
+        <p>Date: October 2025</p>
+        <p>Receipt: 3ST64722S********</p>
+        <p><a href="https://egyuttmarkert.hu/en/story" target="_blank">Egyuttmarkert.hu</a></p>
+      </div>
 
-    <div class="donation-item">
-      <h4>Józsika Diagnosed With Leukemia</h4>
-      <p>I have just made a donation to support Józsika, a young boy in Hungary who is fighting leukaemia. This donation goes directly towards helping him and his family through his treatment.</p>
-      <p>Date: September 2025</p>
-      <p>Receipt: ND5VR4A0L***************</p>
-      <p><a href="https://www.remenyalapitvany.hu/tamogathato-gyerekek/jozsika-leukemias.html" target="_blank">Remetealapitvany.hu</a></p>
-    </div>
+      <div class="donation-item card card--accent">
+        <h4>Józsika Diagnosed With Leukemia</h4>
+        <p>
+          Donation to support Józsika, a young boy in Hungary who is fighting leukaemia.
+          This donation goes directly towards helping him and his family through his treatment.
+        </p>
+        <p>Date: September 2025</p>
+        <p>Receipt: ND5VR4A0L***************</p>
+        <p><a href="https://www.remenyalapitvany.hu/tamogathato-gyerekek/jozsika-leukemias.html" target="_blank">Remetealapitvany.hu</a></p>
+      </div>
 
-    <div class="donation-item">
-      <h4>Bethesda Children's Hospital</h4>
-      <p>I have just made a donation to a Hungarian children’s hospital, aiming to support the healthcare needs of children there, not to any specific child. I’m trying to help out a little here too.</p>
-      <p>Date: August 2025</p>
-      <p>Receipt: #414**</p>
-      <p><a href="https://www.bethesda.hu" target="_blank">Bethesda.hu</a></p>
-    </div>
+      <div class="donation-item card card--accent">
+        <h4>Bethesda Children's Hospital</h4>
+        <p>
+          Donation to support a Hungarian children’s hospital. Not to a specific child, but to help where it matters.
+        </p>
+        <p>Date: August 2025</p>
+        <p>Receipt: #414**</p>
+        <p><a href="https://www.bethesda.hu" target="_blank">Bethesda.hu</a></p>
+      </div>
 
-    <div class="donation-item">
-      <h4>Immunotherapy treatment for Ágoston</h4>
-      <p>Ágoston is 10 months old and has been battling a rare leukemia (CBFA2T3::GLIS2) for the past 8 months. Standard chemotherapy in Hungary has failed, and his only chance is an immunotherapy treatment in the USA costing around $1.2 million.</p>
-      <p>Date: July 2025</p>
-      <p>Receipt: 16694*****</p>
-      <p><a href="https://www.noklapja.hu/aktualis/2025/04/02/osszefogassal-megmenthetjuk-a-kis-agoston-eletet"target="_blank">Noklapja.hu</a></p>
-    </div>
+      <div class="donation-item card card--accent">
+        <h4>Immunotherapy treatment for Ágoston</h4>
+        <p>
+          Ágoston is 10 months old and has been battling a rare leukemia (CBFA2T3::GLIS2).
+          Standard chemotherapy in Hungary has failed, and his only chance is an immunotherapy treatment in the USA costing around $1.2 million.
+        </p>
+        <p>Date: July 2025</p>
+        <p>Receipt: 16694*****</p>
+        <p><a href="https://www.noklapja.hu/aktualis/2025/04/02/osszefogassal-megmenthetjuk-a-kis-agoston-eletet" target="_blank">Noklapja.hu</a></p>
+      </div>
 
-    <div class="donation-item">
-      <h4>Immunotherapy treatment for Enzo</h4>
-      <p>Enzo was six months old when he was diagnosed with a tumour called Yolk Sac Tumour, commonly known as testicular cancer, during a check-up after a febrile attack. Enzo has been fighting for his life for the last 2.5 years, more than 80% of his life, as he has followed the path set out by the traditional treatment protocol.</p>
-      <p>Date: June 2025</p>
-      <p>Receipt: 462761****</p>
-      <p><a href="https://4fund.com/2vjrwz"target="_blank">4fund.com</a></p>
-    </div>
+      <!-- More button -->
+      <button id="show-more-donations" class="elegant-more-btn">More</button>
 
-    <div class="donation-item">
-      <h4>Foundation for Children with Leukemia – Debrecen</h4>
-      <p>I’ve just made a donation to the Foundation for Children with Leukemia in Debrecen, Hungary. My contribution is meant to support the care and recovery of children fighting leukemia.</p>
-      <p>Date: May 2025</p>
-      <p>Receipt: 69660****</p>
-      <p><a href="https://leukemiasgyermekekert.hu/" target="_blank">Leukemiasgyermekekert.hu</a></p>
-    </div>
-      
-    <div class="donation-item">
-      <h4>Brajen Diagnosed With Cancer (Remetealapitvany.hu)</h4>
-      <p>Brajen is a 15-year-old boy diagnosed with a rare, advanced cancer. He needs proton therapy in Vienna because local treatment risks damaging his eyesight. His family faces high travel and accommodation costs, and they are seeking financial support to help cover these expenses.</p>
-      <p>Date: April 2025</p>
-      <p>Receipt: 0UT8157**********</p>
-      <p><a href="https://www.remenyalapitvany.hu/tamogathato-gyerekek/brajen-megyaszo.html" target="_blank">Remetealapitvany.hu</a></p>
-    </div>
-      
-    <div class="donation-item">
-      <h4>Heim Pál National Pediatric Institute</h4>
-      <p>I have just made a donation to a Hungarian children’s hospital, aiming to support the healthcare needs of children there, not to any specific child. I’m trying to help out a little here too.</p>
-      <p>Date: March 2025</p>
-      <p>Receipt: 5G6207083********</p>
-      <p><a href="https://heimalap.hu" target="_blank">Heimalap.hu</a></p>
-    </div>
+      <!-- HIDDEN items start here (JS will hide from 5th and show on click) -->
+      <div class="donation-item card card--accent">
+        <h4>Immunotherapy treatment for Enzo</h4>
+        <p>
+          Enzo was diagnosed with a tumour called Yolk Sac Tumour. He has been fighting for his life for over 2.5 years.
+        </p>
+        <p>Date: June 2025</p>
+        <p>Receipt: 462761****</p>
+        <p><a href="https://4fund.com/2vjrwz" target="_blank">4fund.com</a></p>
+      </div>
 
-    <div class="donation-item">
-      <h4>Tibike Diagnosed Leukemia (Remetealapitvany.hu)</h4>
-      <p>“In September 2024, Tibike was diagnosed with Acute Myeloid Leukemia (AML) after months of illness. He began chemotherapy, and his condition showed improvement by the end of October. He’s currently undergoing treatment with hopeful signs, though the process remains challenging for our family, both emotionally and financially. We are focused on his recovery and hopeful for a positive outcome.“</p>
-      <p>Date: February 2025</p>
-      <p>Receipt: #PAYID-M6NV3ZA67X18654XC*******</p>
-      <p><a href="https://www.remenyalapitvany.hu/tamogathato-gyerekek/tibi-leukemias.html" target="_blank">Remetealapitvany.hu</a></p>
-    </div>
+      <div class="donation-item card card--accent">
+        <h4>Foundation for Children with Leukemia – Debrecen</h4>
+        <p>Donation to support the care and recovery of children fighting leukemia in Debrecen, Hungary.</p>
+        <p>Date: May 2025</p>
+        <p>Receipt: 69660****</p>
+        <p><a href="https://leukemiasgyermekekert.hu/" target="_blank">Leukemiasgyermekekert.hu</a></p>
+      </div>
 
-    <div class="donation-item">
-      <h4>Lius Diagnosed Tumor (Remetealapitvany.hu)</h4>
-      <p>“In May 2024, a small bump appeared on my daughter, Lia. Doctors initially thought it was harmless, but it grew larger, and she was diagnosed with a rare cancer, alveolar rhabdomyosarcoma, in October. After starting chemotherapy in Debrecen, she faced tough side effects, but showed signs of improvement. Our lives became a constant back-and-forth between the hospital and home, while dealing with the emotional and financial toll of her treatment.“</p>
-      <p>Date: January 2025</p>
-      <p>Receipt: #PAYID-M6NVXVQ6N270819VG*******</p>
-      <p><a href="https://www.remenyalapitvany.hu/tamogathato-gyerekek/lius-daganatos.html" target="_blank">Remetealapitvany.hu</a></p>
-    </div>
+      <div class="donation-item card card--accent">
+        <h4>Brajen Diagnosed With Cancer (Remetealapitvany.hu)</h4>
+        <p>
+          Brajen is a 15-year-old boy diagnosed with a rare, advanced cancer. He needs proton therapy in Vienna.
+        </p>
+        <p>Date: April 2025</p>
+        <p>Receipt: 0UT8157**********</p>
+        <p><a href="https://www.remenyalapitvany.hu/tamogathato-gyerekek/brajen-megyaszo.html" target="_blank">Remetealapitvany.hu</a></p>
+      </div>
 
-    <button id="show-more-donations" class="elegant-more-btn">More</button>
+      <div class="donation-item card card--accent">
+        <h4>Heim Pál National Pediatric Institute</h4>
+        <p>Donation to support a Hungarian children’s hospital.</p>
+        <p>Date: March 2025</p>
+        <p>Receipt: 5G6207083********</p>
+        <p><a href="https://heimalap.hu" target="_blank">Heimalap.hu</a></p>
+      </div>
 
-    <div class="donation-item">
+      <div class="donation-item card card--accent">
+        <h4>Tibike Diagnosed Leukemia (Remetealapitvany.hu)</h4>
+        <p>
+          In September 2024, Tibike was diagnosed with AML. He began chemotherapy and is currently undergoing treatment with hopeful signs.
+        </p>
+        <p>Date: February 2025</p>
+        <p>Receipt: #PAYID-M6NV3ZA67X18654XC*******</p>
+        <p><a href="https://www.remenyalapitvany.hu/tamogathato-gyerekek/tibi-leukemias.html" target="_blank">Remetealapitvany.hu</a></p>
+      </div>
+
+      <div class="donation-item card card--accent">
+        <h4>Lius Diagnosed Tumor (Remetealapitvany.hu)</h4>
+        <p>
+          In May 2024, Lia was diagnosed with a rare cancer. After starting chemotherapy, she faced tough side effects but showed signs of improvement.
+        </p>
+        <p>Date: January 2025</p>
+        <p>Receipt: #PAYID-M6NVXVQ6N270819VG*******</p>
+        <p><a href="https://www.remenyalapitvany.hu/tamogathato-gyerekek/lius-daganatos.html" target="_blank">Remetealapitvany.hu</a></p>
+      </div>
+
+          <div class="donation-item card card--accent">
       <h4>Renato Diagnosed Tumor (Remetealapitvany.hu)</h4>
       <p>“Our heart-breaking story began when my 2-month-old baby had a spasm on his back. After extensive tests, a biopsy revealed a malignant soft tissue tumor. He is currently undergoing chemotherapy every three weeks, with four months of treatment remaining. Financially, we are struggling to afford essentials like medications, baby supplies, and the care for his Hickman catheter. My partner works in construction, but one income isn’t enough to cover these costs, especially with extended hospital stays.“</p>
       <p>Date: December 2024</p>
@@ -1153,7 +1270,7 @@ canvas.three-cube-bg {
       <p><a href="https://www.remenyalapitvany.hu/tamogathato-gyerekek/renato-daganatos.html" target="_blank">Remetealapitvany.hu</a></p>
     </div>
 
-    <div class="donation-item">
+    <div class="donation-item card card--accent">
       <h4>Istvan Diagnosed Ewing Sarcoma (Remetealapitvany.hu)</h4>
       <p>“My son’s illness began in April 2024 with strange speech and a large swelling in his mouth. After tests in Miskolc, he was diagnosed with Ewing Sarcoma. The tumor spread quickly, blocking his airway, so a tube was inserted for oxygen. He’s undergoing chemotherapy (10 cycles done, 5 left) but still can’t eat solid food and will need a gastrostomy tube. Proton therapy is required in Wiener Neustadt, starting after a planning session. NEAK will cover the treatment, but travel costs are reimbursed later. We’re facing significant challenges with his care and recovery.“</p>
       <p>Date: November 2024</p>
@@ -1161,7 +1278,7 @@ canvas.three-cube-bg {
       <p><a href="https://www.remenyalapitvany.hu/tamogathato-gyerekek/istvan-daganatos-beteg.html" target="_blank">Remetealapitvany.hu</a></p>
     </div>
 
-    <div class="donation-item">
+    <div class="donation-item card card--accent">
       <h4>Marko Diagnosed Tumor (Remetealapitvany.hu)</h4>
       <p>“From December 2021, Márkó started chemotherapy, and on April 11, 2022, he underwent surgery during which doctors removed the tumor on his adrenal gland and kidney along with the organs. The tumor was also present in the spinal cord, so he underwent a bone marrow transplant. On June 27, 2022, we were placed in a sterile box for a month. In September 2022, it became clear that the transplant had not been successful, and his illness had returned. Therefore, he needed chemotherapy again, followed by radiation therapy. He then started maintenance therapy, and we had high hopes that he would finally recover, but unfortunately, that was not the case. On May 15, 2024, it was discovered that the illness had relapsed and metastasized, with a tumor now appearing in the lymph nodes on the left side of his neck. On July 9, 2024, his chemotherapy treatment began in Budapest, which is now expected to be even more challenging than before. Currently, he is undergoing his fourth treatment, which had to be stopped due to very poor blood results. An MRI scan was done on September 27, and it revealed that Márkó cannot be operated on.“</p>
       <p>Date: October 2024</p>
@@ -1169,7 +1286,7 @@ canvas.three-cube-bg {
       <p><a href="https://www.remenyalapitvany.hu/tamogathato-gyerekek/marko-869.html" target="_blank">Remetealapitvany.hu</a></p>
     </div>
 
-    <div class="donation-item">
+    <div class="donation-item card card--accent">
       <h4>Luna Majoros Diagnosed SMA</h4>
       <p>“Spinal muscular atrophy (SMA) is a genetically inherited disease. One of its common accompanying conditions is the almost inevitable development of scoliosis. Therefore, early diagnosis is crucial, as is the use of the most advanced procedures and equipment in treatment. Luna was diagnosed with the disease in January this year, and since then, she has undergone comprehensive examinations and has started medication.”</p>
       <p>Date: September 2024</p>
@@ -1177,7 +1294,7 @@ canvas.three-cube-bg {
       <p><a href="https://ma7.sk/tajaink/segitsuk-egyutt-a-csodat" target="_blank">Ma7.sk</a></p>
     </div>
 
-    <div class="donation-item">
+    <div class="donation-item card card--accent">
       <h4>Sagi Dominik Diagnosed Duchenne Muscular Dystrophy</h4>
       <p>“I believe that for almost everyone, the greatest joy in life is the birth of a child. We felt the same way, but our unclouded happiness did not last long. Our little boy, Dominik, was barely a year old when it was discovered that he was born with a genetic condition called Duchenne muscular dystrophy. As a result of this disease, Dominik will experience a gradual deterioration over the next few years due to the destruction of muscle cells. Although the process is slow, it is fatal.”</p>
       <p>Date: August 2024</p>
@@ -1185,7 +1302,7 @@ canvas.three-cube-bg {
       <p><a href="https://www.facebook.com/groups/153580627850387" target="_blank">facebook.com/groups/153580627850387</a></p>
     </div>
 
-    <div class="donation-item">
+    <div class="donation-item card card--accent">
       <h4>Penzes Annabella Diagnosed Brain Stem Tumor</h4>
       <p>“Our heart-wrenching story began in 2021 when, on a September day, our child hit their head at the nursery! A few weeks later, their left eye, and then the right, started to squint. We immediately went to the ophthalmologist, who recommended glasses and an eye patch. We started using them, but there was no improvement. I felt this couldn’t be simple childhood strabismus, so we sought a private ophthalmologist who immediately requested an MRI. Never in my worst nightmares did I imagine the diagnosis that would completely turn our lives upside down…”</p>
       <p>Date: July 2024</p>
@@ -1193,7 +1310,7 @@ canvas.three-cube-bg {
       <p><a href="https://www.facebook.com/100086878103265" target="_blank">facebook.com/100086878103265</a></p>
     </div>
 
-    <div class="donation-item">
+    <div class="donation-item card card--accent">
       <h4>Leimsider Szofi Diagnosed Cerebral Palsy</h4>
       <p>“Szofi was born very, very prematurely; she was smaller than a loaf of bread when she was born at 27 weeks and she also suffered a brain hemorrhage. Nine years have passed since then, and Szofi is developing well; she is smart, intelligent, and already goes to school. However, the brain hemorrhage did not disappear without a trace. Unfortunately, her movement is not at all like that of other children. Her condition is called cerebral palsy, which means brain-induced paralysis, and as a result, her right hand and right leg do not really serve her intentions.”</p>
       <p>Date: June 2024</p>
@@ -1201,7 +1318,7 @@ canvas.three-cube-bg {
       <p><a href="https://facebook.com/rozsa.leimsider" target="_blank">facebook.com/rozsa.leimsider</a></p>
     </div>
 
-    <div class="donation-item">
+    <div class="donation-item card card--accent">
       <h4>Micsko Benjamin Duchenne Muscular Dystrophy</h4>
       <p>“My name is Benjámin Micskó. I was born on 20. 02. 2020. I just turned 4 years old. I am a wonderful, cheerful, curious, ever-moving little boy. I was diagnosed with severe Duchenne Muscular Dystrophy”</p>
       <p>Date: May 2024</p>
@@ -1209,7 +1326,7 @@ canvas.three-cube-bg {
       <p><a href="https://facebook.com/61556606205392" target="_blank">facebook.com/61556606205392</a></p>
     </div>
 
-    <div class="donation-item">
+    <div class="donation-item card card--accent">
       <h4>Northstowe Half Marathon/Cambridge Acorn Project</h4>
       <p>Cambridge Acorn Project provides life-changing support to children and their families who have experienced trauma and abuse and are living in poverty. That`s a small local charity that has a huge impact on families and communities across Cambridgeshire.</p>
       <p>Date: April 2024</p>
@@ -1217,7 +1334,7 @@ canvas.three-cube-bg {
       <p><a href="https://northstowehalf.co.uk" target="_blank">Northstowehalf.co.uk</a></p>
     </div>
 
-    <div class="donation-item">
+    <div class="donation-item card card--accent">
       <h4>Kneifel Adin Duchenne Muscular Dystrophy</h4>
       <p>“Adin’s mother and father noticed that their son had become quite loss of appetite, so they took him for a blood test. However, the cause of the loss of appetite was not what the parents expected. The liver function values and CK level were very high, leading to further investigations. Finally, on December 17, 2022, the results of the genetic test arrived, revealing that Ádin suffers from the extremely rare Duchenne Muscular Dystrophy.“</p>
       <p>Date: March 2024 + May 2024</p>
@@ -1225,7 +1342,7 @@ canvas.three-cube-bg {
       <p><a href="https://adin.hu/en" target="_blank">Adin.hu/en</a></p>
     </div>
 
-    <div class="donation-item">
+    <div class="donation-item card card--accent">
       <h4>Jazmin SMA Diagnosed (Charity Run for Jasmin 18th of Feb @ Zalaegerszeg HU)</h4>
       <p>“Jasmine was born in August 2023 and lives with her family in Bocföld. The little girl arrived into her family with a significant genetic disease: the diagnosis is SMA I, spinal muscular atrophy.”</p>
       <p>Date: February 2024</p>
@@ -1233,7 +1350,7 @@ canvas.three-cube-bg {
       <p><a href="https://facebook.com/profile.php?id=61554431925585" target="_blank">facebook.com/profile.php?id=61554431925585</a></p>
     </div>
 
-    <div class="donation-item">
+    <div class="donation-item card card--accent">
       <h4>Tamas Galo SMA Diagnosed</h4>
       <p>“Tomika is a 5 years old, chatty, bubbly little boy. He was diagnosed with SMA 1 4,5 years ago and we are fighting for his recovery ever since…”</p>
       <p>Date: January 2024</p>
@@ -1241,7 +1358,7 @@ canvas.three-cube-bg {
       <p><a href="https://egyuttgalotomikaert.hu/en" target="_blank">Egyuttgalotomikaert.hu/en</a></p>
     </div>
 
-    <div class="donation-item">
+    <div class="donation-item card card--accent">
       <h4>The Cogwheel Canter Running Fest 2023</h4>
       <p>Donation made by The Cogwheel Canter Running Fest 2023</p>
       <p>Date: December 2023</p>
@@ -1249,180 +1366,199 @@ canvas.three-cube-bg {
       <p><a href="https://cogwheel5kcanter.co.uk" target="_blank">Cogwheel5kcanter.co.uk</a></p>
     </div>
 
-    <div class="donation-item">
+    <div class="donation-item card card--accent">
       <h4>Movember Men`s Health</h4>
       <p>Men’s mental health, innovative medical research, and groundbreaking tests and treatments for prostate cancer and testicular cancer.</p>
       <p>Date: November 2023</p>
       <p>Receipt number: R-54079282-6785****</p>
       <p><a href="https://uk.movember.com" target="_blank">Uk.movember.com</a></p>
     </div>
-
   </div>
-</section>
   </section>
-<footer>
-  <div style="margin-bottom: 12px;">
-    <a href="https://www.linkedin.com/in/danielkohut" target="_blank" aria-label="LinkedIn" style="margin:0 10px;">
-      <i class="fa-brands fa-linkedin fa-xl"></i>
-    </a>
-    <a href="https://github.com/DanielKohut" target="_blank" aria-label="GitHub" style="margin:0 10px;">
-      <i class="fa-brands fa-github fa-xl"></i>
-    </a>
-    <a href="https://www.strava.com/athletes/daniel-kohut" target="_blank" aria-label="Strava" style="margin:0 10px;">
-      <i class="fa-brands fa-strava fa-xl"></i>
-    </a>
-    <a href="https://www.instagram.com/danielk0hut" target="_blank" aria-label="Instagram" style="margin:0 10px;">
-      <i class="fa-brands fa-instagram fa-xl"></i>
-    </a>
-  </div>
-  <p style="font-size:0.9em;color:#cbd5e1;">
-    Emojis by <a href="https://twemoji.twitter.com/" target="_blank">Twemoji</a>.
-    Icons/logos: <a href="https://learn.microsoft.com/" target="_blank">Microsoft</a>,
-    <a href="https://linkedin.com/" target="_blank">LinkedIn</a>.
-    Activity Graph from <a href="https://github.com/Ashutosh00710/github-readme-activity-graph" target="_blank">GitHub Readme Activity Graph</a>.
-    Strava widget by <a href="https://www.strava.com/" target="_blank">Strava</a>.
-    Font: <a href="https://fonts.google.com/specimen/Roboto" target="_blank">Roboto</a> by Google Fonts.
-  </p>
-  <p>&copy; 2025 Daniel Kohut</p>
-</footer>
-<button id="backToTop" title="Back to top">
-  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" style="vertical-align:middle;">
-    <circle cx="14" cy="14" r="14" fill="#233876"/>
-    <path d="M9 16l5-5 5 5" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
-  </svg>
-</button>
-<script>
-  const toggleBtn = document.getElementById("menu-toggle");
-  const nav = document.getElementById("nav");
-  toggleBtn.addEventListener("click", function() {
-    nav.classList.toggle("active");
-  });
-  document.addEventListener('click', function(e) {
-    if (!nav.contains(e.target) && !toggleBtn.contains(e.target)) {
-      nav.classList.remove('active');
-    }
-  });
-</script>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-  const donations = document.querySelectorAll('.donation-item');
-  donations.forEach(function(item, idx) {
-    if(idx >= 4) item.classList.add('hidden-donation');
-  });
-});
 
-document.getElementById('show-more-donations').addEventListener('click', function() {
-  document.querySelectorAll('.hidden-donation').forEach(function(item) {
-    item.classList.remove('hidden-donation'); // helyes!
-  });
-  this.style.display = 'none';
-});
-</script>
-<script>
-  window.addEventListener('scroll', function() {
-    const btn = document.getElementById('backToTop');
-    if (window.scrollY > 350) {
-      btn.classList.add('visible');
-    } else {
-      btn.classList.remove('visible');
-    }
-  });
+  <!-- FOOTER -->
+  <footer>
+    <div style="margin-bottom: 12px;">
+      <a href="https://www.linkedin.com/in/danielkohut" target="_blank" aria-label="LinkedIn" style="margin:0 10px;">
+        <i class="fa-brands fa-linkedin fa-xl"></i>
+      </a>
+      <a href="https://github.com/DanielKohut" target="_blank" aria-label="GitHub" style="margin:0 10px;">
+        <i class="fa-brands fa-github fa-xl"></i>
+      </a>
+      <a href="https://www.strava.com/athletes/daniel-kohut" target="_blank" aria-label="Strava" style="margin:0 10px;">
+        <i class="fa-brands fa-strava fa-xl"></i>
+      </a>
+      <a href="https://www.instagram.com/danielk0hut" target="_blank" aria-label="Instagram" style="margin:0 10px;">
+        <i class="fa-brands fa-instagram fa-xl"></i>
+      </a>
+    </div>
 
-  document.getElementById('backToTop').onclick = function() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-</script>
-<script>
-// Smooth scroll offset sticky headerhez
-document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function(e) {
-    e.preventDefault();
-    let target = document.querySelector(this.getAttribute('href'));
-    if(target) {
-      const headerOffset = document.querySelector('header').offsetHeight || 0;
-      const elementPosition = target.getBoundingClientRect().top + window.pageYOffset;
-      const offsetPosition = elementPosition - headerOffset - 8; // 8px extra padding
+    <p style="font-size:0.9em;color:#cbd5e1;">
+      Emojis by <a href="https://twemoji.twitter.com/" target="_blank">Twemoji</a>.
+      Icons/logos: <a href="https://learn.microsoft.com/" target="_blank">Microsoft</a>,
+      <a href="https://linkedin.com/" target="_blank">LinkedIn</a>.
+      Activity Graph from <a href="https://github.com/Ashutosh00710/github-readme-activity-graph" target="_blank">GitHub Readme Activity Graph</a>.
+      Strava widget by <a href="https://www.strava.com/" target="_blank">Strava</a>.
+      Fonts: <a href="https://fonts.google.com/" target="_blank">Google Fonts</a>.
+    </p>
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
+    <p>&copy; 2025 Daniel Kohut</p>
+  </footer>
+
+  <!-- Back to top -->
+  <button id="backToTop" title="Back to top">
+    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" style="vertical-align:middle;">
+      <circle cx="14" cy="14" r="14" fill="#233876"/>
+      <path d="M9 16l5-5 5 5" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <!-- Mobile floating email button -->
+  <a class="email-float-btn" href="mailto:info@danielkohut.com?subject=Email%20from%20DanielKohut.com">
+    📧 Email Me
+  </a>
+
+  <!-- =========================
+       JS
+       ========================= -->
+
+  <script>
+    const toggleBtn = document.getElementById("menu-toggle");
+    const nav = document.getElementById("nav");
+
+    // Mobile menu open/close + scroll lock (UPDATED)
+    toggleBtn.addEventListener("click", function() {
+      nav.classList.toggle("active");
+      document.body.style.overflow = nav.classList.contains("active") ? "hidden" : "";
+    });
+
+    // Close menu on outside click (and restore scroll)
+    document.addEventListener("click", function(e) {
+      if (!nav.contains(e.target) && !toggleBtn.contains(e.target)) {
+        nav.classList.remove("active");
+        document.body.style.overflow = "";
+      }
+    });
+  </script>
+
+  <script>
+    // Donations: show only first 4 initially
+    document.addEventListener("DOMContentLoaded", function() {
+      const donations = document.querySelectorAll(".donation-item");
+      donations.forEach(function(item, idx) {
+        if (idx >= 4) item.classList.add("hidden-donation");
       });
-    }
-    // Opció: zárja be mobil menüt is:
-    nav.classList.remove('active');
-  });
-});
-</script>
-<script>
-(function() {
-  const container = document.getElementById('three-bg');
-  let renderer, scene, camera, cube, animationId;
-  let floatTime = 0;
+    });
 
-  function initThree() {
-    // Ha már van canvas, ne csináljunk többet!
-    if (container.querySelector('canvas')) return;
+    document.getElementById("show-more-donations").addEventListener("click", function() {
+      document.querySelectorAll(".hidden-donation").forEach(function(item) {
+        item.classList.remove("hidden-donation");
+      });
+      this.style.display = "none";
+    });
+  </script>
 
-    // Mobilon kisebb legyen a méret és távolabb a kamera!
-    const isMobile = window.innerWidth < 640;
-    const cubeSize = isMobile ? 0.4 : 1;
-    const cameraZ = isMobile ? 4 : 2.8;
+  <script>
+    // Back to top
+    window.addEventListener("scroll", function() {
+      const btn = document.getElementById("backToTop");
+      if (window.scrollY > 350) btn.classList.add("visible");
+      else btn.classList.remove("visible");
+    });
 
-    scene = new THREE.Scene();
-    camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
-    camera.position.z = cameraZ;
+    document.getElementById("backToTop").onclick = function() {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+  </script>
 
-    renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.domElement.className = 'three-cube-bg';
-    container.appendChild(renderer.domElement);
+  <script>
+    // Smooth scroll with sticky header offset + close menu after click
+    document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener("click", function(e) {
+        e.preventDefault();
 
-    const geometry = new THREE.IcosahedronGeometry(cubeSize, 0);
-    const edges = new THREE.EdgesGeometry(geometry);
-    const material = new THREE.LineBasicMaterial({ color: 0x38bdf8, linewidth: 2.4 });
-    cube = new THREE.LineSegments(edges, material);
-    scene.add(cube);
+        const target = document.querySelector(this.getAttribute("href"));
+        if (target) {
+          const headerOffset = document.querySelector("header").offsetHeight || 0;
+          const elementPosition = target.getBoundingClientRect().top + window.pageYOffset;
+          const offsetPosition = elementPosition - headerOffset - 8;
 
-    // Fények
-    scene.add(new THREE.AmbientLight(0xffffff, 0.68));
-    const pointLight = new THREE.PointLight(0x60a5fa, 0.99, 6);
-    pointLight.position.set(2.7, 2.3, 2.2);
-    scene.add(pointLight);
+          window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+        }
 
-    animate();
-    window.addEventListener('resize', onWindowResize, false);
-  }
+        nav.classList.remove("active");
+        document.body.style.overflow = "";
+      });
+    });
+  </script>
 
-  function animate() {
-    animationId = requestAnimationFrame(animate);
-    cube.rotation.x += 0.005;
-    cube.rotation.y += 0.011;
+  <script>
+    // Three.js background (kept, colors will match accent better later if you want)
+    (function() {
+      const container = document.getElementById("three-bg");
+      let renderer, scene, camera, cube, animationId;
+      let floatTime = 0;
 
-    // Lebegő (floating) mozgás!
-    floatTime += 0.003; // Lassú időnövelés (állítsd ha gyorsabbat szeretnél)
-    let offsetX = Math.sin(floatTime) * 0.8;      // jobbra-balra
-    let offsetY = Math.cos(floatTime * 0.7) * 0.55; // fel-le (más ütemben, természetesebb)
-    cube.position.x = offsetX;
-    cube.position.y = offsetY;
+      function initThree() {
+        if (container.querySelector("canvas")) return;
 
-    renderer.render(scene, camera);
-  }
+        const isMobile = window.innerWidth < 640;
+        const cubeSize = isMobile ? 0.4 : 1;
+        const cameraZ = isMobile ? 4 : 2.8;
 
-  function onWindowResize() {
-    // Újraméretezéskor is figyeljünk, hogy mobil vagy desktop!
-    const isMobile = window.innerWidth < 640;
-    const cameraZ = isMobile ? 4 : 2.8;
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.position.z = cameraZ;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-  }
+        scene = new THREE.Scene();
+        camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
+        camera.position.z = cameraZ;
 
-  document.addEventListener('DOMContentLoaded', initThree);
-})();
-</script>
-<a class="email-float-btn" href="mailto:info@danielkohut.com?subject=Email%20from%20DanielKohut.com">
-  📧 Email Me
-</a>
+        renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.domElement.className = "three-cube-bg";
+        container.appendChild(renderer.domElement);
+
+        const geometry = new THREE.IcosahedronGeometry(cubeSize, 0);
+        const edges = new THREE.EdgesGeometry(geometry);
+
+        // Keep a nice soft blue; can be tied to accent later if you want
+        const material = new THREE.LineBasicMaterial({ color: 0x38bdf8, linewidth: 2.4 });
+
+        cube = new THREE.LineSegments(edges, material);
+        scene.add(cube);
+
+        scene.add(new THREE.AmbientLight(0xffffff, 0.68));
+        const pointLight = new THREE.PointLight(0x60a5fa, 0.99, 6);
+        pointLight.position.set(2.7, 2.3, 2.2);
+        scene.add(pointLight);
+
+        animate();
+        window.addEventListener("resize", onWindowResize, false);
+      }
+
+      function animate() {
+        animationId = requestAnimationFrame(animate);
+        cube.rotation.x += 0.005;
+        cube.rotation.y += 0.011;
+
+        floatTime += 0.003;
+        const offsetX = Math.sin(floatTime) * 0.8;
+        const offsetY = Math.cos(floatTime * 0.7) * 0.55;
+        cube.position.x = offsetX;
+        cube.position.y = offsetY;
+
+        renderer.render(scene, camera);
+      }
+
+      function onWindowResize() {
+        const isMobile = window.innerWidth < 640;
+        const cameraZ = isMobile ? 4 : 2.8;
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.position.z = cameraZ;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      }
+
+      document.addEventListener("DOMContentLoaded", initThree);
+    })();
+  </script>
+
 </body>
 </html>
