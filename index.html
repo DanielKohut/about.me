@@ -991,7 +991,18 @@
     :root[data-theme="dark"] nav a:visited {
       text-decoration: none !important;
     }
-   
+
+    #themeToggle i {
+    color: var(--nav-text);
+    font-size: 1.2rem;
+    transition: color 0.2s ease, transform 0.2s ease;
+    }
+  
+    #themeToggle:hover i {
+    color: var(--accent);
+    transform: scale(1.1);
+    }
+
   </style>
   
   <script src="https://unpkg.com/three@0.153.0/build/three.min.js"></script>
@@ -1018,8 +1029,9 @@
       <a href="#sports-activity"><i class="fa-solid fa-running"></i> Sports</a>
       <a href="#donations"><i class="fa-solid fa-hand-holding-heart"></i> Donations</a>
 
-      <!-- Dark mode toggle -->
-      <button id="themeToggle" aria-label="Toggle dark mode">🌙</button>
+      <button id="themeToggle" aria-label="Toggle dark mode">
+      <i class="fa-solid fa-moon"></i>
+      </button>
     </nav>
 
     <button id="menu-toggle" aria-label="Menu">&#9776;</button>
@@ -1798,30 +1810,36 @@
   </script>
 
 <script>
-const toggle = document.getElementById("themeToggle");
-const root = document.documentElement;
+  const toggle = document.getElementById("themeToggle");
+  const root = document.documentElement;
 
-const savedTheme = localStorage.getItem("theme");
-if (savedTheme) {
-  root.setAttribute("data-theme", savedTheme);
-} else {
-  // default to dark
-  root.setAttribute("data-theme", "dark");
-}
+  // Load saved theme or default to dark
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme) {
+    root.setAttribute("data-theme", savedTheme);
+  } else {
+    root.setAttribute("data-theme", "dark");
+  }
 
-function updateIcon() {
-  toggle.textContent =
-    root.getAttribute("data-theme") === "dark" ? "☀️" : "🌙";
-}
-updateIcon();
+  // Update icon (Font Awesome, no emoji)
+  function updateIcon() {
+    toggle.innerHTML =
+      root.getAttribute("data-theme") === "dark"
+        ? '<i class="fa-solid fa-sun"></i>'
+        : '<i class="fa-solid fa-moon"></i>';
+  }
 
-toggle.addEventListener("click", () => {
-  const current =
-    root.getAttribute("data-theme") === "dark" ? "light" : "dark";
-  root.setAttribute("data-theme", current);
-  localStorage.setItem("theme", current);
   updateIcon();
-});
+
+  // Toggle theme on click
+  toggle.addEventListener("click", () => {
+    const currentTheme =
+      root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+
+    root.setAttribute("data-theme", currentTheme);
+    localStorage.setItem("theme", currentTheme);
+    updateIcon();
+  });
 </script>
 
 </body>
