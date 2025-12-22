@@ -540,6 +540,17 @@
       margin-top: 7px;
     }
 
+    /* Back to top – accent style */
+    .backtotop-bg {
+    fill: var(--accent);
+    transition: fill 0.25s ease;
+    }
+
+#backToTop:hover .backtotop-bg {
+  fill: color-mix(in srgb, var(--accent) 75%, black);
+}
+
+
     /* --- CSS Menu for Desktop --- */
     @media (min-width: 769px) {
       nav {
@@ -1424,7 +1435,7 @@
   <!-- Back to top -->
   <button id="backToTop" title="Back to top">
     <svg width="28" height="28" viewBox="0 0 28 28" fill="none" style="vertical-align:middle;">
-      <circle cx="14" cy="14" r="14" fill="#233876"/>
+      <circle cx="14" cy="14" r="14" class="backtotop-bg"/>
       <path d="M9 16l5-5 5 5" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </button>
