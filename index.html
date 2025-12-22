@@ -985,7 +985,13 @@
       color: var(--accent) !important;
       text-decoration-color: var(--accent);
     }
-    
+
+    /* Dark mode – NAV links: no underline */
+    :root[data-theme="dark"] nav a,
+    :root[data-theme="dark"] nav a:visited {
+      text-decoration: none !important;
+    }
+   
   </style>
   
   <script src="https://unpkg.com/three@0.153.0/build/three.min.js"></script>
@@ -1624,7 +1630,7 @@
       Fonts: <a href="https://fonts.google.com/" target="_blank">Google Fonts</a>.
     </p>
 
-    <p>&copy; 2025 Daniel Kohut</p>
+    <p>&copy; 2026 Daniel Kohut</p>
   </footer>
 
   <!-- Back to top -->
