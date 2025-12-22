@@ -546,10 +546,20 @@
     transition: fill 0.25s ease;
     }
 
-#backToTop:hover .backtotop-bg {
-  fill: color-mix(in srgb, var(--accent) 75%, black);
-}
+    #backToTop:hover .backtotop-bg {
+    fill: color-mix(in srgb, var(--accent) 75%, black);
+    }
 
+    #backToTop {
+    background: transparent;
+    box-shadow: none;
+    }
+
+    #backToTop svg {
+    background: transparent;
+    border-radius: 50%;
+    box-shadow: 0 8px 28px rgba(20,184,166,0.35);
+    }
 
     /* --- CSS Menu for Desktop --- */
     @media (min-width: 769px) {
