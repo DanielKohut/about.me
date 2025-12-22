@@ -36,6 +36,19 @@
       --shadow: 0 10px 40px rgba(2,8,23,0.06);
     }
 
+    :root[data-theme="dark"] {
+      --bg1: #0b1220;       /* mély kékes-szürke */
+      --bg2: #020617;       /* majdnem fekete */
+    
+      --card: rgba(15,23,42,0.75);
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+    
+      --accent: #2dd4bf;    /* világosabb teal sötéten */
+      --accent2: #38bdf8;
+    
+      --border: rgba(148,163,184,0.12);
+    }
     html {
       scroll-behavior: smooth;
     }
@@ -877,6 +890,27 @@
     transform: translateY(-3px);
     box-shadow: 0 14px 40px rgba(20,184,166,0.18);
     }
+
+    #themeToggle {
+    all: unset;
+    cursor: pointer;
+    font-size: 1.3rem;
+    margin-left: 18px;
+    line-height: 1;
+    transition: transform 0.2s ease;
+    }
+
+    #themeToggle:hover {
+    transform: scale(1.15);
+    }
+
+    @media (max-width: 768px) {
+      #themeToggle {
+        margin-top: 22px;
+        font-size: 1.5rem;
+      }
+    }
+    
   </style>
   
   <script src="https://unpkg.com/three@0.153.0/build/three.min.js"></script>
@@ -902,6 +936,9 @@
       <a href="#certifications"><i class="fa-solid fa-certificate"></i> Certifications</a>
       <a href="#sports-activity"><i class="fa-solid fa-running"></i> Sports</a>
       <a href="#donations"><i class="fa-solid fa-hand-holding-heart"></i> Donations</a>
+
+      <!-- Dark mode toggle -->
+      <button id="themeToggle" aria-label="Toggle dark mode">🌙</button>
     </nav>
 
     <button id="menu-toggle" aria-label="Menu">&#9776;</button>
@@ -1678,6 +1715,32 @@
     (scroll / height) * 100 + "%";
     });
   </script>
+
+<script>
+const toggle = document.getElementById("themeToggle");
+const root = document.documentElement;
+
+const savedTheme = localStorage.getItem("theme");
+if (savedTheme) {
+  root.setAttribute("data-theme", savedTheme);
+} else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+  root.setAttribute("data-theme", "dark");
+}
+
+function updateIcon() {
+  toggle.textContent =
+    root.getAttribute("data-theme") === "dark" ? "☀️" : "🌙";
+}
+updateIcon();
+
+toggle.addEventListener("click", () => {
+  const current =
+    root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+  root.setAttribute("data-theme", current);
+  localStorage.setItem("theme", current);
+  updateIcon();
+});
+</script>
 
 </body>
 </html>
