@@ -940,6 +940,35 @@
         font-size: 1.5rem;
       }
     }
+
+    /* Dark mode: fix black texts on race cards */
+    :root[data-theme="dark"] .race-card .race-result,
+    :root[data-theme="dark"] .race-card .race-info,
+    :root[data-theme="dark"] .race-card .race-title {
+      color: var(--text) !important;
+    }
+    
+    /* If cert status also looks black */
+    :root[data-theme="dark"] .cert-card .cert-status {
+      color: var(--text) !important;
+    }
+    
+    /* Personal Records: time/pace if any are hardcoded dark */
+    :root[data-theme="dark"] .pr-time,
+    :root[data-theme="dark"] .pr-pace,
+    :root[data-theme="dark"] .pr-title {
+      color: var(--text) !important;
+    }
+
+    /* Dark mode – race card texts */
+    :root[data-theme="dark"] .race-card .race-result,
+    :root[data-theme="dark"] .race-card .race-info {
+      color: var(--text) !important;
+    }
+
+    :root[data-theme="dark"] .race-card .race-result {
+    color: color-mix(in srgb, var(--accent) 60%, var(--text)) !important;
+    }
     
   </style>
   
