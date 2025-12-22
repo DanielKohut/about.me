@@ -598,6 +598,15 @@
 #backToTop:active {
   outline: none !important;
 }
+
+/* Mobile fix: Back to top to the left */
+@media (max-width: 768px) {
+  #backToTop {
+    right: auto !important;
+    left: 18px !important;
+    bottom: 18px !important;
+  }
+}
     
     /* --- CSS Menu for Desktop --- */
     @media (min-width: 769px) {
