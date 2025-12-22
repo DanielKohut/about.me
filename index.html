@@ -865,9 +865,17 @@
     .pr-ghost .pr-pace::before{
       content: none;
     }
-  </style>
 
+    a:focus-visible,
+    button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 6px;
+    }
+  </style>
+  
   <script src="https://unpkg.com/three@0.153.0/build/three.min.js"></script>
+  
 </head>
 <body>
 
