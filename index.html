@@ -1062,6 +1062,31 @@
       content: none !important;
     }
 
+    /* Medium screens (typical 13–15" laptops): tighten the top nav */
+    @media (max-width: 1200px) {
+      nav {
+        gap: 22px;                 /* kisebb távolság */
+      }
+    
+      nav a {
+        padding: 6px 8px;          /* kisebb “click pill” terület */
+        font-size: 0.98rem;        /* picit kisebb szöveg */
+      }
+    
+      nav a i {
+        font-size: 1.05rem;        /* picit kisebb ikon */
+      }
+    
+      /* lavalamp pill magasság igazítás */
+      .lavalamp {
+        height: 32px;
+      }
+    
+      #themeToggle i {
+        font-size: 1.1rem;
+      }
+    }
+
   </style>
   
   <script src="https://unpkg.com/three@0.153.0/build/three.min.js"></script>
