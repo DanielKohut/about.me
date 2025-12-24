@@ -1047,6 +1047,21 @@
     .lavalamp { display: none; }
     }
 
+    /* Nav links: remove old highlight effect (let lavalamp handle it) */
+    nav a,
+    nav a:hover,
+    nav a.active {
+      background: transparent !important;
+      box-shadow: none !important;
+      border: none !important;
+    }
+    
+    nav a::after,
+    nav a:hover::after,
+    nav a.active::after {
+      content: none !important;
+    }
+
   </style>
   
   <script src="https://unpkg.com/three@0.153.0/build/three.min.js"></script>
