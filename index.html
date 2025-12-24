@@ -1021,7 +1021,7 @@
       position: absolute;
       left: 0;
       top: 50%;
-      transform: translateY(-50%);
+      transform: translate(0, -50%); /* a JS ezt felülírja X-ben, Y marad */
       height: 36px;
       width: 0;
       border-radius: 999px;
@@ -1032,7 +1032,8 @@
       border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
       box-shadow: 0 10px 28px rgba(2,8,23,0.10);
     
-      transition: left 0.28s ease, width 0.28s ease, opacity 0.18s ease;
+      transition: opacity 0.15s ease; /* csak fade, a mozgás JS */
+      will-change: transform, width;
       opacity: 0;
     }
     
@@ -1887,48 +1888,77 @@
   });
 </script>
 <script>
-  (function () {
-    const nav = document.getElementById("nav");
-    if (!nav) return;
+(function () {
+  const nav = document.getElementById("nav");
+  if (!nav) return;
 
-    const lamp = nav.querySelector(".lavalamp");
-    const links = Array.from(nav.querySelectorAll("a"));
+  const lamp = nav.querySelector(".lavalamp");
+  const links = Array.from(nav.querySelectorAll("a"));
+  if (!lamp || links.length === 0) return;
 
-    if (!lamp || links.length === 0) return;
+  // current + target values
+  let curX = 0, curW = 0;
+  let targetX = 0, targetW = 0;
 
-    function moveLampTo(el) {
-      const navRect = nav.getBoundingClientRect();
-      const rect = el.getBoundingClientRect();
+  // tuning:
+  // smaller = more "laggy", bigger = snappier
+  const FOLLOW = 0.18;   // try 0.14–0.25 for taste
 
-      const left = rect.left - navRect.left;
-      const width = rect.width;
+  function setTargetTo(el) {
+    const navRect = nav.getBoundingClientRect();
+    const rect = el.getBoundingClientRect();
 
-      lamp.style.left = `${left}px`;
-      lamp.style.width = `${width}px`;
-      lamp.style.opacity = "1";
-    }
+    targetX = rect.left - navRect.left;
+    targetW = rect.width;
 
-    // Hover behavior
-    links.forEach(a => {
-      a.addEventListener("mouseenter", () => moveLampTo(a));
-      a.addEventListener("focus", () => moveLampTo(a));
-    });
+    lamp.style.opacity = "1";
+  }
 
-    // Return to active/current link on mouse leave
-    nav.addEventListener("mouseleave", () => {
-      const active = nav.querySelector("a.active") || links[0];
-      moveLampTo(active);
-    });
+  function apply() {
+    // smooth follow (lerp)
+    curX += (targetX - curX) * FOLLOW;
+    curW += (targetW - curW) * FOLLOW;
 
-    // Initial position (active or first)
-    function initLamp() {
-      const active = nav.querySelector("a.active") || links[0];
-      moveLampTo(active);
-    }
+    lamp.style.transform = `translate(${curX}px, -50%)`;
+    lamp.style.width = `${curW}px`;
 
-    window.addEventListener("load", initLamp);
-    window.addEventListener("resize", initLamp);
-  })();
+    requestAnimationFrame(apply);
+  }
+
+  // Hover/focus sets new target
+  links.forEach(a => {
+    a.addEventListener("mouseenter", () => setTargetTo(a));
+    a.addEventListener("focus", () => setTargetTo(a));
+  });
+
+  // When leaving nav, return to active or first
+  nav.addEventListener("mouseleave", () => {
+    const active = nav.querySelector("a.active") || links[0];
+    setTargetTo(active);
+  });
+
+  // Initialize
+  function init() {
+    const active = nav.querySelector("a.active") || links[0];
+
+    // set current = target to avoid jump on load
+    const navRect = nav.getBoundingClientRect();
+    const rect = active.getBoundingClientRect();
+
+    curX = targetX = rect.left - navRect.left;
+    curW = targetW = rect.width;
+
+    lamp.style.transform = `translate(${curX}px, -50%)`;
+    lamp.style.width = `${curW}px`;
+    lamp.style.opacity = "1";
+  }
+
+  window.addEventListener("load", init);
+  window.addEventListener("resize", init);
+
+  // start animation loop
+  requestAnimationFrame(apply);
+})();
 </script>
 </body>
 </html>
