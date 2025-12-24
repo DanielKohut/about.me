@@ -1004,6 +1004,48 @@
     transform: scale(1.1);
     }
 
+    /* Lavalamp menu added */
+    /* Nav needs positioning context */
+    nav {
+      position: relative;
+    }
+    
+    /* Make sure links sit above the lamp */
+    nav a, #themeToggle {
+      position: relative;
+      z-index: 2;
+    }
+    
+    /* The sliding “pill” */
+    .lavalamp {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 36px;
+      width: 0;
+      border-radius: 999px;
+      z-index: 1;
+      pointer-events: none;
+    
+      background: color-mix(in srgb, var(--accent) 18%, transparent);
+      border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
+      box-shadow: 0 10px 28px rgba(2,8,23,0.10);
+    
+      transition: left 0.28s ease, width 0.28s ease, opacity 0.18s ease;
+      opacity: 0;
+    }
+    
+    /* Optional: slightly tighter padding makes it look “designed” */
+    nav a {
+      padding: 8px 10px;
+      border-radius: 10px; /* just for click target comfort */
+    }
+
+    @media (max-width: 768px) {
+    .lavalamp { display: none; }
+    }
+
   </style>
   
   <script src="https://unpkg.com/three@0.153.0/build/three.min.js"></script>
@@ -1030,6 +1072,8 @@
       <a href="#sports-activity"><i class="fa-solid fa-running"></i> Sports</a>
       <a href="#donations"><i class="fa-solid fa-hand-holding-heart"></i> Donations</a>
 
+      <span class="lavalamp" aria-hidden="true"></span>
+      
       <button id="themeToggle" aria-label="Toggle dark mode">
       <i class="fa-solid fa-moon"></i>
       </button>
@@ -1841,6 +1885,50 @@
     localStorage.setItem("theme", currentTheme);
     updateIcon();
   });
+</script>
+<script>
+  (function () {
+    const nav = document.getElementById("nav");
+    if (!nav) return;
+
+    const lamp = nav.querySelector(".lavalamp");
+    const links = Array.from(nav.querySelectorAll("a"));
+
+    if (!lamp || links.length === 0) return;
+
+    function moveLampTo(el) {
+      const navRect = nav.getBoundingClientRect();
+      const rect = el.getBoundingClientRect();
+
+      const left = rect.left - navRect.left;
+      const width = rect.width;
+
+      lamp.style.left = `${left}px`;
+      lamp.style.width = `${width}px`;
+      lamp.style.opacity = "1";
+    }
+
+    // Hover behavior
+    links.forEach(a => {
+      a.addEventListener("mouseenter", () => moveLampTo(a));
+      a.addEventListener("focus", () => moveLampTo(a));
+    });
+
+    // Return to active/current link on mouse leave
+    nav.addEventListener("mouseleave", () => {
+      const active = nav.querySelector("a.active") || links[0];
+      moveLampTo(active);
+    });
+
+    // Initial position (active or first)
+    function initLamp() {
+      const active = nav.querySelector("a.active") || links[0];
+      moveLampTo(active);
+    }
+
+    window.addEventListener("load", initLamp);
+    window.addEventListener("resize", initLamp);
+  })();
 </script>
 </body>
 </html>
