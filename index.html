@@ -127,8 +127,9 @@
 
     nav {
       display: flex;
-      gap: 20px;
-      transition: all 0.3s ease-in-out;
+      align-items: center;
+      justify-content: space-between; /* 🔑 */
+      gap: 28px;
     }
 
     nav a {
@@ -1097,7 +1098,13 @@
     .lavalamp {
       height: 30px;
      }
-    }  
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
 
   </style>
   
@@ -1119,11 +1126,13 @@
     </div>
 
     <nav id="nav">
+      <div class="nav-links">
       <a href="#about"><i class="fa-solid fa-user"></i> About</a>
       <a href="#experience"><i class="fa-solid fa-briefcase"></i> Experience</a>
       <a href="#certifications"><i class="fa-solid fa-certificate"></i> Certifications</a>
       <a href="#sports-activity"><i class="fa-solid fa-running"></i> Sports</a>
       <a href="#donations"><i class="fa-solid fa-hand-holding-heart"></i> Donations</a>
+      </div>
 
       <span class="lavalamp" aria-hidden="true"></span>
       
