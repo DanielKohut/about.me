@@ -127,9 +127,8 @@
 
     nav {
       display: flex;
-      align-items: center;
-      justify-content: space-between; /* 🔑 */
-      gap: 28px;
+      gap: 20px;
+      transition: all 0.3s ease-in-out;
     }
 
     nav a {
@@ -1005,107 +1004,6 @@
     transform: scale(1.1);
     }
 
-    /* Lavalamp menu added */
-    /* Nav needs positioning context */
-    nav {
-      position: relative;
-    }
-    
-    /* Make sure links sit above the lamp */
-    nav a, #themeToggle {
-      position: relative;
-      z-index: 2;
-    }
-    
-    /* The sliding “pill” */
-    .lavalamp {
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translate(0, -50%); /* a JS ezt felülírja X-ben, Y marad */
-      height: 36px;
-      width: 0;
-      border-radius: 999px;
-      z-index: 1;
-      pointer-events: none;
-    
-      background: color-mix(in srgb, var(--accent) 18%, transparent);
-      border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
-      box-shadow: 0 10px 28px rgba(2,8,23,0.10);
-    
-      transition: opacity 0.15s ease; /* csak fade, a mozgás JS */
-      will-change: transform, width;
-      opacity: 0;
-    }
-    
-    /* Optional: slightly tighter padding makes it look “designed” */
-    nav a {
-      padding: 8px 10px;
-      border-radius: 10px; /* just for click target comfort */
-    }
-
-    @media (max-width: 768px) {
-    .lavalamp { display: none; }
-    }
-
-    /* Nav links: remove old highlight effect (let lavalamp handle it) */
-    nav a,
-    nav a:hover,
-    nav a.active {
-      background: transparent !important;
-      box-shadow: none !important;
-      border: none !important;
-    }
-    
-    nav a::after,
-    nav a:hover::after,
-    nav a.active::after {
-      content: none !important;
-    }
-
-    /* Medium screens (typical 13–15" laptops): tighten the top nav */
-    @media (max-width: 1200px) {
-      nav {
-        gap: 22px;                 /* kisebb távolság */
-      }
-    
-      nav a {
-        padding: 6px 8px;          /* kisebb “click pill” terület */
-        font-size: 0.98rem;        /* picit kisebb szöveg */
-      }
-    
-      nav a i {
-        font-size: 1.05rem;        /* picit kisebb ikon */
-      }
-    
-      /* lavalamp pill magasság igazítás */
-      .lavalamp {
-        height: 32px;
-      }
-    
-      #themeToggle i {
-        font-size: 1.1rem;
-      }
-    }
-
-    @media (max-width: 1050px) {
-    nav {
-      gap: 16px;
-    }
-    nav a {
-      font-size: 0.94rem;
-    }
-    .lavalamp {
-      height: 30px;
-     }
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 28px;
-    }
-
   </style>
   
   <script src="https://unpkg.com/three@0.153.0/build/three.min.js"></script>
@@ -1126,16 +1024,12 @@
     </div>
 
     <nav id="nav">
-      <div class="nav-links">
       <a href="#about"><i class="fa-solid fa-user"></i> About</a>
       <a href="#experience"><i class="fa-solid fa-briefcase"></i> Experience</a>
       <a href="#certifications"><i class="fa-solid fa-certificate"></i> Certifications</a>
       <a href="#sports-activity"><i class="fa-solid fa-running"></i> Sports</a>
       <a href="#donations"><i class="fa-solid fa-hand-holding-heart"></i> Donations</a>
-      </div>
 
-      <span class="lavalamp" aria-hidden="true"></span>
-      
       <button id="themeToggle" aria-label="Toggle dark mode">
       <i class="fa-solid fa-moon"></i>
       </button>
@@ -1947,79 +1841,6 @@
     localStorage.setItem("theme", currentTheme);
     updateIcon();
   });
-</script>
-<script>
-(function () {
-  const nav = document.getElementById("nav");
-  if (!nav) return;
-
-  const lamp = nav.querySelector(".lavalamp");
-  const links = Array.from(nav.querySelectorAll("a"));
-  if (!lamp || links.length === 0) return;
-
-  // current + target values
-  let curX = 0, curW = 0;
-  let targetX = 0, targetW = 0;
-
-  // tuning:
-  // smaller = more "laggy", bigger = snappier
-  const FOLLOW = 0.18;   // try 0.14–0.25 for taste
-
-  function setTargetTo(el) {
-    const navRect = nav.getBoundingClientRect();
-    const rect = el.getBoundingClientRect();
-
-    targetX = rect.left - navRect.left;
-    targetW = rect.width;
-
-    lamp.style.opacity = "1";
-  }
-
-  function apply() {
-    // smooth follow (lerp)
-    curX += (targetX - curX) * FOLLOW;
-    curW += (targetW - curW) * FOLLOW;
-
-    lamp.style.transform = `translate(${curX}px, -50%)`;
-    lamp.style.width = `${curW}px`;
-
-    requestAnimationFrame(apply);
-  }
-
-  // Hover/focus sets new target
-  links.forEach(a => {
-    a.addEventListener("mouseenter", () => setTargetTo(a));
-    a.addEventListener("focus", () => setTargetTo(a));
-  });
-
-  // When leaving nav, return to active or first
-  nav.addEventListener("mouseleave", () => {
-    const active = nav.querySelector("a.active") || links[0];
-    setTargetTo(active);
-  });
-
-  // Initialize
-  function init() {
-    const active = nav.querySelector("a.active") || links[0];
-
-    // set current = target to avoid jump on load
-    const navRect = nav.getBoundingClientRect();
-    const rect = active.getBoundingClientRect();
-
-    curX = targetX = rect.left - navRect.left;
-    curW = targetW = rect.width;
-
-    lamp.style.transform = `translate(${curX}px, -50%)`;
-    lamp.style.width = `${curW}px`;
-    lamp.style.opacity = "1";
-  }
-
-  window.addEventListener("load", init);
-  window.addEventListener("resize", init);
-
-  // start animation loop
-  requestAnimationFrame(apply);
-})();
 </script>
 </body>
 </html>
