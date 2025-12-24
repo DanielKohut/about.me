@@ -155,11 +155,22 @@
 
     #menu-toggle {
       display: none;
-      background: none;
+      background: transparent;
       font-size: 2rem;
-      color: #374151;
+      color: var(--accent);
       border: none;
       cursor: pointer;
+      transition: color 0.2s ease, transform 0.2s ease;
+    }
+
+    #menu-toggle:hover {
+      color: color-mix(in srgb, var(--accent) 75%, black);
+      transform: scale(1.1);
+    }
+
+    nav.active + #menu-toggle,
+    #menu-toggle.active {
+      color: var(--accent2);
     }
 
     .hero {
@@ -322,16 +333,6 @@
         opacity: 1;
         transform: translateY(0);
       }
-    }
-
-    /* Hamburger icon (kept) */
-    #menu-toggle {
-      display: none;
-      background: none;
-      font-size: 2rem;
-      color: #374151;
-      border: none;
-      cursor: pointer;
     }
 
     .cert-list {
