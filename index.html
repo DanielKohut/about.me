@@ -285,6 +285,129 @@
       font-size: 1.1rem;
     }
 
+/* PROJECTS SECTION */
+.projects {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 72px 16px 40px;
+}
+
+.projects h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.projects h3 i {
+  color: var(--accent);
+}
+
+.projects-intro {
+  max-width: 720px;
+  color: var(--muted);
+  margin-bottom: 28px;
+}
+
+/* GRID – responsive cards */
+.project-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 22px;
+}
+
+@media (min-width: 768px) {
+  .project-grid {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .project-grid {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.1fr);
+  }
+}
+
+/* PROJECT CARD */
+.project-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.project-thumb-wrap {
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: rgba(15,23,42,0.35);
+}
+
+.project-thumb {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Card body */
+.project-body {
+  padding: 10px 4px 2px;
+}
+
+.project-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.project-desc {
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.project-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Tags */
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--accent) 60%, transparent);
+  color: color-mix(in srgb, var(--accent) 80%, var(--text));
+  background: rgba(15,23,42,0.2);
+}
+
+/* Links */
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.project-links a {
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.project-links i {
+  font-size: 0.95rem;
+}    
     .donation-list {
       display: flex;
       flex-direction: column;
@@ -1026,6 +1149,7 @@
     <nav id="nav">
       <a href="#about"><i class="fa-solid fa-user"></i> About</a>
       <a href="#experience"><i class="fa-solid fa-briefcase"></i> Experience</a>
+      <a href="#projects"><i class="fa-solid fa-code"></i> Projects</a>
       <a href="#certifications"><i class="fa-solid fa-certificate"></i> Certifications</a>
       <a href="#sports-activity"><i class="fa-solid fa-running"></i> Sports</a>
       <a href="#donations"><i class="fa-solid fa-hand-holding-heart"></i> Donations</a>
@@ -1120,6 +1244,107 @@
         </p>
       </div>
 
+    </div>
+  </section>
+
+    <!-- PROJECTS -->
+  <section class="projects reveal" id="projects">
+    <h3><i class="fa-solid fa-code"></i> Projects</h3>
+
+    <p class="projects-intro">
+      A selection of personal and professional projects focused on infrastructure, automation
+      and full stack development. Most of them are actively maintained and continuously improved.
+    </p>
+
+    <div class="project-grid">
+
+      <!-- PROJECT 1: J23 Cloud -->
+      <article class="project-card card card--accent">
+        <div class="project-thumb-wrap">
+          <img
+            src="https://github-readme-stats.vercel.app/api/pin/?username=DanielKohut&repo=garage-booking&theme=transparent"
+            alt="J23 Cloud – Garage Booking System GitHub preview"
+            class="project-thumb">
+        </div>
+
+        <div class="project-body">
+          <h4 class="project-title">J23 Cloud – Garage Booking System</h4>
+          <p class="project-desc">
+            Python/Django based web application for car service bookings, status tracking and
+            customer communication. Built with a custom admin interface, role-based access,
+            MySQL support and scalable architecture for future online payments and notifications.
+          </p>
+
+          <div class="project-meta">
+            <div class="project-tags">
+              <span class="tag">Python</span>
+              <span class="tag">Django</span>
+              <span class="tag">MySQL</span>
+              <span class="tag">Azure</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/DanielKohut/garage-booking" target="_blank" rel="noopener">
+                <i class="fa-brands fa-github"></i> View on GitHub
+              </a>
+              <!-- Ha lesz live demo: -->
+              <!-- <a href="https://portal.j23cloud.co.uk" target="_blank" rel="noopener">
+                <i class="fa-solid fa-up-right-from-square"></i> Live demo
+              </a> -->
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- PROJECT 2: Portfolio site (this page) -->
+      <article class="project-card card">
+        <div class="project-body">
+          <h4 class="project-title">Personal Portfolio & Activity Dashboard</h4>
+          <p class="project-desc">
+            Single-page portfolio site with a custom design, Three.js background, dark mode toggle,
+            animated navigation and integration of GitHub contributions, Strava activities and
+            donation history.
+          </p>
+
+          <div class="project-meta">
+            <div class="project-tags">
+              <span class="tag">HTML</span>
+              <span class="tag">CSS</span>
+              <span class="tag">JavaScript</span>
+              <span class="tag">Three.js</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/DanielKohut/about.me" target="_blank" rel="noopener">
+                <i class="fa-brands fa-github"></i> Source code
+              </a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- PROJECT 3 – optional placeholder -->
+      <article class="project-card card">
+        <div class="project-body">
+          <h4 class="project-title">Infrastructure & Automation Labs</h4>
+          <p class="project-desc">
+            A series of hands-on lab environments to practice data centre operations, virtualization,
+            monitoring and infrastructure-as-code scenarios in a safe, reproducible way.
+          </p>
+
+          <div class="project-meta">
+            <div class="project-tags">
+              <span class="tag">VMware</span>
+              <span class="tag">Networking</span>
+              <span class="tag">IaC</span>
+            </div>
+            <div class="project-links">
+              <a href="#" onclick="return false;">
+                <i class="fa-solid fa-circle-info"></i> Internal lab (no public repo)
+              </a>
+            </div>
+          </div>
+        </div>
+      </article>
+      
     </div>
   </section>
   
