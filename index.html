@@ -142,6 +142,17 @@
       color: var(--accent);
     }
 
+    /* Active nav link (scrollspy) */
+    nav a.active-link {
+      background: rgba(20,184,166,0.12);
+      color: var(--accent);
+      text-decoration: none;
+    }
+    
+    nav a.active-link i {
+      color: var(--accent2);
+    }
+
     nav a i {
       margin-right: 8px;
       font-size: 1.1em;
@@ -1937,6 +1948,47 @@
         nav.classList.remove("active");
         document.body.style.overflow = "";
       });
+    });
+  </script>
+
+  <script>
+    // Scrollspy: highlight current section in nav while scrolling
+    document.addEventListener("DOMContentLoaded", () => {
+      const sections = document.querySelectorAll("section[id]");
+      const navLinks = document.querySelectorAll('#nav a[href^="#"]');
+
+      // Térkép: section id -> nav link
+      const linkMap = {};
+      navLinks.forEach(link => {
+        const id = link.getAttribute("href").slice(1); // "#about" -> "about"
+        linkMap[id] = link;
+      });
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          // csak a látható szekciók
+          const visible = entries
+            .filter(e => e.isIntersecting)
+            .sort((a, b) => a.target.getBoundingClientRect().top - b.target.getBoundingClientRect().top);
+
+          if (!visible.length) return;
+
+          const currentId = visible[0].target.id;
+
+          navLinks.forEach(link => {
+            const linkId = link.getAttribute("href").slice(1);
+            link.classList.toggle("active-link", linkId === currentId);
+          });
+        },
+        {
+          root: null,
+          threshold: 0.35,
+          // kicsit figyelembe vesszük a sticky headert is
+          rootMargin: "-80px 0px -40% 0px"
+        }
+      );
+
+      sections.forEach(sec => observer.observe(sec));
     });
   </script>
 
