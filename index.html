@@ -401,6 +401,14 @@
   background: rgba(15,23,42,0.2);
 }
 
+.tag:hover {
+  background: color-mix(in srgb, var(--accent) 85%, transparent);
+  color: #0b1220;
+  border-color: color-mix(in srgb, var(--accent) 90%, transparent);
+  cursor: default;
+  transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+}
+
 /* Links */
 .project-links {
   display: flex;
