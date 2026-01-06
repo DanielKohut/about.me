@@ -2021,120 +2021,74 @@
   });
 </script>
 
-<script>
-  // Three.js background
-  (function () {
-    const container = document.getElementById("three-bg");
-    let renderer, scene, camera, cloud, animationId;
-    let floatTime = 0;
+  <script>
+    // Three.js background (kept, colors will match accent better later if you want)
+    (function() {
+      const container = document.getElementById("three-bg");
+      let renderer, scene, camera, cube, animationId;
+      let floatTime = 0;
 
-    function getAccentColor() {
-      // CSS változóból próbálja kiolvasni a --accent színt (#14b8a6 stb.)
-      const styles = getComputedStyle(document.documentElement);
-      const accent = styles.getPropertyValue("--accent").trim(); // pl. "#14b8a6"
+      function initThree() {
+        if (container.querySelector("canvas")) return;
 
-      if (accent && accent.startsWith("#") && (accent.length === 7 || accent.length === 4)) {
-        // "#14b8a6" -> 0x14b8a6
-        const hex = "0x" + accent.slice(1);
-        const parsed = parseInt(hex, 16);
-        if (!Number.isNaN(parsed)) return parsed;
+        const isMobile = window.innerWidth < 640;
+        const cubeSize = isMobile ? 0.4 : 1;
+        const cameraZ = isMobile ? 4 : 2.8;
+
+        scene = new THREE.Scene();
+        camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
+        camera.position.z = cameraZ;
+
+        renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.domElement.className = "three-cube-bg";
+        container.appendChild(renderer.domElement);
+
+        const geometry = new THREE.IcosahedronGeometry(cubeSize, 0);
+        const edges = new THREE.EdgesGeometry(geometry);
+
+        // Keep a nice soft blue; can be tied to accent later if you want
+        const material = new THREE.LineBasicMaterial({ color: 0x38bdf8, linewidth: 2.4 });
+
+        cube = new THREE.LineSegments(edges, material);
+        scene.add(cube);
+
+        scene.add(new THREE.AmbientLight(0xffffff, 0.68));
+        const pointLight = new THREE.PointLight(0x60a5fa, 0.99, 6);
+        pointLight.position.set(2.7, 2.3, 2.2);
+        scene.add(pointLight);
+
+        animate();
+        window.addEventListener("resize", onWindowResize, false);
       }
-      // fallback, ha valamiért nem sikerül
-      return 0x38bdf8;
-    }
 
-    function initThree() {
-      if (!container || container.querySelector("canvas")) return;
+      function animate() {
+        animationId = requestAnimationFrame(animate);
+        cube.rotation.x += 0.005;
+        cube.rotation.y += 0.011;
 
-      const isMobile = window.innerWidth < 640;
-      const baseSize = isMobile ? 0.45 : 1;
-      const cameraZ = isMobile ? 4.2 : 3.0;
+        floatTime += 0.003;
+        const offsetX = Math.sin(floatTime) * 0.8;
+        const offsetY = Math.cos(floatTime * 0.7) * 0.55;
+        cube.position.x = offsetX;
+        cube.position.y = offsetY;
 
-      scene = new THREE.Scene();
-      camera = new THREE.PerspectiveCamera(
-        60,
-        window.innerWidth / window.innerHeight,
-        0.1,
-        100
-      );
-      camera.position.z = cameraZ;
+        renderer.render(scene, camera);
+      }
 
-      renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      renderer.domElement.className = "three-cube-bg";
-      container.appendChild(renderer.domElement);
+      function onWindowResize() {
+        const isMobile = window.innerWidth < 640;
+        const cameraZ = isMobile ? 4 : 2.8;
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.position.z = cameraZ;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      }
 
-      const accentColor = getAccentColor();
-      const material = new THREE.LineBasicMaterial({
-        color: accentColor,
-        linewidth: 1.6
-      });
+      document.addEventListener("DOMContentLoaded", initThree);
+    })();
+  </script>
 
-      // Felhő-szerű “buborék” csoport – több átfedő gömb
-      cloud = new THREE.Group();
-
-      const parts = [
-        { x: -1.1, y: 0.15, r: 0.8 },
-        { x: 0.0, y: 0.40, r: 1.05 },
-        { x: 1.1, y: 0.18, r: 0.8 },
-        { x: 0.5, y: -0.25, r: 0.65 },
-        { x: -0.45, y: -0.28, r: 0.6 }
-      ];
-
-      parts.forEach(p => {
-        const g = new THREE.SphereGeometry(baseSize * p.r, 22, 18);
-        const e = new THREE.EdgesGeometry(g);
-        const m = new THREE.LineSegments(e, material);
-        m.position.set(p.x, p.y, 0);
-        cloud.add(m);
-      });
-
-      scene.add(cloud);
-
-      // Lágy fények, hogy “cloud / tech” vibe legyen
-      scene.add(new THREE.AmbientLight(0xffffff, 0.7));
-      const pointLight = new THREE.PointLight(0x60a5fa, 0.9, 6);
-      pointLight.position.set(2.7, 2.3, 2.2);
-      scene.add(pointLight);
-
-      animate();
-      window.addEventListener("resize", onWindowResize, false);
-    }
-
-    function animate() {
-      animationId = requestAnimationFrame(animate);
-      if (!cloud) return;
-
-      // Finom forgás
-      cloud.rotation.y += 0.003;
-      cloud.rotation.x += 0.0015;
-
-      // Lebegő mozgás (float)
-      floatTime += 0.003;
-      const offsetX = Math.sin(floatTime) * 0.5;
-      const offsetY = Math.cos(floatTime * 0.7) * 0.35;
-      cloud.position.x = offsetX;
-      cloud.position.y = offsetY;
-
-      renderer.render(scene, camera);
-    }
-
-    function onWindowResize() {
-      if (!renderer || !camera) return;
-
-      const isMobile = window.innerWidth < 640;
-      const cameraZ = isMobile ? 4.2 : 3.0;
-
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.position.z = cameraZ;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    }
-
-    document.addEventListener("DOMContentLoaded", initThree);
-  })();
-</script>
-  
   <script>
     window.addEventListener("scroll", () => {
   const scroll = document.documentElement.scrollTop;
