@@ -1146,6 +1146,131 @@
     transform: scale(1.1);
     }
 
+    .github-activity {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 56px 16px 40px;
+  }
+  
+  .github-activity h3 {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .github-activity h3 i {
+    color: var(--accent);
+  }
+  
+  .muted {
+    color: var(--muted);
+    margin-bottom: 18px;
+  }
+  
+  .gh-card {
+    padding: 18px 18px 14px;
+  }
+  
+  .gh-top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  
+  .gh-user {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  
+  .gh-handle {
+    color: var(--muted);
+    font-size: 0.92rem;
+  }
+  
+  .gh-profile-link {
+    color: var(--accent);
+    font-weight: 700;
+    text-decoration: none;
+  }
+  
+  .gh-profile-link:hover {
+    text-decoration: underline;
+  }
+  
+  .gh-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 10px 0 14px;
+  }
+  
+  .gh-stat {
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 6px 10px;
+    color: var(--text);
+    background: color-mix(in srgb, var(--accent) 8%, transparent);
+    font-size: 0.9rem;
+  }
+  
+  .gh-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 10px;
+  }
+  
+  .gh-item {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 12px 12px;
+    background: color-mix(in srgb, var(--card-solid) 85%, transparent);
+  }
+  
+  .gh-item-title {
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  
+  .gh-item-meta {
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+  
+  .gh-item a {
+    color: var(--text);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--text) 55%, transparent);
+    text-underline-offset: 3px;
+  }
+  
+  .gh-item a:hover {
+    color: var(--accent);
+    text-decoration-color: var(--accent);
+  }
+  
+  .gh-footer {
+    margin-top: 12px;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+  
+  .gh-footer a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 700;
+  }
+  
+  .gh-footer a:hover {
+    text-decoration: underline;
+  }
+
   </style>
   
   <script src="https://unpkg.com/three@0.153.0/build/three.min.js"></script>
@@ -1198,10 +1323,38 @@
       </div>
     </div>
 
-    <img
-      src="https://github-readme-activity-graph.vercel.app/graph?username=DanielKohut&theme=github"
-      alt="GitHub Contribution Graph">
-  </section>
+<section class="github-activity reveal" id="github-activity">
+  <h3><i class="fa-brands fa-github"></i> GitHub Activity</h3>
+  <p class="muted">
+    Recent public activity from my GitHub profile.
+  </p>
+
+  <div class="gh-card card">
+    <div class="gh-top">
+      <div class="gh-user">
+        <strong id="ghName">Loading…</strong>
+        <span class="gh-handle" id="ghHandle"></span>
+      </div>
+
+      <a class="gh-profile-link" href="https://github.com/DanielKohut" target="_blank" rel="noopener">
+        View profile
+      </a>
+    </div>
+
+    <div class="gh-stats" id="ghStats" aria-live="polite"></div>
+
+    <ul class="gh-list" id="ghList" aria-live="polite">
+      <li class="gh-item">Loading recent activity…</li>
+    </ul>
+
+    <div class="gh-footer">
+      <a href="https://github.com/DanielKohut" target="_blank" rel="noopener">
+        See more on GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
   
   <!-- EXPERIENCE -->
     <section class="experience" id="experience">
@@ -2129,6 +2282,178 @@
     localStorage.setItem("theme", currentTheme);
     updateIcon();
   });
+</script>
+<script>
+  (function () {
+    const USERNAME = "DanielKohut";
+    const MAX_ITEMS = 6;
+    const CACHE_KEY = "gh_activity_cache_v1";
+    const CACHE_TTL_MS = 15 * 60 * 1000; // 15 min
+
+    const elName = document.getElementById("ghName");
+    const elHandle = document.getElementById("ghHandle");
+    const elStats = document.getElementById("ghStats");
+    const elList = document.getElementById("ghList");
+
+    if (!elList) return;
+
+    function timeAgo(iso) {
+      const t = new Date(iso).getTime();
+      const s = Math.max(1, Math.floor((Date.now() - t) / 1000));
+      const mins = Math.floor(s / 60);
+      const hrs = Math.floor(mins / 60);
+      const days = Math.floor(hrs / 24);
+      if (days > 0) return `${days}d ago`;
+      if (hrs > 0) return `${hrs}h ago`;
+      if (mins > 0) return `${mins}m ago`;
+      return `${s}s ago`;
+    }
+
+    function setLoading(text) {
+      elList.innerHTML = `<li class="gh-item">${text}</li>`;
+    }
+
+    function safeText(s) {
+      return String(s || "").replace(/[<>]/g, "");
+    }
+
+    function render(data) {
+      // header
+      elName.textContent = safeText(data.profile?.name || USERNAME);
+      elHandle.textContent = `@${USERNAME}`;
+
+      // stats (simple)
+      const stats = [];
+      if (typeof data.profile?.public_repos === "number") stats.push(`Public repos: ${data.profile.public_repos}`);
+      if (typeof data.profile?.followers === "number") stats.push(`Followers: ${data.profile.followers}`);
+
+      elStats.innerHTML = stats.map(s => `<span class="gh-stat">${safeText(s)}</span>`).join("");
+
+      // activity list
+      if (!data.items?.length) {
+        elList.innerHTML = `<li class="gh-item">No recent public activity found.</li>`;
+        return;
+      }
+
+      elList.innerHTML = data.items.slice(0, MAX_ITEMS).map(item => {
+        const repo = safeText(item.repo);
+        const title = safeText(item.title);
+        const meta = safeText(item.meta);
+        const url = item.url ? safeText(item.url) : "";
+
+        const titleHtml = url
+          ? `<a href="${url}" target="_blank" rel="noopener">${title}</a>`
+          : title;
+
+        return `
+          <li class="gh-item">
+            <div class="gh-item-title">${titleHtml}</div>
+            <div class="gh-item-meta">${repo} • ${meta}</div>
+          </li>
+        `;
+      }).join("");
+    }
+
+    function toReadableItem(ev) {
+      const repo = ev?.repo?.name || "";
+      const type = ev?.type || "";
+      const created = ev?.created_at || "";
+      const ago = created ? timeAgo(created) : "";
+
+      // default
+      let title = type;
+      let url = "";
+
+      if (type === "PushEvent") {
+        const commits = ev.payload?.commits || [];
+        const first = commits[0]?.message || "Pushed commits";
+        title = `Push: ${first}`;
+        url = `https://github.com/${repo}/commits`;
+      } else if (type === "PullRequestEvent") {
+        const pr = ev.payload?.pull_request;
+        title = `PR: ${pr?.title || "Pull request"}`;
+        url = pr?.html_url || "";
+      } else if (type === "IssuesEvent") {
+        const issue = ev.payload?.issue;
+        title = `Issue: ${issue?.title || "Issue"}`;
+        url = issue?.html_url || "";
+      } else if (type === "IssueCommentEvent") {
+        const c = ev.payload?.comment;
+        title = `Commented on issue`;
+        url = c?.html_url || "";
+      } else if (type === "CreateEvent") {
+        title = `Created: ${ev.payload?.ref_type || "resource"}`;
+        url = `https://github.com/${repo}`;
+      } else {
+        title = type.replace("Event", "");
+        url = `https://github.com/${repo}`;
+      }
+
+      return {
+        repo,
+        title,
+        url,
+        meta: ago ? ago : "recent"
+      };
+    }
+
+    function loadCache() {
+      try {
+        const raw = localStorage.getItem(CACHE_KEY);
+        if (!raw) return null;
+        const obj = JSON.parse(raw);
+        if (!obj || !obj.ts || !obj.data) return null;
+        if (Date.now() - obj.ts > CACHE_TTL_MS) return null;
+        return obj.data;
+      } catch {
+        return null;
+      }
+    }
+
+    function saveCache(data) {
+      try {
+        localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), data }));
+      } catch {}
+    }
+
+    async function fetchJson(url) {
+      const res = await fetch(url, { headers: { "Accept": "application/vnd.github+json" } });
+      if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
+      return res.json();
+    }
+
+    async function init() {
+      // try cache first
+      const cached = loadCache();
+      if (cached) {
+        render(cached);
+        return;
+      }
+
+      setLoading("Loading recent activity…");
+
+      try {
+        const [profile, events] = await Promise.all([
+          fetchJson(`https://api.github.com/users/${USERNAME}`),
+          fetchJson(`https://api.github.com/users/${USERNAME}/events/public`)
+        ]);
+
+        const items = (events || [])
+          .map(toReadableItem)
+          // szűrünk, hogy ne legyen túl “zajos”
+          .filter(x => x.repo && x.title);
+
+        const data = { profile, items };
+        saveCache(data);
+        render(data);
+      } catch (e) {
+        setLoading("Could not load GitHub activity right now.");
+        // optional: fallback link
+      }
+    }
+
+    init();
+  })();
 </script>
 </body>
 </html>
