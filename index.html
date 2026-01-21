@@ -1152,6 +1152,58 @@
     transform: scale(1.1);
     }
 
+    .profile-pic-wrap {
+    position: relative;
+    width: 110px;   /* igazítsd a te méretedhez */
+    height: 110px;  /* igazítsd a te méretedhez */
+    flex: 0 0 auto;
+    }
+  
+  .profile-pic {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+  
+    opacity: 0;
+    transform: scale(0.98);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+  
+  .profile-pic.is-loaded {
+    opacity: 1;
+    transform: scale(1);
+    }
+  
+  .pic-skeleton {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+  
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--card-solid) 70%, transparent),
+      color-mix(in srgb, var(--accent) 10%, transparent),
+      color-mix(in srgb, var(--card-solid) 70%, transparent)
+    );
+  
+    background-size: 220% 100%;
+    animation: shimmer 1.2s linear infinite;
+    }
+  
+  .profile-pic-wrap.is-loaded .pic-skeleton {
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    animation: none;
+    pointer-events: none;
+    }
+  
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+    }
+  
   </style>
   
   <script src="https://unpkg.com/three@0.153.0/build/three.min.js"></script>
@@ -1190,9 +1242,17 @@
   <!-- ABOUT / HERO -->
     <section class="hero" id="about">
     <div class="hero-flex">
-      <img src="https://github.com/DanielKohut/about.me/blob/main/ProfilePictureMain.jpg?raw=true"
-           alt="Profile picture"
-           class="profile-pic">
+      <div class="profile-pic-wrap">
+      <div class="pic-skeleton" aria-hidden="true"></div>
+    
+      <img
+        src="https://github.com/DanielKohut/about.me/blob/main/ProfilePictureMain.jpg?raw=true"
+        alt="Profile picture"
+        class="profile-pic"
+        loading="eager"
+        decoding="async">
+    </div>
+
 
       <div class="hero-text">
         <h2>GitHub Contributions</h2>
@@ -2132,6 +2192,28 @@
     root.setAttribute("data-theme", currentTheme);
     localStorage.setItem("theme", currentTheme);
     updateIcon();
+  });
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const img = document.querySelector(".profile-pic");
+    const wrap = document.querySelector(".profile-pic-wrap");
+    if (!img || !wrap) return;
+
+    function done() {
+      img.classList.add("is-loaded");
+      wrap.classList.add("is-loaded");
+    }
+
+    if (img.complete) {
+      done();
+    } else {
+      img.addEventListener("load", done, { once: true });
+      img.addEventListener("error", () => {
+        // skeleton off even if image fails
+        wrap.classList.add("is-loaded");
+      }, { once: true });
+    }
   });
 </script>
 </body>
